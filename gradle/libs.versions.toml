@@ -1,0 +1,26 @@
+[versions]
+versionCode = "1"
+versionName = "1.0.0"
+
+compileSdk = "33"
+targetSdk = "33"
+minSdk = "24"
+
+kotlin= "1.8.0"
+gradle = "7.4.1"
+
+retrofit = "2.9.0"
+httplogginInterceptor = "4.10.0"
+
+[libraries]
+
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-loggerInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "httplogginInterceptor" }
+
+plugin-android = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+plugin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[bundles]
+
+retrofit = ["retrofit-core", "retrofit-gson", "retrofit-loggerInterceptor"]
