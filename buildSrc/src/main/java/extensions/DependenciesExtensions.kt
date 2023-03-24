@@ -13,8 +13,8 @@ fun DependencyHandlerScope.implementation(project: ProjectDependency) {
     add("implementation", project)
 }
 
-fun DependencyHandlerScope.implementation(retrofit: Provider<ExternalModuleDependencyBundle>) {
-    add("implementation", retrofit)
+fun DependencyHandlerScope.implementation(bundle: Provider<ExternalModuleDependencyBundle>) {
+    add("implementation", bundle)
 }
 
 fun DependencyHandlerScope.kapt(dependency: String) {
@@ -25,8 +25,16 @@ fun DependencyHandlerScope.testImplementation(dependency: String) {
     add("testImplementation", dependency)
 }
 
+fun DependencyHandlerScope.testImplementation(bundle: Provider<ExternalModuleDependencyBundle>) {
+    add("testImplementation", bundle)
+}
+
 fun DependencyHandlerScope.androidTestImplementation(dependency: String) {
     add("androidTestImplementation", dependency)
+}
+
+fun DependencyHandlerScope.androidTestImplementation(bundle: Provider<ExternalModuleDependencyBundle>) {
+    add("androidTestImplementation", bundle)
 }
 
 fun DependencyHandlerScope.debugImplementation(dependency: String) {
