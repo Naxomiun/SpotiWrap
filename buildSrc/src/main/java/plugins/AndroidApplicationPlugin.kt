@@ -1,12 +1,12 @@
 package plugins
 
+import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import extensions.*
 
 class AndroidApplicationPlugin : Plugin<Project> {
 
@@ -14,7 +14,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
         plugins.apply("com.android.application")
         plugins.apply("kotlin-android")
 
-        extensions.configure<BaseAppModuleExtension> {
+        extensions.configure<ApplicationExtension> {
             namespace = Config.baseApplicationId
             compileSdk = libs.versions.compileSdk.get().toInt()
 
@@ -32,12 +32,10 @@ class AndroidApplicationPlugin : Plugin<Project> {
                     )
                 }
             }
-        }
 
-        dependencies {
-            implementation(libs.bundles.compose)
-            testImplementation(libs.bundles.unitTest)
-            androidTestImplementation(libs.bundles.instrumentationTest)
+            configureCompose(this)
+
         }
     }
+
 }

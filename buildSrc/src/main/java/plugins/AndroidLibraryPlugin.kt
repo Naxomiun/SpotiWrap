@@ -17,7 +17,6 @@ class AndroidLibraryPlugin : Plugin<Project> {
         plugins.apply("kotlin-android")
 
         extensions.configure<LibraryExtension> {
-            namespace = Config.baseApplicationId
             compileSdk = libs.versions.compileSdk.get().toInt()
 
             defaultConfig {

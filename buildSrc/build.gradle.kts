@@ -14,6 +14,11 @@ gradlePlugin {
             id = "spotiwrap_android_library"
             implementationClass = "plugins.AndroidLibraryPlugin"
         }
+
+        register("spotiwrap_compose_library") {
+            id = "spotiwrap_compose_library"
+            implementationClass = "plugins.ComposePlugin"
+        }
     }
 }
 
