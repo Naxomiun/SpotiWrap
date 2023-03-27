@@ -15,6 +15,10 @@ fun DependencyHandlerScope.implementation(project: ProjectDependency) {
     add("implementation", project)
 }
 
+fun DependencyHandlerScope.implementation(group: Provider<MinimalExternalModuleDependency>) {
+    add("implementation", group)
+}
+
 fun DependencyHandlerScope.implementationBom(bom: Provider<MinimalExternalModuleDependency>) {
     add("implementation", bom)
 }
@@ -35,20 +39,20 @@ fun DependencyHandlerScope.androidTestImplementation(dependency: String) {
     add("androidTestImplementation", dependency)
 }
 
-fun DependencyHandlerScope.androidTestImplementationBom(bom: Provider<MinimalExternalModuleDependency>) {
-    add("androidTestImplementation", bom)
+fun DependencyHandlerScope.androidTestImplementation(bundle: Provider<MinimalExternalModuleDependency>) {
+    add("androidTestImplementation", bundle)
 }
 
-fun DependencyHandlerScope.androidTestImplementation(bundle: Provider<ExternalModuleDependencyBundle>) {
-    add("androidTestImplementation", bundle)
+fun DependencyHandlerScope.androidTestImplementationBom(bom: Provider<MinimalExternalModuleDependency>) {
+    add("androidTestImplementation", bom)
 }
 
 fun DependencyHandlerScope.debugImplementation(dependency: String) {
     add("debugImplementation", dependency)
 }
 
-fun DependencyHandlerScope.debugImplementation(bundle: Provider<ExternalModuleDependencyBundle>) {
-    add("debugImplementation", bundle)
+fun DependencyHandlerScope.debugImplementation(group: Provider<MinimalExternalModuleDependency>) {
+    add("debugImplementation", group)
 }
 
 fun DependencyHandlerScope.coreLibraryDesugaring(dependency: String) {

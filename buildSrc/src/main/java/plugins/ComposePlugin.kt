@@ -2,7 +2,11 @@ package plugins
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.LibraryExtension
+import extensions.androidTestImplementation
+import extensions.androidTestImplementationBom
+import extensions.debugImplementation
 import extensions.implementation
+import extensions.implementationBom
 import extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -34,17 +38,17 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>,) {
     }
 
     dependencies {
-        add("implementation", platform(libs.androidx.compose.bom))
-        add("androidTestImplementation", platform(libs.androidx.compose.bom))
+        implementationBom(platform(libs.androidx.compose.bom))
+        androidTestImplementationBom(platform(libs.androidx.compose.bom))
         implementation(libs.androidx.compose.runtime)
         implementation(libs.androidx.compose.foundation)
         implementation(libs.androidx.compose.material3)
         implementation(libs.androidx.lifecycle.viewmodel)
         implementation(libs.androidx.lifecycle.compose)
-    }
-}
+        implementation(libs.androidx.compose.ui.tooling.preview)
 
-private fun DependencyHandlerScope.implementation(material3: Provider<MinimalExternalModuleDependency>) {
-    add("implementation", material3)
+        debugImplementation(libs.androidx.compose.ui.tooling.debug)
+        androidTestImplementation(libs.androidx.compose.ui.test)
+    }
 }
 
