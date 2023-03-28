@@ -40,6 +40,7 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>,) {
     dependencies {
         implementationBom(platform(libs.androidx.compose.bom))
         androidTestImplementationBom(platform(libs.androidx.compose.bom))
+        implementation(libs.androidx.compose.activity)
         implementation(libs.androidx.compose.runtime)
         implementation(libs.androidx.compose.foundation)
         implementation(libs.androidx.compose.material3)
