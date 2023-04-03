@@ -14,6 +14,8 @@ gradle = "7.4.1"
 retrofit = "2.9.0"
 httplogginInterceptor = "4.10.0"
 
+spotify = "2.0.2"
+
 composeCompiler = "1.4.4"
 composeBom = "2023.03.00"
 
@@ -49,6 +51,8 @@ junit-espresso = { module = "androidx.test.espresso:espresso-core", version.ref 
 
 plugin-android = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 plugin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+spotify = { module = "com.spotify.android:auth", version.ref = "spotify" }
 
 [bundles]
 

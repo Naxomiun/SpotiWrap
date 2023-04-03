@@ -2,6 +2,9 @@ package plugins
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import extensions.androidTestImplementationBom
+import extensions.implementation
+import extensions.implementationBom
 import extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -22,6 +25,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 targetSdk = libs.versions.targetSdk.get().toInt()
                 minSdk = libs.versions.minSdk.get().toInt()
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                addManifestPlaceholders(mapOf("redirectSchemeName" to "spotiwrap", "redirectHostName" to "auth").toMutableMap())
             }
 
             buildTypes {
@@ -35,6 +39,10 @@ class AndroidApplicationPlugin : Plugin<Project> {
 
             configureCompose(this)
 
+        }
+
+        dependencies {
+            implementation(libs.spotify)
         }
     }
 
