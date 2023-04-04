@@ -40,10 +40,5 @@ class AndroidApplicationPlugin : Plugin<Project> {
             configureCompose(this)
 
         }
-
-        dependencies {
-            implementation(libs.spotify)
-        }
     }
-
 }

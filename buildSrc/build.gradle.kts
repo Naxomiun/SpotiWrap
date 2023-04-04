@@ -10,6 +10,11 @@ gradlePlugin {
             implementationClass = "plugins.AndroidApplicationPlugin"
         }
 
+        register("spotiwrap_spotify_library") {
+            id = "spotiwrap_spotify_library"
+            implementationClass = "plugins.SpotifyPlugin"
+        }
+
         register("spotiwrap_android_library") {
             id = "spotiwrap_android_library"
             implementationClass = "plugins.AndroidLibraryPlugin"
