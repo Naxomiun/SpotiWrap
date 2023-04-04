@@ -24,6 +24,11 @@ gradlePlugin {
             id = "spotiwrap_compose_library"
             implementationClass = "plugins.ComposePlugin"
         }
+
+        register("spotiwrap_room_library") {
+            id = "spotiwrap_room_library"
+            implementationClass = "plugins.RoomPlugin"
+        }
     }
 }
 

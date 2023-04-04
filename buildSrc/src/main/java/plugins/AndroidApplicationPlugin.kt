@@ -25,7 +25,6 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 targetSdk = libs.versions.targetSdk.get().toInt()
                 minSdk = libs.versions.minSdk.get().toInt()
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                addManifestPlaceholders(mapOf("redirectSchemeName" to "spotiwrap", "redirectHostName" to "auth").toMutableMap())
             }
 
             buildTypes {
@@ -38,7 +37,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
             }
 
             configureCompose(this)
-
+            configureRoom()
         }
     }
 }

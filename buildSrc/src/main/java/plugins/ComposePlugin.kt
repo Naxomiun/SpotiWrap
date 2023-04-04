@@ -18,15 +18,13 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
 class ComposePlugin : Plugin<Project> {
-
     override fun apply(project: Project) = with(project) {
         val extension = extensions.getByType<LibraryExtension>()
         configureCompose(extension)
     }
-
 }
 
-fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>,) {
+fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
     commonExtension.apply {
         buildFeatures {
             compose = true

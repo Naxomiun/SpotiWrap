@@ -10,7 +10,6 @@ import org.gradle.kotlin.dsl.dependencies
 
 class SpotifyPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-
         extensions.configure<ApplicationExtension> {
             defaultConfig {
                 addManifestPlaceholders(mapOf("redirectSchemeName" to "spotiwrap", "redirectHostName" to "auth").toMutableMap())
@@ -19,6 +18,9 @@ class SpotifyPlugin : Plugin<Project> {
 
         dependencies {
             implementation(libs.spotify)
+            implementation(libs.retrofit.core)
+            implementation(libs.retrofit.loggerInterceptor)
+            implementation(libs.retrofit.gson)
         }
     }
 }
