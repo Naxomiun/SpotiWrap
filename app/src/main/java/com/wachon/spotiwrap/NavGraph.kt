@@ -14,7 +14,13 @@ fun SpotiWrapNavHost(
         navController = appState.navController,
         startDestination = Screen.Login.route
     ) {
-        composable(Screen.Login.route) { Login() }
+        composable(Screen.Login.route) {
+            Login(
+                navigateToWrap = {
+                    appState.navigateToWrap()
+                }
+            )
+        }
         composable(Screen.Wrap.route) { Wrap() }
     }
 }

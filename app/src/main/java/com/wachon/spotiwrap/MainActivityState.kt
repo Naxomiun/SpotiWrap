@@ -19,4 +19,10 @@ fun rememberMainActivityState(
     MainActivityState(navController, context)
 }
 
-class MainActivityState(val navController: NavHostController, private val context: Context)
+class MainActivityState(val navController: NavHostController, private val context: Context) {
+
+    fun navigateToWrap() {
+        navController.navigate(Screen.Wrap.route)
+    }
+
+}
