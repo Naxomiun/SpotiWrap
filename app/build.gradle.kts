@@ -1,4 +1,16 @@
 plugins {
     spotiwrap_android_application
-    spotiwrap_spotify_library
+}
+
+android {
+    defaultConfig {
+        manifestPlaceholders["redirectSchemeName"] = "spotiwrap"
+        manifestPlaceholders["redirectHostName"] = "auth"
+    }
+}
+
+dependencies {
+    implementation(project(":features:login"))
+    implementation(project(":core:data"))
+    implementation(project(":core:navigation"))
 }

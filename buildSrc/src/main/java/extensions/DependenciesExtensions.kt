@@ -1,6 +1,7 @@
 package extensions
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.Project
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.ProjectDependency
@@ -21,6 +22,10 @@ fun DependencyHandlerScope.implementation(group: Provider<MinimalExternalModuleD
 
 fun DependencyHandlerScope.implementationBom(bom: Provider<MinimalExternalModuleDependency>) {
     add("implementation", bom)
+}
+
+fun DependencyHandlerScope.implementation(project: Project) {
+    add("implementation", project)
 }
 
 fun DependencyHandlerScope.kapt(dependency: String) {

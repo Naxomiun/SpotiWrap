@@ -31,5 +31,11 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 }
             }
         }
+
+        dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.koin.android)
+        }
+
     }
 }

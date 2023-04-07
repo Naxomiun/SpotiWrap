@@ -1,6 +1,6 @@
 package plugins
 
-import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.LibraryExtension
 import extensions.implementation
 import extensions.libs
 import org.gradle.api.Plugin
@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 class SpotifyPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        extensions.configure<ApplicationExtension> {
+        extensions.configure<LibraryExtension> {
             defaultConfig {
                 addManifestPlaceholders(mapOf("redirectSchemeName" to "spotiwrap", "redirectHostName" to "auth").toMutableMap())
             }

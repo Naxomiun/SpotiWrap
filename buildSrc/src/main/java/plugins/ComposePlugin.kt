@@ -36,10 +36,11 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
     }
 
     dependencies {
+        implementation(project(":core:navigation"))
+
         implementationBom(platform(libs.androidx.compose.bom))
         androidTestImplementationBom(platform(libs.androidx.compose.bom))
         implementation(libs.androidx.compose.ui.ui)
-        implementation(libs.androidx.compose.ui.viewbinding)
         implementation(libs.androidx.compose.navigation)
         implementation(libs.androidx.compose.activity)
         implementation(libs.androidx.compose.runtime)
@@ -48,9 +49,11 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.androidx.lifecycle.viewmodel)
         implementation(libs.androidx.lifecycle.compose)
         implementation(libs.androidx.compose.ui.tooling.preview)
+        implementation(libs.koin.compose)
 
         debugImplementation(libs.androidx.compose.ui.tooling.debug)
         androidTestImplementation(libs.androidx.compose.ui.test)
     }
 }
+
 

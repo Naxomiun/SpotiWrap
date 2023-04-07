@@ -38,6 +38,11 @@ class AndroidApplicationPlugin : Plugin<Project> {
 
             configureCompose(this)
             configureRoom()
+
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.koin.android)
+            }
         }
     }
 }
