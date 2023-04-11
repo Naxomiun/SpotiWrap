@@ -27,7 +27,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    navigateToWrap: () -> Unit
+    navigateToMenu: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -36,7 +36,7 @@ fun LoginScreen(
         contract = ActivityResultContracts.StartActivityForResult()
     ) {
         val response = AuthorizationClient.getResponse(it.resultCode, it.data)
-        viewModel.handleLoginResponse(response)
+        viewModel.handleLoginResponse(response, navigateToMenu)
     }
 
     LaunchedEffect(key1 = state.authConfig) {

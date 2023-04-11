@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap
 
+import Screen
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -16,6 +17,10 @@ fun rememberAppState(
 }
 
 class AppState(val navController: NavHostController, private val context: Context) {
+
+    fun navigateToMenu() {
+        navController.navigate(Screen.Menu.route)
+    }
 
     fun navigateToWrap() {
         navController.navigate(Screen.Wrap.route)

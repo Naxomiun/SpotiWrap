@@ -31,11 +31,12 @@ class LoginViewModel(
         }
     }
 
-    fun handleLoginResponse(authorizationResponse: AuthorizationResponse) {
+    fun handleLoginResponse(authorizationResponse: AuthorizationResponse, navigateToWrap: () -> Unit) {
         viewModelScope.launch {
             when (authorizationResponse.type) {
                 AuthorizationResponse.Type.TOKEN -> {
                     saveToken(authorizationResponse.accessToken)
+                    navigateToWrap.invoke()
                 }
                 AuthorizationResponse.Type.ERROR -> {
 

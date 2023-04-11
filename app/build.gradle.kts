@@ -11,6 +11,7 @@ android {
 
 dependencies {
     implementation(project(":features:login"))
+    implementation(project(":features:menu"))
     implementation(project(":core:data"))
     implementation(project(":core:navigation"))
 }

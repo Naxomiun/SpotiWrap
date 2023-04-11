@@ -3,6 +3,7 @@ object Config  {
 
     object Feature {
         const val loginNamespace = "$baseApplicationId.features.login"
+        const val menuNamespace = "$baseApplicationId.features.menu"
     }
 
     object Core {

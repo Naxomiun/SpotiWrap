@@ -15,4 +15,5 @@ include(
 //Features
 include(
     ":features:login",
+    ":features:menu"
 )

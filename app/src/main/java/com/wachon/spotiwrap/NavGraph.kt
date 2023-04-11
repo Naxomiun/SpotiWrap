@@ -1,9 +1,11 @@
 package com.wachon.spotiwrap
 
+import Screen
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.wachon.spotiwrap.features.login.presentation.LoginScreen
+import com.wachon.spotiwrap.features.menu.presentation.MenuScreen
 
 @Composable
 fun SpotiWrapNavHost(
@@ -15,11 +17,14 @@ fun SpotiWrapNavHost(
     ) {
         composable(Screen.Login.route) {
             LoginScreen(
-                navigateToWrap = {
-                    appState.navigateToWrap()
+                navigateToMenu = {
+                    appState.navigateToMenu()
                 }
             )
         }
-        composable(Screen.Wrap.route) {  }
+        composable(Screen.Menu.route) {
+            MenuScreen()
+        }
+        composable(Screen.Wrap.route) { }
     }
 }
