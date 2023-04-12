@@ -23,7 +23,11 @@ fun SpotiWrapNavHost(
             )
         }
         composable(Screen.Menu.route) {
-            MenuScreen()
+            MenuScreen(
+                navigateToWrap = {
+                    appState.navigateToWrap()
+                }
+            )
         }
         composable(Screen.Wrap.route) { }
     }

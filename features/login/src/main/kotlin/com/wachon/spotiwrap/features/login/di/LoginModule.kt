@@ -31,7 +31,7 @@ private val LoginDomainModule: Module
                 AuthConfig(
                     clientId = BuildConfig.CLIENT_ID,
                     campaign = BuildConfig.CAMPAIGN_ID,
-                    scopes = listOf("user-read-email", "streaming"),
+                    scopes = listOf("user-read-email", "user-read-private", "streaming"),
                     redirectUrl = "spotiwrap://auth"
                 )
             )

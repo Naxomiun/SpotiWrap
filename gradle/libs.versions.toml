@@ -20,6 +20,7 @@ spotify = "2.0.2"
 
 composeCompiler = "1.4.4"
 composeBom = "2023.03.00"
+composeGlide = "1.0.0-alpha.1"
 
 junit = "4.+"
 testJunit = "1.1.5"
@@ -47,6 +48,7 @@ androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-t
 androidx-compose-ui-tooling-debug = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
+androidx-compose-glide = { group = "com.github.bumptech.glide", name = "compose", version.ref = "composeGlide" }
 
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }

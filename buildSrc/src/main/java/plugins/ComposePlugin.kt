@@ -49,6 +49,7 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.androidx.lifecycle.viewmodel)
         implementation(libs.androidx.lifecycle.compose)
         implementation(libs.androidx.compose.ui.tooling.preview)
+        implementation(libs.androidx.compose.glide)
         implementation(libs.koin.compose)
 
         debugImplementation(libs.androidx.compose.ui.tooling.debug)

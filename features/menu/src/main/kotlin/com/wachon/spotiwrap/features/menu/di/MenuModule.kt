@@ -1,5 +1,9 @@
 package com.wachon.spotiwrap.features.menu.di
 
+import com.wachon.spotiwrap.features.menu.domain.GetToken
+import com.wachon.spotiwrap.features.menu.domain.GetTokenUseCase
+import com.wachon.spotiwrap.features.menu.domain.GetUserProfile
+import com.wachon.spotiwrap.features.menu.domain.GetUserProfileUseCase
 import com.wachon.spotiwrap.features.menu.presentation.MenuViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
@@ -20,7 +24,8 @@ private val MenuDataModule: Module
 
 private val MenuDomainModule: Module
     get() = module {
-
+        factory<GetUserProfileUseCase> { GetUserProfile(get()) }
+        factory<GetTokenUseCase> { GetToken(get()) }
     }
 
 private val MenuPresentationModule: Module
