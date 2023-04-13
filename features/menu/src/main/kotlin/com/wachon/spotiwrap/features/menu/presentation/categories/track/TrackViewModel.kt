@@ -26,11 +26,11 @@ class TrackViewModel(
 
     init {
         viewModelScope.launch {
-            getTokenUseCase()?.let { getCurrentProfile(it) }
+            getTokenUseCase()?.let { getTopTracks(it) }
         }
     }
 
-    private suspend fun getCurrentProfile(token: String) {
+    private suspend fun getTopTracks(token: String) {
         val top = scope.async {
             getUserTopItemsUseCase(token, MenuCategory.TRACKS, 5, 0, "medium_term")
         }

@@ -34,6 +34,6 @@ private val MenuDomainModule: Module
 
 private val MenuPresentationModule: Module
     get() = module {
-        viewModel { MenuViewModel(get(), get()) }
+        viewModel { MenuViewModel(get(), get(), get()) }
         viewModel { TrackViewModel(get(), get()) }
     }

@@ -132,12 +132,14 @@ fun MenuContent(
     when (categorySelected) {
         MenuCategory.TRACKS -> {
             TracksContent(
+                state = state,
                 modifier = Modifier
                     .fillMaxWidth()
             )
         }
         MenuCategory.ARTISTS -> {
             ArtistsContent(
+                state = state,
                 modifier = Modifier
                     .fillMaxWidth()
             )
