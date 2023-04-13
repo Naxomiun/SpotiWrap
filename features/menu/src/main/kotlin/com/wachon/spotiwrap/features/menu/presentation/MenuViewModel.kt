@@ -36,14 +36,23 @@ class MenuViewModel(
 
         _state.update {
             it.copy(
-                loading = true,
-                userProfile = user.await()
+                profile = user.await()
+            )
+        }
+    }
+
+    fun onCategorySelected(category: MenuCategory) {
+        _state.update {
+            it.copy(
+                categorySelected = category
             )
         }
     }
 
     data class State(
         val loading: Boolean = false,
-        val userProfile: User? = null
+        val profile: User? = null,
+        val categories: List<MenuCategory> = listOf(MenuCategory.Wrap, MenuCategory.Artists),
+        val categorySelected: MenuCategory = MenuCategory.Wrap
     )
 }
