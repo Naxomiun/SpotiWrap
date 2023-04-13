@@ -4,8 +4,11 @@ import com.wachon.spotiwrap.features.menu.domain.GetToken
 import com.wachon.spotiwrap.features.menu.domain.GetTokenUseCase
 import com.wachon.spotiwrap.features.menu.domain.GetUserProfile
 import com.wachon.spotiwrap.features.menu.domain.GetUserProfileUseCase
+import com.wachon.spotiwrap.features.menu.domain.GetUserTopItems
+import com.wachon.spotiwrap.features.menu.domain.GetUserTopItemsUseCase
 import com.wachon.spotiwrap.features.menu.presentation.MenuViewModel
-import org.koin.androidx.viewmodel.dsl.viewModelOf
+import com.wachon.spotiwrap.features.menu.presentation.categories.track.TrackViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -25,10 +28,12 @@ private val MenuDataModule: Module
 private val MenuDomainModule: Module
     get() = module {
         factory<GetUserProfileUseCase> { GetUserProfile(get()) }
+        factory<GetUserTopItemsUseCase> { GetUserTopItems(get()) }
         factory<GetTokenUseCase> { GetToken(get()) }
     }
 
 private val MenuPresentationModule: Module
     get() = module {
-        viewModelOf(::MenuViewModel)
+        viewModel { MenuViewModel(get(), get()) }
+        viewModel { TrackViewModel(get(), get()) }
     }

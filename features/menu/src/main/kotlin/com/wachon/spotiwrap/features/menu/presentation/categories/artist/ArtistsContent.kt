@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ArtistContent(
+fun ArtistsContent(
     modifier: Modifier = Modifier
 ) {
     Text(text = "Artist")

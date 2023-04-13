@@ -36,8 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.wachon.spotiwrap.features.menu.presentation.categories.artist.ArtistContent
-import com.wachon.spotiwrap.features.menu.presentation.categories.wrap.WrapContent
+import com.wachon.spotiwrap.features.menu.presentation.categories.artist.ArtistsContent
+import com.wachon.spotiwrap.features.menu.presentation.categories.track.TracksContent
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -119,8 +119,8 @@ fun MenuContent(
                 text = {
                     Text(
                         text = when (category) {
-                            MenuCategory.Wrap -> "Wrap"
-                            MenuCategory.Artists -> "Artistas"
+                            MenuCategory.TRACKS -> MenuCategory.TRACKS.name
+                            MenuCategory.ARTISTS -> MenuCategory.ARTISTS.name
                         },
                         style = MaterialTheme.typography.bodyLarge
                     )
@@ -130,14 +130,14 @@ fun MenuContent(
     }
 
     when (categorySelected) {
-        MenuCategory.Wrap -> {
-            WrapContent(
+        MenuCategory.TRACKS -> {
+            TracksContent(
                 modifier = Modifier
                     .fillMaxWidth()
             )
         }
-        MenuCategory.Artists -> {
-            ArtistContent(
+        MenuCategory.ARTISTS -> {
+            ArtistsContent(
                 modifier = Modifier
                     .fillMaxWidth()
             )

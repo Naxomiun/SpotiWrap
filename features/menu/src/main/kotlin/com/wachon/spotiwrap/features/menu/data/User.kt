@@ -5,16 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class User(
     val country: String,
 
-    @SerializedName("display_name")
-    val displayName: String,
+    @SerializedName("display_name") val displayName: String,
 
     val email: String,
 
-    @SerializedName("explicit_content")
-    val explicitContent: ExplicitContent,
+    @SerializedName("explicit_content") val explicitContent: ExplicitContent,
 
-    @SerializedName("external_urls")
-    val externalUrls: ExternalUrls,
+    @SerializedName("external_urls") val externalUrls: ExternalUrls,
 
     val followers: Followers,
     val href: String,
@@ -26,24 +23,11 @@ data class User(
 )
 
 data class ExplicitContent(
-    @SerializedName("filter_enabled")
-    val filterEnabled: Boolean,
+    @SerializedName("filter_enabled") val filterEnabled: Boolean,
 
-    @SerializedName("filter_locked")
-    val filterLocked: Boolean
-)
-
-data class ExternalUrls(
-    val spotify: String
+    @SerializedName("filter_locked") val filterLocked: Boolean
 )
 
 data class Followers(
-    val href: String,
-    val total: Long
-)
-
-data class Image(
-    val url: String,
-    val height: Long,
-    val width: Long
+    val href: String, val total: Long
 )
