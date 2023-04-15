@@ -15,7 +15,7 @@ interface SpotifyService {
     fun getTop(
         @Header("Authorization") authHeader: String,
         @Path("type") type: String,
-        @Query("limit") limit: Int? = 5,
+        @Query("limit") limit: Int? = 10,
         @Query("offset") offset: Int? = 0,
         @Query("time_range") timeRange: String? = "medium_term"
     ): Call<Top>

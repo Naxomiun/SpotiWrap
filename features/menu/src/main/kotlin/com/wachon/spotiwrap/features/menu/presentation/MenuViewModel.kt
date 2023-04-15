@@ -28,37 +28,58 @@ class MenuViewModel(
 
     init {
         viewModelScope.launch {
-            getTokenUseCase()?.let {
-                getCurrentProfile(it)
-                getTop(it, MenuCategory.TRACKS)
-                getTop(it, MenuCategory.ARTISTS)
+            getTokenUseCase()?.let { token ->
+
+                _state.update {
+                    it.copy(
+                        token = token
+                    )
+                }
+
+                getCurrentProfile()
+                getTop(MenuCategory.TRACKS)
+                getTop(MenuCategory.ARTISTS)
             }
         }
     }
 
-    private suspend fun getCurrentProfile(token: String) {
-        val user = scope.async {
-            getUserProfile(token)
-        }
+    private suspend fun getCurrentProfile() {
+        viewModelScope.launch {
+            val user = scope.async {
+                getUserProfile(getToken())
+            }
 
-        _state.update {
-            it.copy(
-                profile = user.await()
-            )
+            _state.update {
+                it.copy(
+                    profile = user.await()
+                )
+            }
         }
     }
 
-    private suspend fun getTop(token: String, category: MenuCategory) {
-        val top = scope.async {
-            getUserTopItemsUseCase(token, category, 5, 0, "medium_term")
-        }
+    fun getTop(category: MenuCategory) {
+        viewModelScope.launch {
+            val top = scope.async {
+                getUserTopItemsUseCase(
+                    token = getToken(),
+                    type = category,
+                    limit = 10,
+                    offset = state.value.currentOffset,
+                    timeRange = "medium_term"
+                )
+            }
 
-        _state.update {
-            when (category) {
-                MenuCategory.TRACKS -> it.copy(topTracks = top.await())
-                MenuCategory.ARTISTS -> it.copy(topArtists = top.await())
+            _state.update {
+                when (category) {
+                    MenuCategory.TRACKS -> it.copy(topTracks = top.await())
+                    MenuCategory.ARTISTS -> it.copy(topArtists = top.await())
+                }
             }
         }
+    }
+
+    private fun getToken(): String {
+        return state.value.token
     }
 
     fun onCategorySelected(category: MenuCategory) {
@@ -69,11 +90,17 @@ class MenuViewModel(
         }
     }
 
+    fun getCategorySelected(): MenuCategory {
+        return state.value.categorySelected
+    }
+
     data class State(
         val loading: Boolean = false,
         val profile: User? = null,
+        val token: String = "",
         val topTracks: Top? = null,
         val topArtists: Top? = null,
+        var currentOffset: Int = 0,
         val categories: List<MenuCategory> = listOf(MenuCategory.TRACKS, MenuCategory.ARTISTS),
         val categorySelected: MenuCategory = MenuCategory.TRACKS
     )

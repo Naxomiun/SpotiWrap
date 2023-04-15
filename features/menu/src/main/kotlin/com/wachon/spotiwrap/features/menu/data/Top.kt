@@ -49,7 +49,13 @@ data class Item(
 
     @SerializedName("is_local")
     val isLocal: Boolean
-)
+) {
+
+    fun getArtistToShow(): String {
+        return this.artists.joinToString(separator = ", ") { it.name }
+    }
+
+}
 
 data class Album(
     @SerializedName("album_type")
