@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = Config.Feature.menuNamespace
+    namespace = Config.Feature.Menu
 
     defaultConfig {
         buildConfigField("String", "CLIENT_ID", project.property("CLIENT_ID").toString())
@@ -14,5 +14,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
+
 }

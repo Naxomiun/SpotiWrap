@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.core.data.persistence.encrypted
+package com.wachon.spotiwrap.core.persistence.encrypted
 
 interface EncryptedDataProvider {
     fun getEncryptedString(key: String): String?

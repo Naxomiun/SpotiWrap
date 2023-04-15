@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = Config.Core.navigationNamespace
+    namespace = Config.Core.Navigation
 }

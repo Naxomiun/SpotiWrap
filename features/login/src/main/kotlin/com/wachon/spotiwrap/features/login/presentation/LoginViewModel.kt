@@ -3,9 +3,9 @@ package com.wachon.spotiwrap.features.login.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.spotify.sdk.android.auth.AuthorizationResponse
+import com.wachon.spotiwrap.core.auth.SaveTokenUseCase
 import com.wachon.spotiwrap.features.login.data.AuthConfig
 import com.wachon.spotiwrap.features.login.domain.GetAuthConfig
-import com.wachon.spotiwrap.features.login.domain.SaveTokenUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update

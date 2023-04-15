@@ -1,0 +1,29 @@
+package com.wachon.spotiwrap.core.network.di
+
+import com.wachon.spotiwrap.core.network.interceptors.TokenIncerceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.module.Module
+import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+private const val BASE_URL: String = "https://api.spotify.com"
+
+val NetworkModule: Module
+    get() = module {
+        factory { TokenIncerceptor(get()) }
+        factory {
+            OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addNetworkInterceptor(get<TokenIncerceptor>())
+                .build()
+        }
+        single {
+            Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(get())
+                .build()
+        }
+    }

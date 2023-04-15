@@ -1,7 +1,7 @@
 package com.wachon.spotiwrap
 
 import android.app.Application
-import com.wachon.spotiwrap.core.data.di.DataModule
+import com.wachon.spotiwrap.di.CoreModules
 import com.wachon.spotiwrap.di.FeaturesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +16,7 @@ class App : Application() {
             androidLogger()
             androidContext(this@App)
             modules(
-                DataModule,
+                CoreModules,
                 FeaturesModule
             )
         }

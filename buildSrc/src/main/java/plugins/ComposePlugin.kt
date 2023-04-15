@@ -52,6 +52,10 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.androidx.compose.glide)
         implementation(libs.koin.compose)
 
+        implementation(libs.retrofit.core)
+        implementation(libs.retrofit.loggerInterceptor)
+        implementation(libs.retrofit.gson)
+
         debugImplementation(libs.androidx.compose.ui.tooling.debug)
         androidTestImplementation(libs.androidx.compose.ui.test)
     }

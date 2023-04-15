@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.core.data.persistence.encrypted
+package com.wachon.spotiwrap.core.persistence.encrypted
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences

@@ -3,8 +3,6 @@ package com.wachon.spotiwrap.features.login.di
 import com.wachon.spotiwrap.features.login.BuildConfig
 import com.wachon.spotiwrap.features.login.data.AuthConfig
 import com.wachon.spotiwrap.features.login.domain.GetAuthConfig
-import com.wachon.spotiwrap.features.login.domain.SaveToken
-import com.wachon.spotiwrap.features.login.domain.SaveTokenUseCase
 import com.wachon.spotiwrap.features.login.presentation.LoginViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
@@ -25,7 +23,6 @@ private val LoginDataModule: Module
 
 private val LoginDomainModule: Module
     get() = module {
-        factory<SaveTokenUseCase> { SaveToken(get()) }
         factory {
             GetAuthConfig(
                 AuthConfig(

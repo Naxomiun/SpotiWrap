@@ -7,7 +7,6 @@ import java.io.IOException
 
 interface GetUserTopItemsUseCase {
     suspend operator fun invoke(
-        token: String,
         type: MenuCategory,
         limit: Int?,
         offset: Int?,
@@ -20,7 +19,6 @@ class GetUserTopItems(
 ) : GetUserTopItemsUseCase {
 
     override suspend fun invoke(
-        token: String,
         type: MenuCategory,
         limit: Int?,
         offset: Int?,
@@ -28,7 +26,6 @@ class GetUserTopItems(
     ): Top? {
 
         val call = spotifyService.getTop(
-            authHeader = "Bearer $token",
             type = type.name.lowercase(),
             limit = limit,
             offset = offset,

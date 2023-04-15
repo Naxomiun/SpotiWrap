@@ -9,11 +9,10 @@ import retrofit2.http.Query
 interface SpotifyService {
 
     @GET("/v1/me")
-    fun getMe(@Header("Authorization") authHeader: String): Call<User>
+    fun getMe(): Call<User>
 
     @GET("/v1/me/top/{type}")
     fun getTop(
-        @Header("Authorization") authHeader: String,
         @Path("type") type: String,
         @Query("limit") limit: Int? = 5,
         @Query("offset") offset: Int? = 0,

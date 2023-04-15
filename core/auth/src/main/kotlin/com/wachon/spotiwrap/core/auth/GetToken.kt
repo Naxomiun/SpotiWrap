@@ -1,7 +1,7 @@
-package com.wachon.spotiwrap.features.menu.domain
+package com.wachon.spotiwrap.core.auth
 
-import com.wachon.spotiwrap.core.data.persistence.encrypted.EncryptedDataProvider
-import com.wachon.spotiwrap.core.data.persistence.encrypted.EncryptedItem
+import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedDataProvider
+import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedItem
 
 interface GetTokenUseCase {
     operator fun invoke(): String?

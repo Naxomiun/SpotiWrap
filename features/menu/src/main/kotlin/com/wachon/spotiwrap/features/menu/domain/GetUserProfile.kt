@@ -5,15 +5,15 @@ import com.wachon.spotiwrap.features.menu.data.User
 import java.io.IOException
 
 interface GetUserProfileUseCase {
-    suspend operator fun invoke(token: String): User?
+    suspend operator fun invoke(): User?
 }
 
 class GetUserProfile(
     private val spotifyService: SpotifyService
 ) : GetUserProfileUseCase {
 
-    override suspend fun invoke(token: String): User? {
-        val call = spotifyService.getMe("Bearer $token")
+    override suspend fun invoke(): User? {
+        val call = spotifyService.getMe()
         return try {
             val response = call.execute()
             if (response.isSuccessful) {

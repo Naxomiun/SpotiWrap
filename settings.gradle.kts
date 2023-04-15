@@ -8,7 +8,9 @@ include(
 
 //Core
 include(
-    "core:data",
+    "core:network",
+    "core:persistence",
+    "core:auth",
     "core:navigation",
 )
 
