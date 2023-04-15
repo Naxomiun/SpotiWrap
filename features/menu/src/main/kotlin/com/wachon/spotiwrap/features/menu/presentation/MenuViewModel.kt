@@ -22,11 +22,9 @@ class MenuViewModel(
     private val _state = MutableStateFlow(State())
 
     init {
-        viewModelScope.launch {
-            getCurrentProfile()
-            getTop(MenuCategory.TRACKS)
-            getTop(MenuCategory.ARTISTS)
-        }
+        getCurrentProfile()
+        getTop(MenuCategory.TRACKS)
+        getTop(MenuCategory.ARTISTS)
     }
 
     private fun getCurrentProfile() {

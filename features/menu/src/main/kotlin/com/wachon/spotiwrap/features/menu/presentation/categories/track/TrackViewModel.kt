@@ -25,7 +25,6 @@ class TrackViewModel(
     private fun getTopTracks() {
         viewModelScope.launch(Dispatchers.IO) {
             val top = getUserTopItemsUseCase(MenuCategory.TRACKS, 5, 0, "medium_term")
-
             _state.update {
                 it.copy(
                     top = top
