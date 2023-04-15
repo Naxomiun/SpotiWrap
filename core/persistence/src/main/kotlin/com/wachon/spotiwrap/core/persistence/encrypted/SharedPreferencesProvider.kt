@@ -26,8 +26,8 @@ class SharedPreferencesProvider(
         sharedPreferences.edit().putString(key.name.lowercase(), value).apply()
     }
 
-    override fun getEncryptedString(key: String): String? {
-        return sharedPreferences.getString(key, null)
+    override fun getEncryptedString(key: EncryptedItem): String? {
+        return sharedPreferences.getString(key.name.lowercase(), null)
     }
 
 }

@@ -12,7 +12,7 @@ class GetToken(
 ) : GetTokenUseCase {
 
     override fun invoke(): String? {
-        return encryptedDataProvider.getEncryptedString(EncryptedItem.TOKEN.name.lowercase())
+        return encryptedDataProvider.getEncryptedString(EncryptedItem.TOKEN)
     }
 
 }
