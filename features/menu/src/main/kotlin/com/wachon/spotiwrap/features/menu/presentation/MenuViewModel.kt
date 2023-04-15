@@ -40,7 +40,7 @@ class MenuViewModel(
         }
     }
 
-    private fun getTop(category: MenuCategory) {
+    fun getTop(category: MenuCategory) {
         viewModelScope.launch(Dispatchers.IO) {
             val top = getUserTopItemsUseCase(
                 type = category,
