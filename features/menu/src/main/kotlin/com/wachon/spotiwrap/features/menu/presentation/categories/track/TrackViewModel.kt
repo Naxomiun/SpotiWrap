@@ -1,15 +1,12 @@
 package com.wachon.spotiwrap.features.menu.presentation.categories.track
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.features.menu.data.Top
 import com.wachon.spotiwrap.features.menu.domain.GetUserTopItemsUseCase
 import com.wachon.spotiwrap.features.menu.presentation.MenuCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class TrackViewModel(
     private val getUserTopItemsUseCase: GetUserTopItemsUseCase

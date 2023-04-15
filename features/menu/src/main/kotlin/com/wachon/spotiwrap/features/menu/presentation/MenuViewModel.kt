@@ -42,7 +42,12 @@ class MenuViewModel(
 
     private fun getTop(category: MenuCategory) {
         viewModelScope.launch(Dispatchers.IO) {
-            val top = getUserTopItemsUseCase(category, 5, 0, "medium_term")
+            val top = getUserTopItemsUseCase(
+                type = category,
+                limit = 10,
+                offset = state.value.currentOffset,
+                timeRange = "medium_term"
+            )
             _state.update {
                 when (category) {
                     MenuCategory.TRACKS -> it.copy(topTracks = top)
@@ -60,11 +65,16 @@ class MenuViewModel(
         }
     }
 
+    fun getCategorySelected(): MenuCategory {
+        return state.value.categorySelected
+    }
+
     data class State(
         val loading: Boolean = false,
         val profile: User? = null,
         val topTracks: Top? = null,
         val topArtists: Top? = null,
+        var currentOffset: Int = 0,
         val categories: List<MenuCategory> = listOf(MenuCategory.TRACKS, MenuCategory.ARTISTS),
         val categorySelected: MenuCategory = MenuCategory.TRACKS
     )

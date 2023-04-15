@@ -59,7 +59,11 @@ fun MenuScreen(
                 state = state,
                 categories = state.categories,
                 categorySelected = state.categorySelected,
-                onCategorySelected = viewModel::onCategorySelected
+                onCategorySelected = viewModel::onCategorySelected,
+                onReachedEnd = {
+                    //TODO increase the current offset the request the next list
+                    viewModel.getTop(viewModel.getCategorySelected())
+                }
             )
         }
     }
@@ -98,6 +102,7 @@ fun MenuContent(
     categories: List<MenuCategory>,
     categorySelected: MenuCategory,
     onCategorySelected: (MenuCategory) -> Unit,
+    onReachedEnd: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val selectedIndex = categories.indexOfFirst { it == categorySelected }
@@ -133,15 +138,14 @@ fun MenuContent(
         MenuCategory.TRACKS -> {
             TracksContent(
                 state = state,
-                modifier = Modifier
-                    .fillMaxWidth()
+                onReachedEnd = { onReachedEnd() },
+                modifier = Modifier.fillMaxWidth()
             )
         }
         MenuCategory.ARTISTS -> {
             ArtistsContent(
                 state = state,
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
