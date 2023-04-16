@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.core.common.dispatchers
 
-import Background
 import com.wachon.spotiwrap.core.common.dispatchers.BackgroundDispatcher.Background
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
