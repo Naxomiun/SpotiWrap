@@ -28,11 +28,25 @@ class AndroidApplicationPlugin : Plugin<Project> {
             }
 
             buildTypes {
+
                 release {
-                    isMinifyEnabled = libs.versions.releaseMinifyEnabled.get().toBoolean()
+                    isMinifyEnabled = true
                     proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
                     )
+                }
+
+                debug {
+                    enableUnitTestCoverage = true
+                }
+
+            }
+
+            testOptions.unitTests.all {
+                it.useJUnitPlatform()
+                it.testLogging {
+                    events("passed", "failed", "skipped", "standardOut", "standardError")
                 }
             }
 

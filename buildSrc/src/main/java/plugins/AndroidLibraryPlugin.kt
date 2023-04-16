@@ -26,8 +26,12 @@ class AndroidLibraryPlugin : Plugin<Project> {
 
             buildTypes {
                 release {
-                    isMinifyEnabled = libs.versions.releaseMinifyEnabled.get().toBoolean()
+                    isMinifyEnabled = true
                     consumerProguardFiles("proguard-rules.pro")
+                }
+
+                debug {
+                    enableUnitTestCoverage = true
                 }
             }
         }
@@ -35,6 +39,9 @@ class AndroidLibraryPlugin : Plugin<Project> {
         dependencies {
             implementation(libs.koin.core)
             implementation(libs.koin.android)
+            if(project.name != "common") {
+                implementation(project(":core:common"))
+            }
         }
 
     }

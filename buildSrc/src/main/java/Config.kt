@@ -11,6 +11,7 @@ object Config  {
         const val Persistence = "$baseApplicationId.core.persistence"
         const val Auth = "$baseApplicationId.core.auth"
         const val Navigation = "$baseApplicationId.core.navigation"
+        const val Common = "$baseApplicationId.core.common"
     }
 
 }

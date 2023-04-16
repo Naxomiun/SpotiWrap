@@ -62,7 +62,7 @@ fun MenuScreen(
                 onCategorySelected = viewModel::onCategorySelected,
                 onReachedEnd = {
                     //TODO increase the current offset the request the next list
-                    viewModel.getTop(viewModel.getCategorySelected())
+                    //viewModel.getTop(viewModel.getCategorySelected())
                 }
             )
         }

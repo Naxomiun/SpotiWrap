@@ -6,8 +6,6 @@ compileSdk = "33"
 targetSdk = "33"
 minSdk = "24"
 
-releaseMinifyEnabled = "true"
-
 kotlin = "1.8.10"
 gradle = "7.4.1"
 

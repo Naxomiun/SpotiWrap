@@ -8,6 +8,7 @@ include(
 
 //Core
 include(
+    "core:common",
     "core:network",
     "core:persistence",
     "core:auth",
