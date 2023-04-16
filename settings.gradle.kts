@@ -18,5 +18,6 @@ include(
 //Features
 include(
     ":features:login",
-    ":features:menu"
+    ":features:menu",
+    ":features:splash"
 )

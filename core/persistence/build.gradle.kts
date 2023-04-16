@@ -11,4 +11,5 @@ android {
 
 dependencies {
     implementation(libs.androidx.crypto)
+    implementation(libs.gson)
 }

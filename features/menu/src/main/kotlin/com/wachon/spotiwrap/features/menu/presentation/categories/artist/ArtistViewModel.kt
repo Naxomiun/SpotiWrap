@@ -1,15 +1,15 @@
 package com.wachon.spotiwrap.features.menu.presentation.categories.artist
 
 import androidx.lifecycle.ViewModel
-import com.wachon.spotiwrap.features.menu.data.Top
-import com.wachon.spotiwrap.features.menu.domain.GetUserTopItemsUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
-class ArtistViewModel(
-    private val getUserTopItemsUseCase: GetUserTopItemsUseCase
-) : ViewModel() {
+class ArtistViewModel : ViewModel() {
+
+    val state: StateFlow<State> get() = _state
+    private val _state = MutableStateFlow(State())
 
     data class State(
-        val loading: Boolean = false,
-        val top: Top? = null
+        val loading: Boolean = false
     )
 }

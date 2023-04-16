@@ -4,6 +4,7 @@ object Config  {
     object Feature {
         const val Login = "$baseApplicationId.features.login"
         const val Menu = "$baseApplicationId.features.menu"
+        const val Splash = "$baseApplicationId.features.splash"
     }
 
     object Core {

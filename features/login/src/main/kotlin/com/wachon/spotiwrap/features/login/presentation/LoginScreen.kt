@@ -26,8 +26,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel(),
-    navigateToMenu: () -> Unit
+    navigateToMenu: () -> Unit,
+    viewModel: LoginViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
