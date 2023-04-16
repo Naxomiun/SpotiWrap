@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.core.auth
+package com.wachon.spotiwrap.core.auth.token
 
 import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedDataProvider
 import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedItem
