@@ -25,5 +25,4 @@ class AppState(val navController: NavHostController, private val context: Contex
     fun navigateToWrap() {
         navController.navigate(Screen.Wrap.route)
     }
-
 }

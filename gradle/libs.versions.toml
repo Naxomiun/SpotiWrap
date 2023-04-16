@@ -8,6 +8,7 @@ minSdk = "24"
 
 kotlin = "1.8.10"
 gradle = "7.4.1"
+ktlint = "11.0.0"
 
 retrofit = "2.9.0"
 httplogginInterceptor = "4.10.0"
@@ -73,6 +74,7 @@ junit-espresso = { module = "androidx.test.espresso:espresso-core", version.ref 
 
 plugin-android = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 plugin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-ktlint = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlint" }
 
 spotify = { module = "com.spotify.android:auth", version.ref = "spotify" }
 

@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import com.wachon.spotiwrap.ui.theme.SpotiWrapTheme
 
-
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

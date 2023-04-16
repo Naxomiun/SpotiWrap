@@ -44,4 +44,5 @@ dependencies {
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
     implementation(libs.plugin.android)
     implementation(libs.plugin.gradle)
+    implementation(libs.plugin.ktlint)
 }

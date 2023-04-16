@@ -6,6 +6,7 @@ import extensions.androidTestImplementationBom
 import extensions.implementation
 import extensions.implementationBom
 import extensions.libs
+import extensions.configureKtlint
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -50,6 +51,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 }
             }
 
+            configureKtlint()
             configureCompose(this)
             configureRoom()
 

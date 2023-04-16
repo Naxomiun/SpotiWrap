@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.CoroutineContext
 
-object BackgroundDispatcher: CoroutineDispatcher() {
+object BackgroundDispatcher : CoroutineDispatcher() {
 
-    private val threadFactory = object: ThreadFactory {
+    private val threadFactory = object : ThreadFactory {
         private val threadCount = AtomicInteger(0)
         private val nextThreadName get() = "BackgroundDispatcher-worker-${threadCount.incrementAndGet()}"
 

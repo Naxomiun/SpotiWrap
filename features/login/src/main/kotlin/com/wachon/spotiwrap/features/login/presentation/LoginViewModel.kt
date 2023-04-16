@@ -35,7 +35,10 @@ class LoginViewModel(
         }
     }
 
-    fun handleLoginResponse(authorizationResponse: AuthorizationResponse, navigateToMenu: () -> Unit) {
+    fun handleLoginResponse(
+        authorizationResponse: AuthorizationResponse,
+        navigateToMenu: () -> Unit
+    ) {
         viewModelScope.launch(dispatcherProvider.background) {
             when (authorizationResponse.type) {
                 AuthorizationResponse.Type.TOKEN -> {

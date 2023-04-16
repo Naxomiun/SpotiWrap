@@ -36,6 +36,8 @@ class AndroidLibraryPlugin : Plugin<Project> {
             }
         }
 
+        configureKtlint()
+
         dependencies {
             implementation(libs.koin.core)
             implementation(libs.koin.android)
