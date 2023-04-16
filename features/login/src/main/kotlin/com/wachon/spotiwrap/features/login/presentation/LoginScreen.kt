@@ -21,7 +21,7 @@ import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.spotify.sdk.android.auth.LoginActivity
-import com.wachon.spotiwrap.features.login.data.AuthConfig
+import com.wachon.spotiwrap.core.auth.scopes.AuthConfig
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -80,7 +80,7 @@ private fun getAuthenticationRequest(authConfig: AuthConfig): AuthorizationReque
     return AuthorizationRequest
         .Builder(authConfig.clientId, AuthorizationResponse.Type.TOKEN, Uri.parse(authConfig.redirectUrl).toString())
         .setShowDialog(false)
-        .setScopes(authConfig.scopes.toTypedArray())
+        .setScopes(authConfig.getScopesAsTypedArray())
         .setCampaign(authConfig.campaign)
         .build()
 }

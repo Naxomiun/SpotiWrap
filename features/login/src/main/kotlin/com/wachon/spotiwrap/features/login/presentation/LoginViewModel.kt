@@ -3,11 +3,10 @@ package com.wachon.spotiwrap.features.login.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.spotify.sdk.android.auth.AuthorizationResponse
-import com.wachon.spotiwrap.core.auth.SaveTokenUseCase
+import com.wachon.spotiwrap.core.auth.scopes.AuthConfig
+import com.wachon.spotiwrap.core.auth.scopes.GetAuthConfigUseCase
+import com.wachon.spotiwrap.core.auth.token.SaveTokenUseCase
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
-import com.wachon.spotiwrap.features.login.data.AuthConfig
-import com.wachon.spotiwrap.features.login.domain.GetAuthConfig
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -16,7 +15,7 @@ import kotlinx.coroutines.withContext
 
 class LoginViewModel(
     private val dispatcherProvider: DispatcherProvider,
-    private val getAuthConfig: GetAuthConfig,
+    private val getAuthConfig: GetAuthConfigUseCase,
     private val saveToken: SaveTokenUseCase
 ) : ViewModel() {
 
