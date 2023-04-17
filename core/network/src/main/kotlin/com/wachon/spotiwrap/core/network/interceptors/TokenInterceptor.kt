@@ -4,7 +4,7 @@ import com.wachon.spotiwrap.core.auth.token.GetTokenUseCase
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class TokenIncerceptor(
+class TokenInterceptor(
     private val getToken: GetTokenUseCase
 ) : Interceptor {
 

@@ -18,6 +18,10 @@ fun rememberAppState(
 
 class AppState(val navController: NavHostController, private val context: Context) {
 
+    fun navigateToLogin() {
+        navController.navigate(Screen.Login.route)
+    }
+
     fun navigateToMenu() {
         navController.navigate(Screen.Menu.route)
     }
