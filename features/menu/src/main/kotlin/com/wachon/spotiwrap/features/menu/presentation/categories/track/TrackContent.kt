@@ -51,58 +51,35 @@ fun TracksContent(
     modifier: Modifier = Modifier,
     viewModel: TrackViewModel = koinViewModel()
 ) {
-    val trackList: MutableList<Item> = mutableListOf()
-    state.topTracks?.items?.let { trackList.addAll(it) }
+  
     val lazyListState = rememberLazyListState()
 
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        state = lazyListState,
-        contentPadding = PaddingValues(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
-    ) {
-        trackList.let {
-            items(it) { item ->
-                TrackItem(track = item)
-
-                LaunchedEffect(lazyListState) {
-                    val isScrolledToTheEnd =
-                        lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == it.size - 1
-                    if (isScrolledToTheEnd) {
-                        onReachedEnd()
-                    }
-                }
-
-            }
+    state.topTracks?.items?.let {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize(),
+            state = lazyListState,
+            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 50.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            items(it) { TrackItem(track = it) }
         }
     }
+
 }
 
 @Composable
 fun TrackItem(
-    track: Item,
     modifier: Modifier = Modifier,
-    viewModel: TrackViewModel = koinViewModel()
+    track: Item
 ) {
 
     var backgroundColor by remember {
         mutableStateOf(Color.White)
     }
 
-    val textColor by remember {
-        derivedStateOf {
-            if (backgroundColor.toArgb().isDark()) {
-                Color.White
-            } else {
-                Color.Black
-            }
-        }
-    }
-
     BrandContainer(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize(),
         backgroundColor = backgroundColor,
     ) {
@@ -133,18 +110,12 @@ fun TrackItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = track.name,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        color = textColor
-                    )
+                    text = track.name
                 )
 
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = track.getArtistToShow(),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        textColor
-                    )
+                    text = track.getArtistToShow()
                 )
             }
         }
