@@ -36,6 +36,5 @@ fun SpotiWrapNavHost(
         composable(Screen.Menu.route) {
             MenuScreen()
         }
-        composable(Screen.Wrap.route) { }
     }
 }

@@ -13,6 +13,7 @@ include(
     "core:persistence",
     "core:auth",
     "core:navigation",
+    "core:design",
 )
 
 //Features
