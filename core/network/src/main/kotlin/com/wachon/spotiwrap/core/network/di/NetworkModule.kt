@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.core.network.di
 
+import com.wachon.spotiwrap.core.network.interceptors.ThreadInterceptor
 import com.wachon.spotiwrap.core.network.interceptors.TokenInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,10 +13,12 @@ private const val BASE_URL: String = "https://api.spotify.com"
 
 val NetworkModule: Module
     get() = module {
+        factory { ThreadInterceptor() }
         factory { TokenInterceptor(get()) }
         factory {
             OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(get<ThreadInterceptor>())
                 .addNetworkInterceptor(get<TokenInterceptor>())
                 .build()
         }
