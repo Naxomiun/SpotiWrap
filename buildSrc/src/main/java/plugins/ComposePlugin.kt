@@ -37,6 +37,9 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
 
     dependencies {
         implementation(project(":core:navigation"))
+        if(project.name != "design") {
+            implementation(project(":core:design"))
+        }
 
         implementationBom(platform(libs.androidx.compose.bom))
         androidTestImplementationBom(platform(libs.androidx.compose.bom))
@@ -49,7 +52,8 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.androidx.lifecycle.viewmodel)
         implementation(libs.androidx.lifecycle.compose)
         implementation(libs.androidx.compose.ui.tooling.preview)
-        implementation(libs.androidx.compose.glide)
+        implementation(libs.compose.landscapist.coil)
+        implementation(libs.compose.landscapist.palette)
         implementation(libs.koin.compose)
 
         implementation(libs.retrofit.core)

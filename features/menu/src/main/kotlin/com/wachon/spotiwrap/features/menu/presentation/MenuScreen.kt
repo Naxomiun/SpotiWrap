@@ -31,11 +31,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
+import com.skydoves.landscapist.ImageOptions
+import com.skydoves.landscapist.coil.CoilImage
 import com.wachon.spotiwrap.features.menu.presentation.categories.artist.ArtistsContent
 import com.wachon.spotiwrap.features.menu.presentation.categories.track.TracksContent
 import org.koin.androidx.compose.koinViewModel
@@ -69,7 +70,8 @@ fun MenuScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuTopAppBar(
     state: MenuViewModel.State
@@ -80,12 +82,15 @@ fun MenuTopAppBar(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                GlideImage(
+                CoilImage(
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape),
-                    model = state.profile?.images?.first()?.url,
-                    contentDescription = "perfil"
+                    imageModel = {  state.profile?.images?.first()?.url },
+                    imageOptions = ImageOptions(
+                        contentScale = ContentScale.Crop,
+                        alignment = Alignment.Center
+                    )
                 )
                 Text(
                     modifier = Modifier.padding(start = 10.dp),

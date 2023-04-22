@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-//TODO: Dont use raw dispatchers
+//TODO: Refactor whole class
 class MenuViewModel(
     private val getUserProfile: GetUserProfileUseCase,
     private val getUserTopItemsUseCase: GetUserTopItemsUseCase

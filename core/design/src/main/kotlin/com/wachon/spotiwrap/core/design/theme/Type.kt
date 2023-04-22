@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.ui.theme
+package com.wachon.spotiwrap.core.design.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
