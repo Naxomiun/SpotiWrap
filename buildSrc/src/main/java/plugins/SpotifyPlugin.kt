@@ -18,9 +18,6 @@ class SpotifyPlugin : Plugin<Project> {
 
         dependencies {
             implementation(libs.spotify)
-            implementation(libs.retrofit.core)
-            implementation(libs.retrofit.loggerInterceptor)
-            implementation(libs.retrofit.gson)
         }
     }
 }

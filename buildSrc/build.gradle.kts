@@ -45,4 +45,5 @@ dependencies {
     implementation(libs.plugin.android)
     implementation(libs.plugin.gradle)
     implementation(libs.plugin.ktlint)
+    implementation(libs.plugin.kotlin.serialization)
 }

@@ -10,7 +10,6 @@ import com.wachon.spotiwrap.features.menu.presentation.categories.track.TrackVie
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import retrofit2.Retrofit
 
 val MenuModule = module {
     includes(
@@ -22,13 +21,13 @@ val MenuModule = module {
 
 private val MenuDataModule: Module
     get() = module {
-        single { get<Retrofit>().create(SpotifyService::class.java) }
+        single { SpotifyService(get()) }
     }
 
 private val MenuDomainModule: Module
     get() = module {
-        factory<GetUserProfileUseCase> { GetUserProfile(get()) }
-        factory<GetUserTopItemsUseCase> { GetUserTopItems(get()) }
+        factory<GetUserProfileUseCase> { GetUserProfile(get(), get()) }
+        factory<GetUserTopItemsUseCase> { GetUserTopItems(get(), get()) }
     }
 
 private val MenuPresentationModule: Module

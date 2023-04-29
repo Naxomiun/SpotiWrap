@@ -1,8 +1,6 @@
 package com.wachon.spotiwrap.features.menu.presentation.categories.track
 
 
-import android.util.Log
-import androidx.annotation.ColorInt
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,11 +13,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,19 +22,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.text.ExperimentalTextApi
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.ColorUtils
-import androidx.palette.graphics.Palette
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.components.rememberImageComponent
 import com.skydoves.landscapist.palette.PalettePlugin
 import com.wachon.spotiwrap.core.design.components.BrandContainer
 import com.wachon.spotiwrap.core.design.extensions.getBackgroundColorFromPalette
-import com.wachon.spotiwrap.core.design.extensions.isDark
 import com.wachon.spotiwrap.features.menu.data.Item
 import com.wachon.spotiwrap.features.menu.presentation.MenuViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -92,9 +81,9 @@ fun TrackItem(
                 modifier = Modifier
                     .height(75.dp)
                     .width(75.dp),
-                imageModel = { track.album.images.first().url },
+                imageModel = { track.album?.images?.first()?.url },
                 imageOptions = ImageOptions(
-                    contentDescription = track.album.name
+                    contentDescription = track.album?.name
                 ),
                 component = rememberImageComponent {
                     +PalettePlugin {
@@ -110,7 +99,7 @@ fun TrackItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = track.name
+                    text = track.name ?: "",
                 )
 
                 Text(

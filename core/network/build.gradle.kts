@@ -11,7 +11,11 @@ android {
 
 dependencies {
     implementation(project(":core:auth"))
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.loggerInterceptor)
-    implementation(libs.retrofit.gson)
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.logging)
+    implementation(libs.ktor.negotiation)
+    implementation(libs.ktor.okhttp)
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.serializationJson)
+    implementation(libs.loggingInterceptor)
 }

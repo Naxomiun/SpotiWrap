@@ -1,29 +1,26 @@
 package com.wachon.spotiwrap.features.menu.domain
 
+import android.util.Log
+import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.features.menu.data.SpotifyService
 import com.wachon.spotiwrap.features.menu.data.User
-import java.io.IOException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onEach
 
 interface GetUserProfileUseCase {
-    suspend operator fun invoke(): User?
+    operator fun invoke(): Flow<User>
 }
 
 class GetUserProfile(
-    private val spotifyService: SpotifyService
+    private val spotifyService: SpotifyService,
+    private val dispatchers: DispatcherProvider
 ) : GetUserProfileUseCase {
 
-    override suspend fun invoke(): User? {
-        val call = spotifyService.getMe()
-        return try {
-            val response = call.execute()
-            if (response.isSuccessful) {
-                response.body()
-            } else {
-                null
-            }
-        } catch (e: IOException) {
-            null
-        }
+    override fun invoke(): Flow<User> {
+        return spotifyService
+            .getMe()
+            .flowOn(dispatchers.background)
     }
 
 }

@@ -1,18 +1,18 @@
 package com.wachon.spotiwrap.features.menu.data
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class User(
     val country: String,
-
-    @SerializedName("display_name") val displayName: String,
-
+    @SerialName("display_name")
+    val displayName: String,
     val email: String,
-
-    @SerializedName("explicit_content") val explicitContent: ExplicitContent,
-
-    @SerializedName("external_urls") val externalUrls: ExternalUrls,
-
+    @SerialName("explicit_content")
+    val explicitContent: ExplicitContent,
+    @SerialName("external_urls")
+    val externalUrls: ExternalUrls,
     val followers: Followers,
     val href: String,
     val id: String,
@@ -22,12 +22,16 @@ data class User(
     val uri: String
 )
 
+@Serializable
 data class ExplicitContent(
-    @SerializedName("filter_enabled") val filterEnabled: Boolean,
-
-    @SerializedName("filter_locked") val filterLocked: Boolean
+    @SerialName("filter_enabled")
+    val filterEnabled: Boolean,
+    @SerialName("filter_locked")
+    val filterLocked: Boolean
 )
 
+@Serializable
 data class Followers(
-    val href: String, val total: Long
+    val href: String?,
+    val total: Long
 )
