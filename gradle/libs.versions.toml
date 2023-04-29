@@ -7,7 +7,7 @@ targetSdk = "33"
 minSdk = "24"
 
 kotlin = "1.8.10"
-gradle = "7.4.1"
+gradle = "8.0.0"
 ktlint = "11.0.0"
 
 retrofit = "2.9.0"
