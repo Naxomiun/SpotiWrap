@@ -7,6 +7,7 @@ import extensions.implementation
 import extensions.implementationBom
 import extensions.libs
 import extensions.configureKtlint
+import extensions.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -26,6 +27,10 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 targetSdk = libs.versions.targetSdk.get().toInt()
                 minSdk = libs.versions.minSdk.get().toInt()
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            }
+
+            buildFeatures {
+                buildConfig = true
             }
 
             buildTypes {
@@ -51,6 +56,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 }
             }
 
+            configureKotlinAndroid(this)
             configureKtlint()
             configureCompose(this)
             configureRoom()

@@ -2,7 +2,7 @@ package com.wachon.spotiwrap.core.persistence.encrypted
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
+import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -14,11 +14,15 @@ class SharedPreferencesProvider(
         const val ENCRYPTED_CONFIG = "encrypted_config"
     }
 
+    private val masterKeyAlias = MasterKey.Builder(context)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
+
     private val sharedPreferences by lazy {
         EncryptedSharedPreferences.create(
-            ENCRYPTED_CONFIG,
-            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
             context,
+            ENCRYPTED_CONFIG,
+            masterKeyAlias,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
