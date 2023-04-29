@@ -1,102 +1,108 @@
 package com.wachon.spotiwrap.features.menu.data
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Top(
-    val href: String,
-    val limit: Long,
-    val next: String,
-    val offset: Long,
-    val previous: Any? = null,
-    val total: Long,
-    val items: List<Item>
+    val href: String?,
+    val limit: Long?,
+    val next: String?,
+    val offset: Long?,
+    //val previous: Top? = null,
+    val total: Long?,
+    val items: List<Item>?
 )
 
+@Serializable
 data class Item(
-    val album: Album,
-    val artists: List<Artist>,
+    val album: Album?,
+    val artists: List<Artist>?,
 
-    @SerializedName("available_markets")
-    val availableMarkets: List<String>,
+    @SerialName("available_markets")
+    val availableMarkets: List<String>?,
 
-    @SerializedName("disc_number")
-    val discNumber: Long,
+    @SerialName("disc_number")
+    val discNumber: Long?,
 
-    @SerializedName("duration_ms")
-    val durationMS: Long,
+    @SerialName("duration_ms")
+    val durationMS: Long?,
 
-    val explicit: Boolean,
+    val explicit: Boolean?,
 
-    @SerializedName("external_ids")
-    val externalIDS: ExternalIDS,
+    @SerialName("external_ids")
+    val externalIDS: ExternalIDS?,
 
-    @SerializedName("external_urls")
-    val externalUrls: ExternalUrls,
+    @SerialName("external_urls")
+    val externalUrls: ExternalUrls?,
 
-    val href: String,
-    val id: String,
-    val name: String,
-    val popularity: Long,
+    val href: String?,
+    val id: String?,
+    val name: String?,
+    val popularity: Long?,
 
-    @SerializedName("preview_url")
-    val previewURL: String,
+    @SerialName("preview_url")
+    val previewURL: String?,
 
-    @SerializedName("track_number")
-    val trackNumber: Long,
+    @SerialName("track_number")
+    val trackNumber: Long?,
 
-    val type: String,
-    val uri: String,
+    val type: String?,
+    val uri: String?,
 
-    @SerializedName("is_local")
-    val isLocal: Boolean
+    @SerialName("is_local")
+    val isLocal: Boolean?
 ) {
 
     fun getArtistToShow(): String {
-        return this.artists.joinToString(separator = ", ") { it.name }
+        return this.artists?.joinToString(separator = ", ") { it.name ?: "" } ?: ""
     }
 
 }
 
+@Serializable
 data class Album(
-    @SerializedName("album_type")
-    val albumType: String,
+    @SerialName("album_type")
+    val albumType: String?,
 
-    @SerializedName("total_tracks")
-    val totalTracks: Long,
+    @SerialName("total_tracks")
+    val totalTracks: Long?,
 
-    @SerializedName("available_markets")
-    val availableMarkets: List<String>,
+    @SerialName("available_markets")
+    val availableMarkets: List<String>?,
 
-    @SerializedName("external_urls")
-    val externalUrls: ExternalUrls,
+    @SerialName("external_urls")
+    val externalUrls: ExternalUrls?,
 
-    val href: String,
-    val id: String,
-    val images: List<Image>,
-    val name: String,
+    val href: String?,
+    val id: String?,
+    val images: List<Image>?,
+    val name: String?,
 
-    @SerializedName("release_date")
-    val releaseDate: String,
+    @SerialName("release_date")
+    val releaseDate: String?,
 
-    @SerializedName("release_date_precision")
-    val releaseDatePrecision: String,
+    @SerialName("release_date_precision")
+    val releaseDatePrecision: String?,
 
-    val type: String,
-    val uri: String,
-    val artists: List<Artist>
+    val type: String?,
+    val uri: String?,
+    val artists: List<Artist>?
 )
 
+@Serializable
 data class Artist(
-    @SerializedName("external_urls")
-    val externalUrls: ExternalUrls,
+    @SerialName("external_urls")
+    val externalUrls: ExternalUrls?,
 
-    val href: String,
-    val id: String,
-    val name: String,
-    val type: String,
-    val uri: String
+    val href: String?,
+    val id: String?,
+    val name: String?,
+    val type: String?,
+    val uri: String?
 )
 
+@Serializable
 data class ExternalIDS(
-    val isrc: String
+    val isrc: String?
 )

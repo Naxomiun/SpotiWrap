@@ -56,9 +56,12 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.compose.landscapist.palette)
         implementation(libs.koin.compose)
 
-        implementation(libs.retrofit.core)
-        implementation(libs.retrofit.loggerInterceptor)
-        implementation(libs.retrofit.gson)
+        implementation(libs.ktor.core)
+        implementation(libs.ktor.logging)
+        implementation(libs.ktor.negotiation)
+        implementation(libs.ktor.okhttp)
+        implementation(libs.ktor.serialization)
+        implementation(libs.ktor.serializationJson)
 
         debugImplementation(libs.androidx.compose.ui.tooling.debug)
         androidTestImplementation(libs.androidx.compose.ui.test)

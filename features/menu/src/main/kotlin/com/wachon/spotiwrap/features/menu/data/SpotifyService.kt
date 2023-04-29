@@ -1,22 +1,34 @@
 package com.wachon.spotiwrap.features.menu.data
 
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
+import android.util.Log
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-interface SpotifyService {
+class SpotifyService(
+    private val httpClient: HttpClient
+) {
 
-    @GET("/v1/me")
-    fun getMe(): Call<User>
+    fun getMe(): Flow<User> = flow {
+        emit(httpClient.get("/v1/me").body())
+    }
 
-    @GET("/v1/me/top/{type}")
     fun getTop(
-        @Path("type") type: String,
-        @Query("limit") limit: Int? = 10,
-        @Query("offset") offset: Int? = 0,
-        @Query("time_range") timeRange: String? = "medium_term"
-    ): Call<Top>
+        type: String,
+        limit: Int? = 10,
+        offset: Int? = 0,
+        timeRange: String? = "medium_term"
+    ): Flow<Top> = flow {
+        emit(
+            httpClient.get("/v1/me/top/$type") {
+                parameter("limit", limit)
+                parameter("offset", offset)
+                parameter("time_range", timeRange)
+            }.body()
+        )
+    }
 
 }

@@ -15,8 +15,11 @@ import org.gradle.api.JavaVersion
 class AndroidLibraryPlugin : Plugin<Project> {
 
     override fun apply(target: Project): Unit = with(target) {
-        plugins.apply("com.android.library")
-        plugins.apply("kotlin-android")
+        plugins.apply {
+            apply("com.android.library")
+            apply("kotlin-android")
+            apply("kotlinx-serialization")
+        }
 
         extensions.configure<LibraryExtension> {
             compileSdk = libs.versions.compileSdk.get().toInt()

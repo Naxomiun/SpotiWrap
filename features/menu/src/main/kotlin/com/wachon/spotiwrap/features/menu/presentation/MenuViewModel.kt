@@ -2,69 +2,57 @@ package com.wachon.spotiwrap.features.menu.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wachon.spotiwrap.core.common.dispatchers.BackgroundDispatcher.Background
+import com.wachon.spotiwrap.core.common.flow.WhileSubscribedOrRetained
 import com.wachon.spotiwrap.features.menu.data.Top
 import com.wachon.spotiwrap.features.menu.data.User
 import com.wachon.spotiwrap.features.menu.domain.GetUserProfileUseCase
 import com.wachon.spotiwrap.features.menu.domain.GetUserTopItemsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 //TODO: Refactor whole class
 class MenuViewModel(
-    private val getUserProfile: GetUserProfileUseCase,
-    private val getUserTopItemsUseCase: GetUserTopItemsUseCase
+    getUserProfile: GetUserProfileUseCase,
+    getUserTopItemsUseCase: GetUserTopItemsUseCase
 ) : ViewModel() {
 
-    val state: StateFlow<State> get() = _state
-    private val _state = MutableStateFlow(State())
+    private val selectedCategory = MutableStateFlow(MenuCategory.TRACKS)
+    private val userProfile = getUserProfile()
+    private val topTracks = getUserTopItemsUseCase(
+        type = MenuCategory.TRACKS, limit = 10, offset = 0, timeRange = "medium_term"
+    )
+    private val topArtists = getUserTopItemsUseCase(
+        type = MenuCategory.ARTISTS, limit = 10, offset = 0, timeRange = "medium_term"
+    )
 
-    init {
-        getCurrentProfile()
-        getTop(MenuCategory.TRACKS)
-        getTop(MenuCategory.ARTISTS)
-    }
-
-    private fun getCurrentProfile() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val user = getUserProfile()
-            _state.update {
-                it.copy(
-                    profile = user
-                )
-            }
-        }
-    }
-
-    fun getTop(category: MenuCategory) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val top = getUserTopItemsUseCase(
-                type = category,
-                limit = 10,
-                offset = state.value.currentOffset,
-                timeRange = "medium_term"
-            )
-            _state.update {
-                when (category) {
-                    MenuCategory.TRACKS -> it.copy(topTracks = top)
-                    MenuCategory.ARTISTS -> it.copy(topArtists = top)
-                }
-            }
-        }
-    }
+    val state: StateFlow<State> = combine(
+        selectedCategory,
+        userProfile,
+        topTracks,
+        topArtists
+    ) { selectedCategory, profile, topTracks, topArtists ->
+        State(
+            categorySelected = selectedCategory,
+            profile = profile,
+            topTracks = topTracks,
+            topArtists = topArtists
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = WhileSubscribedOrRetained,
+        initialValue = State()
+    )
 
     fun onCategorySelected(category: MenuCategory) {
-        _state.update {
-            it.copy(
-                categorySelected = category
-            )
-        }
-    }
-
-    fun getCategorySelected(): MenuCategory {
-        return state.value.categorySelected
+        selectedCategory.update { category }
     }
 
     data class State(
@@ -76,4 +64,5 @@ class MenuViewModel(
         val categories: List<MenuCategory> = listOf(MenuCategory.TRACKS, MenuCategory.ARTISTS),
         val categorySelected: MenuCategory = MenuCategory.TRACKS
     )
+
 }
