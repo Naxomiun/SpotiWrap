@@ -55,7 +55,7 @@ fun MenuScreen(
             )
     ) {
         Column(verticalArrangement = Arrangement.Top) {
-            MenuTopAppBar(state = state)
+            MenuTopAppBar(state = state.userState)
             MenuContent(
                 state = state,
                 categories = state.categories,
@@ -74,28 +74,32 @@ fun MenuScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuTopAppBar(
-    state: MenuViewModel.State
+    state: MenuViewModel.State.UserState
 ) {
     TopAppBar(
         title = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                CoilImage(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape),
-                    imageModel = {  state.profile?.images?.first()?.url },
-                    imageOptions = ImageOptions(
-                        contentScale = ContentScale.Crop,
-                        alignment = Alignment.Center
+            if(state.profile != null) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    CoilImage(
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape),
+                        imageModel = {  state.profile.image },
+                        imageOptions = ImageOptions(
+                            contentScale = ContentScale.Crop,
+                            alignment = Alignment.Center
+                        )
                     )
-                )
-                Text(
-                    modifier = Modifier.padding(start = 10.dp),
-                    text = state.profile?.displayName.toString()
-                )
+                    Text(
+                        modifier = Modifier.padding(start = 10.dp),
+                        text = state.profile.userName
+                    )
+                }
+            } else {
+                Text(text = "Loading ...")
             }
         }
     )
@@ -142,14 +146,14 @@ fun MenuContent(
     when (categorySelected) {
         MenuCategory.TRACKS -> {
             TracksContent(
-                state = state,
+                state = state.tracksState,
                 onReachedEnd = { onReachedEnd() },
                 modifier = Modifier.fillMaxWidth()
             )
         }
         MenuCategory.ARTISTS -> {
             ArtistsContent(
-                state = state,
+                state = state.artistsState,
                 modifier = Modifier.fillMaxWidth()
             )
         }

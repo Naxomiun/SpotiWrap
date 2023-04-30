@@ -1,14 +1,14 @@
-package com.wachon.spotiwrap.features.menu.data
+package com.wachon.spotiwrap.features.menu.data.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ExternalUrls(
+data class ExternalUrlsApi(
     val spotify: String
 )
 
 @Serializable
-data class Image(
+data class ImageApi(
     val url: String,
     val height: Long?,
     val width: Long?

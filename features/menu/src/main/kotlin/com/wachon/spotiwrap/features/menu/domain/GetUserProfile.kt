@@ -1,25 +1,23 @@
 package com.wachon.spotiwrap.features.menu.domain
 
-import android.util.Log
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
-import com.wachon.spotiwrap.features.menu.data.SpotifyService
-import com.wachon.spotiwrap.features.menu.data.User
+import com.wachon.spotiwrap.features.menu.data.repository.UserRepository
+import com.wachon.spotiwrap.features.menu.domain.model.UserModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onEach
 
 interface GetUserProfileUseCase {
-    operator fun invoke(): Flow<User>
+    operator fun invoke(): Flow<UserModel>
 }
 
 class GetUserProfile(
-    private val spotifyService: SpotifyService,
+    private val userRepository: UserRepository,
     private val dispatchers: DispatcherProvider
 ) : GetUserProfileUseCase {
 
-    override fun invoke(): Flow<User> {
-        return spotifyService
-            .getMe()
+    override fun invoke(): Flow<UserModel> {
+        return userRepository
+            .getUserInfo()
             .flowOn(dispatchers.background)
     }
 

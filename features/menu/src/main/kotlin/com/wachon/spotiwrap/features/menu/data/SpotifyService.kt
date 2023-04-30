@@ -1,6 +1,7 @@
 package com.wachon.spotiwrap.features.menu.data
 
-import android.util.Log
+import com.wachon.spotiwrap.features.menu.data.model.TopApi
+import com.wachon.spotiwrap.features.menu.data.model.UserApi
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -12,7 +13,7 @@ class SpotifyService(
     private val httpClient: HttpClient
 ) {
 
-    fun getMe(): Flow<User> = flow {
+    fun getMe(): Flow<UserApi> = flow {
         emit(httpClient.get("/v1/me").body())
     }
 
@@ -20,8 +21,8 @@ class SpotifyService(
         type: String,
         limit: Int? = 10,
         offset: Int? = 0,
-        timeRange: String? = "medium_term"
-    ): Flow<Top> = flow {
+        timeRange: String
+    ): Flow<TopApi> = flow {
         emit(
             httpClient.get("/v1/me/top/$type") {
                 parameter("limit", limit)

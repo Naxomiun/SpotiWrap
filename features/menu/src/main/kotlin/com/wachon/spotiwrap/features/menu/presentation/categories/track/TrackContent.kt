@@ -29,13 +29,13 @@ import com.skydoves.landscapist.components.rememberImageComponent
 import com.skydoves.landscapist.palette.PalettePlugin
 import com.wachon.spotiwrap.core.design.components.BrandContainer
 import com.wachon.spotiwrap.core.design.extensions.getBackgroundColorFromPalette
-import com.wachon.spotiwrap.features.menu.data.Item
+import com.wachon.spotiwrap.features.menu.domain.model.TrackModel
 import com.wachon.spotiwrap.features.menu.presentation.MenuViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TracksContent(
-    state: MenuViewModel.State,
+    state: MenuViewModel.State.TracksState,
     onReachedEnd: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TrackViewModel = koinViewModel()
@@ -43,16 +43,14 @@ fun TracksContent(
   
     val lazyListState = rememberLazyListState()
 
-    state.topTracks?.items?.let {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            state = lazyListState,
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 50.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            items(it) { TrackItem(track = it) }
-        }
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize(),
+        state = lazyListState,
+        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 50.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        items(state.tracks) { TrackItem(track = it) }
     }
 
 }
@@ -60,7 +58,7 @@ fun TracksContent(
 @Composable
 fun TrackItem(
     modifier: Modifier = Modifier,
-    track: Item
+    track: TrackModel
 ) {
 
     var backgroundColor by remember {
@@ -81,9 +79,9 @@ fun TrackItem(
                 modifier = Modifier
                     .height(75.dp)
                     .width(75.dp),
-                imageModel = { track.album?.images?.first()?.url },
+                imageModel = { track.imageUrl },
                 imageOptions = ImageOptions(
-                    contentDescription = track.album?.name
+                    contentDescription = track.title
                 ),
                 component = rememberImageComponent {
                     +PalettePlugin {
@@ -99,12 +97,12 @@ fun TrackItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = track.name ?: "",
+                    text = track.title,
                 )
 
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = track.getArtistToShow()
+                    text = track.getFormattedArtists()
                 )
             }
         }
