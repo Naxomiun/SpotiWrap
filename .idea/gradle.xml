@@ -21,9 +21,14 @@
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/persistence" />
             <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/artists" />
             <option value="$PROJECT_DIR$/features/login" />
             <option value="$PROJECT_DIR$/features/menu" />
+            <option value="$PROJECT_DIR$/features/profile" />
             <option value="$PROJECT_DIR$/features/splash" />
+            <option value="$PROJECT_DIR$/features/tracks" />
+            <option value="$PROJECT_DIR$/test" />
+            <option value="$PROJECT_DIR$/test/shared-test" />
           </set>
         </option>
       </GradleProjectSettings>

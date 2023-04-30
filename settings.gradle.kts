@@ -18,5 +18,13 @@ include(
 include(
     ":features:login",
     ":features:menu",
-    ":features:splash"
+    ":features:splash",
+    ":features:tracks",
+    ":features:artists",
+    ":features:profile"
+)
+
+//Tests
+include(
+    ":test:shared-test"
 )
