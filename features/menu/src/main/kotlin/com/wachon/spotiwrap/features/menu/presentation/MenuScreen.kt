@@ -3,118 +3,77 @@ package com.wachon.spotiwrap.features.menu.presentation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.coil.CoilImage
-import com.wachon.spotiwrap.features.menu.presentation.categories.artist.ArtistsContent
-import com.wachon.spotiwrap.features.menu.presentation.categories.track.TracksContent
+import com.wachon.spotiwrap.features.artists.presentation.topartists.TopArtistsScreen
+import com.wachon.spotiwrap.features.artists.presentation.topartists.TopArtistsViewModel
+import com.wachon.spotiwrap.features.profile.presentation.ProfileTopBar
+import com.wachon.spotiwrap.features.tracks.presentation.toptracks.TopTracksScreen
+import com.wachon.spotiwrap.features.tracks.presentation.toptracks.TopTracksViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MenuScreen(
-    viewModel: MenuViewModel = koinViewModel()
+    viewModel: MenuViewModel = koinViewModel(),
+    topArtistsViewModel: TopArtistsViewModel = koinViewModel(),
+    topTracksViewModel: TopTracksViewModel = koinViewModel(),
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    val context = LocalContext.current
-
-    Surface(
-        modifier = Modifier
-            .windowInsetsPadding(
-                WindowInsets.systemBars.only(WindowInsetsSides.Horizontal)
-            )
-    ) {
-        Column(verticalArrangement = Arrangement.Top) {
-            MenuTopAppBar(state = state.userState)
-            MenuContent(
-                state = state,
-                categories = state.categories,
-                categorySelected = state.categorySelected,
-                onCategorySelected = viewModel::onCategorySelected,
-                onReachedEnd = {
-                    //TODO increase the current offset the request the next list
-                    //viewModel.getTop(viewModel.getCategorySelected())
-                }
-            )
-        }
-    }
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MenuTopAppBar(
-    state: MenuViewModel.State.UserState
-) {
-    TopAppBar(
-        title = {
-            if(state.profile != null) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    CoilImage(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clip(CircleShape),
-                        imageModel = {  state.profile.image },
-                        imageOptions = ImageOptions(
-                            contentScale = ContentScale.Crop,
-                            alignment = Alignment.Center
-                        )
-                    )
-                    Text(
-                        modifier = Modifier.padding(start = 10.dp),
-                        text = state.profile.userName
-                    )
-                }
-            } else {
-                Text(text = "Loading ...")
-            }
-        }
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    MenuContent(
+        state = state,
+        onCategorySelected = viewModel::onCategorySelected,
+        topArtistsViewModel,
+        topTracksViewModel
     )
 }
 
 @Composable
 fun MenuContent(
-    state: MenuViewModel.State,
-    categories: List<MenuCategory>,
+    state: MenuScreenState,
+    onCategorySelected: (MenuCategory) -> Unit,
+    topArtistsViewModel: TopArtistsViewModel,
+    topTracksViewModel: TopTracksViewModel,
+) {
+    val context = LocalContext.current
+    Column(verticalArrangement = Arrangement.Top) {
+        ProfileTopBar(user = state.userProfile)
+        MenuBody(
+            categorySelected = state.selectedCategory,
+            onCategorySelected = onCategorySelected,
+            topArtistsViewModel = topArtistsViewModel,
+            topTracksViewModel = topTracksViewModel
+        )
+    }
+}
+
+@Composable
+fun MenuBody(
     categorySelected: MenuCategory,
     onCategorySelected: (MenuCategory) -> Unit,
-    onReachedEnd: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    topArtistsViewModel: TopArtistsViewModel,
+    topTracksViewModel: TopTracksViewModel,
 ) {
-    val selectedIndex = categories.indexOfFirst { it == categorySelected }
+
+    val selectedIndex = MenuCategory.values().indexOfFirst { it == categorySelected }
+
     val indicator = @Composable { tabPositions: List<TabPosition> ->
         MenuCategoryTabIndicator(
             Modifier.tabIndicatorOffset(tabPositions[selectedIndex])
@@ -126,7 +85,7 @@ fun MenuContent(
         indicator = indicator,
         modifier = modifier
     ) {
-        categories.forEachIndexed { index, category ->
+        MenuCategory.values().forEachIndexed { index, category ->
             Tab(
                 selected = index == selectedIndex,
                 onClick = { onCategorySelected(category) },
@@ -145,17 +104,11 @@ fun MenuContent(
 
     when (categorySelected) {
         MenuCategory.TRACKS -> {
-            TracksContent(
-                state = state.tracksState,
-                onReachedEnd = { onReachedEnd() },
-                modifier = Modifier.fillMaxWidth()
-            )
+            TopTracksScreen(topTracksViewModel)
         }
+
         MenuCategory.ARTISTS -> {
-            ArtistsContent(
-                state = state.artistsState,
-                modifier = Modifier.fillMaxWidth()
-            )
+            TopArtistsScreen(topArtistsViewModel)
         }
     }
 }
