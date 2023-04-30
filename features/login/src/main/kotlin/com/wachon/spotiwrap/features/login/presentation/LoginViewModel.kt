@@ -7,6 +7,7 @@ import com.wachon.spotiwrap.core.auth.scopes.AuthConfig
 import com.wachon.spotiwrap.core.auth.scopes.GetAuthConfigUseCase
 import com.wachon.spotiwrap.core.auth.token.SaveTokenUseCase
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
+import com.wachon.spotiwrap.features.login.domain.GetAccessTokenUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -16,7 +17,8 @@ import kotlinx.coroutines.withContext
 class LoginViewModel(
     private val dispatcherProvider: DispatcherProvider,
     private val getAuthConfig: GetAuthConfigUseCase,
-    private val saveToken: SaveTokenUseCase
+    private val saveToken: SaveTokenUseCase,
+    private val getAccessToken: GetAccessTokenUseCase
 ) : ViewModel() {
 
     val state: StateFlow<State> get() = _state
@@ -47,8 +49,7 @@ class LoginViewModel(
                     }
                 }
                 AuthorizationResponse.Type.CODE -> {
-
-
+                    getAccessToken(authorizationResponse.code)
                 }
                 AuthorizationResponse.Type.ERROR -> {
 

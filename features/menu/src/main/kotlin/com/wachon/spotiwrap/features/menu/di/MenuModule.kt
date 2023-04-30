@@ -9,6 +9,7 @@ import com.wachon.spotiwrap.features.menu.presentation.MenuViewModel
 import com.wachon.spotiwrap.features.menu.presentation.categories.track.TrackViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val MenuModule = module {
@@ -21,7 +22,7 @@ val MenuModule = module {
 
 private val MenuDataModule: Module
     get() = module {
-        single { SpotifyService(get()) }
+        single { SpotifyService(get(named("NetworkModule"))) }
     }
 
 private val MenuDomainModule: Module

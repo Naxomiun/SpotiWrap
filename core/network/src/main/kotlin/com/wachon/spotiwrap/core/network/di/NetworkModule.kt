@@ -4,6 +4,7 @@ import com.wachon.spotiwrap.core.network.clients.HttpClient
 import com.wachon.spotiwrap.core.network.interceptors.ThreadInterceptor
 import com.wachon.spotiwrap.core.network.interceptors.TokenInterceptor
 import org.koin.core.module.Module
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 private const val TOKEN_URL: String = "https://accounts.spotify.com"
@@ -13,7 +14,7 @@ val TokenModule: Module
     get() = module {
         factory { ThreadInterceptor() }
         factory { TokenInterceptor(get()) }
-        factory {
+        single(named("TokenModule")) {
             HttpClient.getClient(
                 baseUrl = TOKEN_URL,
                 interceptors = listOf(
@@ -28,7 +29,7 @@ val NetworkModule: Module
     get() = module {
         factory { ThreadInterceptor() }
         factory { TokenInterceptor(get()) }
-        factory {
+        single(named("NetworkModule")) {
             HttpClient.getClient(
                 baseUrl = BASE_URL,
                 interceptors = listOf(
