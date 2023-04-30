@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.core.network.exceptions
+package com.wachon.spotiwrap.core.network.exception
 
 data class NetworkOnMainException(
     val url: String

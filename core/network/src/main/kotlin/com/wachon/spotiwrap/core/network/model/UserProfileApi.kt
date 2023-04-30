@@ -1,20 +1,20 @@
 package com.wachon.spotiwrap.core.network.model
 
-import com.wachon.spotiwrap.core.common.model.UserModel
+import com.wachon.spotiwrap.core.common.model.UserProfileModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserApi(
+data class UserProfileApi(
     val country: String,
     @SerialName("display_name")
     val displayName: String?,
     val email: String,
     @SerialName("explicit_content")
-    val explicitContent: ExplicitContent,
+    val explicitContent: ExplicitContentApi,
     @SerialName("external_urls")
     val externalUrls: ExternalUrlsApi,
-    val followers: Followers,
+    val followers: FollowersApi,
     val href: String,
     val id: String,
     val images: List<ImageApi>,
@@ -23,8 +23,8 @@ data class UserApi(
     val uri: String
 ) {
 
-    fun toDomain(): UserModel {
-        return UserModel(
+    fun toDomain(): UserProfileModel {
+        return UserProfileModel(
             country = this.country,
             userName = this.displayName ?: "",
             email = this.email,
@@ -35,7 +35,7 @@ data class UserApi(
 }
 
 @Serializable
-data class ExplicitContent(
+data class ExplicitContentApi(
     @SerialName("filter_enabled")
     val filterEnabled: Boolean,
     @SerialName("filter_locked")
@@ -43,7 +43,7 @@ data class ExplicitContent(
 )
 
 @Serializable
-data class Followers(
+data class FollowersApi(
     val href: String?,
     val total: Long
 )

@@ -16,12 +16,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
-import com.wachon.spotiwrap.core.common.model.UserModel
+import com.wachon.spotiwrap.core.common.model.UserProfileModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileTopBar(
-    user: UserModel?
+    user: UserProfileModel?
 ) {
     TopAppBar(
         title = {

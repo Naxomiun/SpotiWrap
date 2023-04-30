@@ -27,6 +27,8 @@
             <option value="$PROJECT_DIR$/features/profile" />
             <option value="$PROJECT_DIR$/features/splash" />
             <option value="$PROJECT_DIR$/features/tracks" />
+            <option value="$PROJECT_DIR$/test" />
+            <option value="$PROJECT_DIR$/test/shared-test" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,7 +1,7 @@
-package com.wachon.spotiwrap.core.network.interceptors
+package com.wachon.spotiwrap.core.network.interceptor
 
 import android.os.Looper
-import com.wachon.spotiwrap.core.network.exceptions.NetworkOnMainException
+import com.wachon.spotiwrap.core.network.exception.NetworkOnMainException
 import okhttp3.Interceptor
 import okhttp3.Response
 

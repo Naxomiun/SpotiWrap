@@ -19,4 +19,8 @@ object Config  {
         const val Design = "$baseApplicationId.core.design"
     }
 
+    object Tests {
+        const val SharedTests = "$baseApplicationId.test.sharedTests"
+    }
+
 }

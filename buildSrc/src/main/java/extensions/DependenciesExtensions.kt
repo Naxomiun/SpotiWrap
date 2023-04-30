@@ -36,8 +36,12 @@ fun DependencyHandlerScope.testImplementation(dependency: String) {
     add("testImplementation", dependency)
 }
 
-fun DependencyHandlerScope.testImplementation(bundle: Provider<Any>) {
-    add("testImplementation", bundle)
+fun DependencyHandlerScope.testImplementation(dependency: Provider<ExternalModuleDependencyBundle>) {
+    add("testImplementation", dependency)
+}
+
+fun DependencyHandlerScope.testImplementation(project: Project) {
+    add("testImplementation", project)
 }
 
 fun DependencyHandlerScope.androidTestImplementation(dependency: String) {
@@ -62,6 +66,10 @@ fun DependencyHandlerScope.debugImplementation(group: Provider<MinimalExternalMo
 
 fun DependencyHandlerScope.coreLibraryDesugaring(dependency: String) {
     add("coreLibraryDesugaring", dependency)
+}
+
+fun DependencyHandlerScope.api(group: Provider<ExternalModuleDependencyBundle>) {
+    add("api", group)
 }
 
 fun DependencyHandlerScope.getBom(dependency: Provider<MinimalExternalModuleDependency>) = platform(dependency)

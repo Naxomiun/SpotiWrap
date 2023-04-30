@@ -23,3 +23,8 @@ include(
     ":features:artists",
     ":features:profile"
 )
+
+//Tests
+include(
+    ":test:shared-test"
+)

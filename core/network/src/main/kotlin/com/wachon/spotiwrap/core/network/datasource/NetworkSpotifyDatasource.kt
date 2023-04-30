@@ -1,13 +1,13 @@
 package com.wachon.spotiwrap.core.network.datasource
 
 import com.wachon.spotiwrap.core.network.model.TopApi
-import com.wachon.spotiwrap.core.network.model.UserApi
+import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import com.wachon.spotiwrap.core.network.service.SpotifyService
 import kotlinx.coroutines.flow.Flow
 
 interface NetworkSpotifyDatasource {
 
-    fun getUserInfo(): Flow<UserApi>
+    fun getUserInfo(): Flow<UserProfileApi>
 
     fun getTopItems(
         type: String,
@@ -22,7 +22,7 @@ class DefaultNetworkSpotifyDatasource(
     private val spotifyService: SpotifyService
 ) : NetworkSpotifyDatasource {
 
-    override fun getUserInfo(): Flow<UserApi> {
+    override fun getUserInfo(): Flow<UserProfileApi> {
         return spotifyService
             .getMe()
     }

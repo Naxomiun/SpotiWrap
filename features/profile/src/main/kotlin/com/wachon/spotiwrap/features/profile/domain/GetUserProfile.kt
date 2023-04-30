@@ -1,13 +1,13 @@
 package com.wachon.spotiwrap.features.profile.domain
 
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
-import com.wachon.spotiwrap.core.common.model.UserModel
+import com.wachon.spotiwrap.core.common.model.UserProfileModel
 import com.wachon.spotiwrap.features.profile.data.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
 interface GetUserProfileUseCase {
-    operator fun invoke(): Flow<UserModel>
+    operator fun invoke(): Flow<UserProfileModel>
 }
 
 class GetUserProfile(
@@ -15,7 +15,7 @@ class GetUserProfile(
     private val dispatchers: DispatcherProvider
 ) : GetUserProfileUseCase {
 
-    override fun invoke(): Flow<UserModel> {
+    override fun invoke(): Flow<UserProfileModel> {
         return userRepository
             .getUserInfo()
             .flowOn(dispatchers.background)

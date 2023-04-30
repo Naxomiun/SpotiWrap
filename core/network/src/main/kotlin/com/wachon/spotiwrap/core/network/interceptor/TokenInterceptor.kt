@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.core.network.interceptors
+package com.wachon.spotiwrap.core.network.interceptor
 
 import com.wachon.spotiwrap.core.auth.token.GetTokenUseCase
 import okhttp3.Interceptor

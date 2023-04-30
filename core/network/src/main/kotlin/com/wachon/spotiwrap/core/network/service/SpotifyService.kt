@@ -1,7 +1,7 @@
 package com.wachon.spotiwrap.core.network.service
 
 import com.wachon.spotiwrap.core.network.model.TopApi
-import com.wachon.spotiwrap.core.network.model.UserApi
+import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -13,7 +13,7 @@ class SpotifyService(
     private val httpClient: HttpClient
 ) {
 
-    fun getMe(): Flow<UserApi> = flow {
+    fun getMe(): Flow<UserProfileApi> = flow {
         emit(httpClient.get("/v1/me").body())
     }
 

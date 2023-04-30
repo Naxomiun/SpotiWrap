@@ -53,7 +53,13 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 if (project.name != "common") {
                     implementation(project(":core:common"))
                 }
+                testImplementation(libs.bundles.unitTest)
+                testImplementation(project(":test:shared-test"))
             }
         }
     }
 }
+
+
+
+

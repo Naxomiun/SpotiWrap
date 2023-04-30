@@ -1,6 +1,6 @@
 package com.wachon.spotiwrap.core.common.model
 
-data class UserModel(
+data class UserProfileModel(
     val country: String,
     val userName: String,
     val email: String,

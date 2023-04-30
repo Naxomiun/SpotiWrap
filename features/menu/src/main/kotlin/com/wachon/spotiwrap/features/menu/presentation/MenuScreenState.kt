@@ -1,9 +1,9 @@
 package com.wachon.spotiwrap.features.menu.presentation
 
-import com.wachon.spotiwrap.core.common.model.UserModel
+import com.wachon.spotiwrap.core.common.model.UserProfileModel
 
 data class MenuScreenState(
     val loading: Boolean = true,
-    val userProfile: UserModel? = null,
+    val userProfile: UserProfileModel? = null,
     val selectedCategory: MenuCategory = MenuCategory.TRACKS
 )
