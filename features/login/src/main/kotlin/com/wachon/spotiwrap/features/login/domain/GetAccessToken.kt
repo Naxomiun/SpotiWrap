@@ -1,26 +1,20 @@
 package com.wachon.spotiwrap.features.login.domain
 
 import com.wachon.spotiwrap.core.auth.scopes.GetAuthConfigUseCase
-import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
-import com.wachon.spotiwrap.features.login.data.TokenResponse
-import com.wachon.spotiwrap.features.login.data.TokenService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
+import com.wachon.spotiwrap.core.common.model.TokenResponseModel
+import com.wachon.spotiwrap.features.login.data.TokenRepository
 
 interface GetAccessTokenUseCase {
-    operator fun invoke(code: String): Flow<TokenResponse>
+    suspend operator fun invoke(code: String): TokenResponseModel
 }
 
 class GetAccessToken(
     private val getAuthConfig: GetAuthConfigUseCase,
-    private val tokenService: TokenService,
-    private val dispatchers: DispatcherProvider
+    private val tokenRepository: TokenRepository
 ) : GetAccessTokenUseCase {
 
-    override fun invoke(code: String): Flow<TokenResponse> {
-        return tokenService
-            .getAccessToken(code, getAuthConfig())
-            .flowOn(dispatchers.background)
+    override suspend fun invoke(code: String): TokenResponseModel {
+        return tokenRepository.getAccessToken(code, getAuthConfig())
     }
 
 }

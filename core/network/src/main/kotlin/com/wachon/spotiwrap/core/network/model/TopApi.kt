@@ -2,8 +2,8 @@ package com.wachon.spotiwrap.core.network.model
 
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TrackModel
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class TopApi(
@@ -50,7 +50,7 @@ data class TopItemApi(
         return TrackModel(
             imageUrl = this.album?.images?.first()?.url ?: "",
             title = this.name ?: "",
-            artists = this.artists?.map { it.toDomain()} ?: emptyList()
+            artists = this.artists?.map { it.toDomain() } ?: emptyList()
         )
     }
 

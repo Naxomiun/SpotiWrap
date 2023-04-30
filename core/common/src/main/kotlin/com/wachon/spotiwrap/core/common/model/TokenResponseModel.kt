@@ -1,6 +1,6 @@
-package com.wachon.spotiwrap.features.login.data
+package com.wachon.spotiwrap.core.common.model
 
-data class TokenResponse(
+data class TokenResponseModel(
     val accessToken: String,
     val tokenType: String,
     val expiresIn: Int,

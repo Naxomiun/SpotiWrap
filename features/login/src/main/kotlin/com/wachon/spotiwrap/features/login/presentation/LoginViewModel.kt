@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.login.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.spotify.sdk.android.auth.AuthorizationResponse
@@ -49,7 +50,8 @@ class LoginViewModel(
                     }
                 }
                 AuthorizationResponse.Type.CODE -> {
-                    getAccessToken(authorizationResponse.code)
+                    var asdasdad = getAccessToken(authorizationResponse.code)
+                    Log.d("", "handleLoginResponse: ")
                 }
                 AuthorizationResponse.Type.ERROR -> {
 
@@ -65,7 +67,6 @@ class LoginViewModel(
                 }
             }
         }
-
     }
 
     data class State(

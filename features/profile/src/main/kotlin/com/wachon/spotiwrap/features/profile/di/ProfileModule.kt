@@ -4,7 +4,6 @@ import com.wachon.spotiwrap.features.profile.data.DefaultUserRepository
 import com.wachon.spotiwrap.features.profile.data.UserRepository
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfile
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
-import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

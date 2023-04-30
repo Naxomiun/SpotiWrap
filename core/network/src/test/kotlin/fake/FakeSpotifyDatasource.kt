@@ -5,8 +5,8 @@ import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import kotlinx.coroutines.flow.Flow
 
-class FakeSpotifyDatasource: NetworkSpotifyDatasource {
-    
+class FakeSpotifyDatasource : NetworkSpotifyDatasource {
+
     override fun getUserInfo(): Flow<UserProfileApi> {
         TODO("Not yet implemented")
     }
