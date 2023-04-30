@@ -3,6 +3,7 @@ package com.wachon.spotiwrap.di
 import com.wachon.spotiwrap.core.auth.AuthModule
 import com.wachon.spotiwrap.core.common.dispatchers.DispatchersModule
 import com.wachon.spotiwrap.core.network.di.NetworkModule
+import com.wachon.spotiwrap.core.network.di.TokenModule
 import com.wachon.spotiwrap.core.persistence.di.PersistenceModule
 import com.wachon.spotiwrap.features.login.di.LoginModule
 import com.wachon.spotiwrap.features.menu.di.MenuModule
@@ -25,6 +26,7 @@ val CoreModules: Module get() = module {
         listOf(
             DispatchersModule,
             AuthModule,
+            TokenModule,
             NetworkModule,
             PersistenceModule
         )

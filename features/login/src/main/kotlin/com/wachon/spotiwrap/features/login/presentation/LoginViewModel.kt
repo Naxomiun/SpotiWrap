@@ -46,6 +46,10 @@ class LoginViewModel(
                         navigateToMenu.invoke()
                     }
                 }
+                AuthorizationResponse.Type.CODE -> {
+
+
+                }
                 AuthorizationResponse.Type.ERROR -> {
 
                 }
