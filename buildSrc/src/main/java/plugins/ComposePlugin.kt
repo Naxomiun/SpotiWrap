@@ -43,7 +43,6 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
 
         implementationBom(platform(libs.androidx.compose.bom))
         androidTestImplementationBom(platform(libs.androidx.compose.bom))
-        implementation(libs.androidx.compose.ui.ui)
         implementation(libs.androidx.compose.navigation)
         implementation(libs.androidx.compose.activity)
         implementation(libs.androidx.compose.runtime)

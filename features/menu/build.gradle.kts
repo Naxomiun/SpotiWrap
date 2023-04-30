@@ -14,4 +14,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
+    implementation(project(":features:profile"))
+    implementation(project(":features:tracks"))
+    implementation(project(":features:artists"))
 }
