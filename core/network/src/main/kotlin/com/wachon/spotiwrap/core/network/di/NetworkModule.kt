@@ -17,27 +17,12 @@ import org.koin.dsl.module
 private const val TOKEN_URL: String = "https://accounts.spotify.com"
 private const val BASE_URL: String = "https://api.spotify.com"
 
-val TokenModule: Module
-    get() = module {
-        factory { ThreadInterceptor() }
-        factory { TokenInterceptor(get()) }
-        single(named("TokenModule")) {
-            HttpClient.getClient(
-                baseUrl = TOKEN_URL,
-                interceptors = listOf(
-                    get<ThreadInterceptor>(),
-                    get<TokenInterceptor>()
-                )
-            )
-        }
-        single { TokenService(get(named("TokenModule"))) }
-        single<TokenDatasource> { DefaultTokenDatasource(get()) }
-    }
-
 val NetworkModule: Module
     get() = module {
         factory { ThreadInterceptor() }
         factory { NetworkInterceptor(get()) }
+        factory { TokenInterceptor(get()) }
+
         single(named("NetworkModule")) {
             HttpClient.getClient(
                 baseUrl = BASE_URL,
@@ -47,6 +32,20 @@ val NetworkModule: Module
                 )
             )
         }
+
+        single(named("TokenModule")) {
+            HttpClient.getClient(
+                baseUrl = TOKEN_URL,
+                interceptors = listOf(
+                    get<ThreadInterceptor>(),
+                    get<TokenInterceptor>()
+                )
+            )
+        }
+
         single { SpotifyService(get(named("NetworkModule"))) }
         single<NetworkSpotifyDatasource> { DefaultNetworkSpotifyDatasource(get()) }
+
+        single { TokenService(get(named("TokenModule"))) }
+        single<TokenDatasource> { DefaultTokenDatasource(get()) }
     }
