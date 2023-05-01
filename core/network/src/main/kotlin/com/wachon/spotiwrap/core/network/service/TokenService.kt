@@ -20,4 +20,11 @@ class TokenService(
         parameter("client_id", authConfig.clientId)
         parameter("client_secret", authConfig.campaign)
     }.body()
+
+    suspend fun getRefreshToken(
+        refreshToken: String
+    ): TokenResponseApi = httpClient.post("/refresh_token") {
+        parameter("grant_type", "refresh_token")
+        parameter("refresh_token", refreshToken)
+    }.body()
 }

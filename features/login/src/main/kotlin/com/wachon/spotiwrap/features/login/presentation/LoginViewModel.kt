@@ -1,11 +1,11 @@
 package com.wachon.spotiwrap.features.login.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.wachon.spotiwrap.core.auth.scopes.AuthConfig
 import com.wachon.spotiwrap.core.auth.scopes.GetAuthConfigUseCase
+import com.wachon.spotiwrap.core.auth.token.SaveRefreshTokenUseCase
 import com.wachon.spotiwrap.core.auth.token.SaveTokenUseCase
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.features.login.domain.GetAccessTokenUseCase
@@ -19,7 +19,8 @@ class LoginViewModel(
     private val dispatcherProvider: DispatcherProvider,
     private val getAuthConfig: GetAuthConfigUseCase,
     private val saveToken: SaveTokenUseCase,
-    private val getAccessToken: GetAccessTokenUseCase
+    private val getAccessToken: GetAccessTokenUseCase,
+    private val saveRefreshToken: SaveRefreshTokenUseCase
 ) : ViewModel() {
 
     val state: StateFlow<State> get() = _state
@@ -50,9 +51,14 @@ class LoginViewModel(
                     }
                 }
                 AuthorizationResponse.Type.CODE -> {
-                    //TODO Save token response and check the expires time
-                    var tokenResponse = getAccessToken(authorizationResponse.code)
-                    Log.d("", "handleLoginResponse: ")
+                    val tokenResponse = getAccessToken(authorizationResponse.code)
+
+                    saveToken(tokenResponse.accessToken)
+                    saveRefreshToken(tokenResponse.refreshToken)
+
+                    withContext(dispatcherProvider.mainImmediate) {
+                        navigateToMenu.invoke()
+                    }
                 }
                 AuthorizationResponse.Type.ERROR -> {
 

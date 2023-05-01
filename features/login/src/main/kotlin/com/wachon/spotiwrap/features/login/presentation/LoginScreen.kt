@@ -78,7 +78,7 @@ fun LoginContent(
 
 private fun getAuthenticationRequest(authConfig: AuthConfig): AuthorizationRequest {
     return AuthorizationRequest
-        .Builder(authConfig.clientId, AuthorizationResponse.Type.CODE, Uri.parse(authConfig.redirectUrl).toString())
+        .Builder(authConfig.clientId, AuthorizationResponse.Type.TOKEN, Uri.parse(authConfig.redirectUrl).toString())
         .setShowDialog(false)
         .setScopes(authConfig.getScopesAsTypedArray())
         .setCampaign(authConfig.campaign)

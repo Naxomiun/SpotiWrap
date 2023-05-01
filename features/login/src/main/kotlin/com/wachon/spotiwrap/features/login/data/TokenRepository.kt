@@ -6,6 +6,7 @@ import com.wachon.spotiwrap.core.network.datasource.TokenDatasource
 
 interface TokenRepository {
     suspend fun getAccessToken(code: String, authConfig: AuthConfig): TokenResponseModel
+    suspend fun getRefreshToken(refreshToken: String): TokenResponseModel
 }
 
 class DefaultTokenRepository(
@@ -14,6 +15,10 @@ class DefaultTokenRepository(
 
     override suspend fun getAccessToken(code: String, authConfig: AuthConfig): TokenResponseModel {
         return tokenDataSource.getAccessToken(code = code, authConfig = authConfig).toDomain()
+    }
+
+    override suspend fun getRefreshToken(refreshToken: String): TokenResponseModel {
+        return tokenDataSource.getRefreshToken(refreshToken = refreshToken).toDomain()
     }
 
 }
