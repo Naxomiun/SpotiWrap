@@ -50,7 +50,8 @@ class LoginViewModel(
                     }
                 }
                 AuthorizationResponse.Type.CODE -> {
-                    var asdasdad = getAccessToken(authorizationResponse.code)
+                    //TODO Save token response and check the expires time
+                    var tokenResponse = getAccessToken(authorizationResponse.code)
                     Log.d("", "handleLoginResponse: ")
                 }
                 AuthorizationResponse.Type.ERROR -> {
