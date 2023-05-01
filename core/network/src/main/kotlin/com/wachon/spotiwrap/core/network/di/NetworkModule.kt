@@ -43,7 +43,7 @@ val NetworkModule: Module
                 baseUrl = BASE_URL,
                 interceptors = listOf(
                     get<ThreadInterceptor>(),
-                    get<TokenInterceptor>()
+                    get<NetworkInterceptor>()
                 )
             )
         }
