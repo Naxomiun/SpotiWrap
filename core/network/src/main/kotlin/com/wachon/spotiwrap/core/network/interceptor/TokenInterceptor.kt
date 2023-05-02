@@ -1,6 +1,6 @@
 package com.wachon.spotiwrap.core.network.interceptor
 
-import com.wachon.spotiwrap.core.auth.scopes.GetAuthConfigUseCase
+import com.wachon.spotiwrap.core.auth.config.GetAuthConfigUseCase
 import okhttp3.Interceptor
 import okhttp3.Response
 

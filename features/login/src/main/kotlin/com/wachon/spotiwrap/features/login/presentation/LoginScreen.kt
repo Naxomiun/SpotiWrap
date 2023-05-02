@@ -21,7 +21,7 @@ import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.spotify.sdk.android.auth.LoginActivity
-import com.wachon.spotiwrap.core.auth.scopes.AuthConfig
+import com.wachon.spotiwrap.core.auth.config.AuthConfig
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

@@ -1,5 +1,7 @@
 package com.wachon.spotiwrap.core.auth.scopes
 
+import com.wachon.spotiwrap.core.auth.config.AuthConfigProvider
+
 interface CheckScopesAreValidUseCase {
     operator fun invoke(): Boolean
 }

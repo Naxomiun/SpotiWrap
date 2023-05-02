@@ -1,6 +1,7 @@
 package com.wachon.spotiwrap.core.network.interceptor
 
 import com.wachon.spotiwrap.core.auth.token.GetTokenUseCase
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -14,10 +15,10 @@ class NetworkInterceptor(
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val token = getToken()
+        val token = runBlocking { getToken() }
         val original = chain.request()
         val requestBuilder = original.newBuilder()
-            .addHeader(TOKEN_HEADER_KEY, "$TOKEN_HEADER_VALUE $token")
+            .addHeader(TOKEN_HEADER_KEY, "$TOKEN_HEADER_VALUE ${token.accessToken}")
             .url(original.url)
         val request = requestBuilder.build()
         return chain.proceed(request)

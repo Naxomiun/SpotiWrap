@@ -1,18 +1,26 @@
 package com.wachon.spotiwrap.core.auth.token
 
-import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedDataProvider
-import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedItem
+import com.wachon.spotiwrap.core.auth.TokenRepository
+import com.wachon.spotiwrap.core.common.model.TokenModel
 
 interface GetTokenUseCase {
-    operator fun invoke(): String?
+    suspend operator fun invoke(): TokenModel
 }
 
 class GetToken(
-    private val encryptedDataProvider: EncryptedDataProvider
+    private val tokenRepository: TokenRepository
 ) : GetTokenUseCase {
 
-    override fun invoke(): String? {
-        return encryptedDataProvider.getEncryptedString(EncryptedItem.TOKEN)
+    override suspend fun invoke(): TokenModel {
+        val token = tokenRepository.getPersistedToken()
+        if(!tokenHasExpired(token.expireTimestamp)) {
+            return token
+        }
+        return tokenRepository.refreshToken()
+    }
+
+    private fun tokenHasExpired(expireTimestamp: Long): Boolean {
+        return expireTimestamp < System.currentTimeMillis()
     }
 
 }

@@ -1,3 +1,6 @@
+import extensions.implementation
+import extensions.libs
+
 plugins {
     spotiwrap_android_library
 }
@@ -14,4 +17,10 @@ android {
 
 dependencies {
     implementation(project(":core:persistence"))
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.logging)
+    implementation(libs.ktor.negotiation)
+    implementation(libs.ktor.okhttp)
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.serializationJson)
 }

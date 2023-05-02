@@ -1,5 +1,6 @@
-package com.wachon.spotiwrap.core.auth.scopes
+package com.wachon.spotiwrap.core.auth.config
 
+import com.wachon.spotiwrap.core.auth.scopes.AuthScopes
 import com.wachon.spotiwrap.core.auth.BuildConfig
 
 interface AuthConfigProvider {

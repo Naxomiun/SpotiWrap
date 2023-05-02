@@ -1,6 +1,6 @@
 package com.wachon.spotiwrap.di
 
-import com.wachon.spotiwrap.core.auth.AuthModule
+import com.wachon.spotiwrap.core.auth.di.AuthModule
 import com.wachon.spotiwrap.core.common.dispatchers.DispatchersModule
 import com.wachon.spotiwrap.core.network.di.NetworkModule
 import com.wachon.spotiwrap.core.persistence.di.PersistenceModule
@@ -16,6 +16,7 @@ import org.koin.dsl.module
 val FeaturesModule: Module get() = module {
     includes(
         listOf(
+            AuthModule,
             LoginModule,
             MenuModule,
             SplashModule,
@@ -30,7 +31,6 @@ val CoreModules: Module get() = module {
     includes(
         listOf(
             DispatchersModule,
-            AuthModule,
             NetworkModule,
             PersistenceModule
         )
