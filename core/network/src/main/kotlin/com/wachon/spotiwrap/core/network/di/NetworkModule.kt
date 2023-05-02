@@ -23,7 +23,7 @@ val NetworkModule: Module
         factory { NetworkInterceptor(get()) }
         factory { TokenInterceptor(get()) }
 
-        single(named("NetworkModule")) {
+        single(named("UserClient")) {
             HttpClient.getClient(
                 baseUrl = BASE_URL,
                 interceptors = listOf(
@@ -33,7 +33,7 @@ val NetworkModule: Module
             )
         }
 
-        single(named("TokenModule")) {
+        single(named("AuthClient")) {
             HttpClient.getClient(
                 baseUrl = TOKEN_URL,
                 interceptors = listOf(
@@ -43,9 +43,9 @@ val NetworkModule: Module
             )
         }
 
-        single { SpotifyService(get(named("NetworkModule"))) }
+        single { SpotifyService(get(named("UserClient"))) }
         single<NetworkSpotifyDatasource> { DefaultNetworkSpotifyDatasource(get()) }
 
-        single { TokenService(get(named("TokenModule"))) }
+        single { TokenService(get(named("AuthClient"))) }
         single<TokenDatasource> { DefaultTokenDatasource(get()) }
     }
