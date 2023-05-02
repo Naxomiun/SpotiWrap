@@ -16,7 +16,6 @@ import org.koin.dsl.module
 val FeaturesModule: Module get() = module {
     includes(
         listOf(
-            AuthModule,
             LoginModule,
             MenuModule,
             SplashModule,
@@ -30,6 +29,7 @@ val FeaturesModule: Module get() = module {
 val CoreModules: Module get() = module {
     includes(
         listOf(
+            AuthModule,
             DispatchersModule,
             NetworkModule,
             PersistenceModule
