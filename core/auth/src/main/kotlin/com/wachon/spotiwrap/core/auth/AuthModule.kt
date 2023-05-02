@@ -10,8 +10,12 @@ import com.wachon.spotiwrap.core.auth.scopes.GetAuthScopes
 import com.wachon.spotiwrap.core.auth.scopes.GetAuthScopesUseCase
 import com.wachon.spotiwrap.core.auth.scopes.SaveAuthScopes
 import com.wachon.spotiwrap.core.auth.scopes.SaveAuthScopesUseCase
+import com.wachon.spotiwrap.core.auth.token.GetRefreshToken
+import com.wachon.spotiwrap.core.auth.token.GetRefreshTokenUseCase
 import com.wachon.spotiwrap.core.auth.token.GetToken
 import com.wachon.spotiwrap.core.auth.token.GetTokenUseCase
+import com.wachon.spotiwrap.core.auth.token.SaveRefreshToken
+import com.wachon.spotiwrap.core.auth.token.SaveRefreshTokenUseCase
 import com.wachon.spotiwrap.core.auth.token.SaveToken
 import com.wachon.spotiwrap.core.auth.token.SaveTokenUseCase
 import org.koin.dsl.module
@@ -20,6 +24,8 @@ val AuthModule = module {
     single<AuthConfigProvider> { DefaultAuthConfigProvider() }
     factory<GetTokenUseCase> { GetToken(get()) }
     factory<SaveTokenUseCase> { SaveToken(get()) }
+    factory<GetRefreshTokenUseCase> { GetRefreshToken(get()) }
+    factory<SaveRefreshTokenUseCase> { SaveRefreshToken(get()) }
     factory<GetAuthConfigUseCase> { GetAuthConfig(get()) }
     factory<SaveAuthScopesUseCase> { SaveAuthScopes(get()) }
     factory<GetAuthScopesUseCase> { GetAuthScopes(get()) }
