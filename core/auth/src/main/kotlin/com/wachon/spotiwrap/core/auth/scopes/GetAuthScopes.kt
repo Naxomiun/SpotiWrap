@@ -12,7 +12,7 @@ class GetAuthScopes(
 ) : GetAuthScopesUseCase {
 
     override fun invoke(): List<String>? {
-        return encryptedDataProvider.getAuthScopes(EncryptedItem.SCOPES)
+        return encryptedDataProvider.getCustomObject(EncryptedItem.SCOPES)
     }
 
 }

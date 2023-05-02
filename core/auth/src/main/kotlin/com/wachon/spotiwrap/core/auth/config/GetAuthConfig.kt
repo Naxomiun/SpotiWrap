@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.core.auth.scopes
+package com.wachon.spotiwrap.core.auth.config
 
 interface GetAuthConfigUseCase {
     operator fun invoke(): AuthConfig

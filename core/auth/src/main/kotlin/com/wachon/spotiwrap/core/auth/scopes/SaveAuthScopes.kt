@@ -12,7 +12,7 @@ class SaveAuthScopes(
 ) : SaveAuthScopesUseCase {
 
     override fun invoke(scopes: List<String>) {
-        encryptedDataProvider.setAuthScopes(EncryptedItem.SCOPES, scopes)
+        encryptedDataProvider.setCustomObject(EncryptedItem.SCOPES, scopes)
     }
 
 }

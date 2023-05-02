@@ -1,6 +1,6 @@
 package com.wachon.spotiwrap.di
 
-import com.wachon.spotiwrap.core.auth.AuthModule
+import com.wachon.spotiwrap.core.auth.di.AuthModule
 import com.wachon.spotiwrap.core.common.dispatchers.DispatchersModule
 import com.wachon.spotiwrap.core.network.di.NetworkModule
 import com.wachon.spotiwrap.core.persistence.di.PersistenceModule
@@ -29,8 +29,8 @@ val FeaturesModule: Module get() = module {
 val CoreModules: Module get() = module {
     includes(
         listOf(
-            DispatchersModule,
             AuthModule,
+            DispatchersModule,
             NetworkModule,
             PersistenceModule
         )

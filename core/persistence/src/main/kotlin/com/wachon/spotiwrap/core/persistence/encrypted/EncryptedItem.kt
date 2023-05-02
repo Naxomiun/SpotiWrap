@@ -3,5 +3,6 @@ package com.wachon.spotiwrap.core.persistence.encrypted
 enum class EncryptedItem {
     TOKEN,
     REFRESH_TOKEN,
+    TOKEN_EXPIRE_TIMESTAMP,
     SCOPES
 }

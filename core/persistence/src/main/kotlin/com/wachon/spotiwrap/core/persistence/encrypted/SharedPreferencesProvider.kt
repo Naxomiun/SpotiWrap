@@ -36,18 +36,26 @@ class SharedPreferencesProvider(
         return sharedPreferences.getString(key.name.lowercase(), null)
     }
 
-    override fun setAuthScopes(key: EncryptedItem, value: List<String>) {
+    override fun setEncryptedLong(key: EncryptedItem, value: Long) {
+        sharedPreferences.edit().putLong(key.name.lowercase(), value).apply()
+    }
+
+    override fun getEncryptedLong(key: EncryptedItem): Long {
+        return sharedPreferences.getLong(key.name.lowercase(), 0L)
+    }
+
+    override fun <T : Any> getCustomObject(key: EncryptedItem): T? {
+        return Gson().fromJson(
+            sharedPreferences.getString(key.name.lowercase(), null),
+            object : TypeToken<T>() {}.type
+        )
+    }
+
+    override fun <T : Any> setCustomObject(key: EncryptedItem, value: List<T>) {
         sharedPreferences.edit().putString(
             key.name.lowercase(),
             Gson().toJson(value)
         ).apply()
-    }
-
-    override fun getAuthScopes(key: EncryptedItem): List<String> {
-        return Gson().fromJson(
-            sharedPreferences.getString(key.name.lowercase(), "[]"),
-            object : TypeToken<List<String>>() {}.type
-        )
     }
 
 }
