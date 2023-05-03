@@ -6,7 +6,7 @@ import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class SharedPreferencesProvider(
+class EncryptedSharedPreferencesProvider(
     context: Context
 ) : EncryptedDataProvider {
 
@@ -45,10 +45,15 @@ class SharedPreferencesProvider(
     }
 
     override fun <T : Any> getCustomObject(key: EncryptedItem): T? {
-        return Gson().fromJson(
-            sharedPreferences.getString(key.name.lowercase(), null),
-            object : TypeToken<T>() {}.type
-        )
+        return try {
+            Gson().fromJson(
+                sharedPreferences.getString(key.name.lowercase(), null),
+                object : TypeToken<T>() {}.type
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
     override fun <T : Any> setCustomObject(key: EncryptedItem, value: List<T>) {

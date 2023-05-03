@@ -23,4 +23,5 @@ dependencies {
     implementation(libs.ktor.okhttp)
     implementation(libs.ktor.serialization)
     implementation(libs.ktor.serializationJson)
+    implementation(libs.gson)
 }

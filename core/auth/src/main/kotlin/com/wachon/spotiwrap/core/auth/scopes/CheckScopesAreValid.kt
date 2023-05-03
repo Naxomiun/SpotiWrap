@@ -8,20 +8,13 @@ interface CheckScopesAreValidUseCase {
 
 class CheckScopesAreValid(
     private val authConfigProvider: AuthConfigProvider,
-    private val getAuthScopes: GetAuthScopesUseCase,
-    private val saveAuthScopes: SaveAuthScopesUseCase
+    private val getAuthScopes: GetAuthScopesUseCase
 ) : CheckScopesAreValidUseCase {
 
     override fun invoke(): Boolean {
-        val scopesFromAuthConfig: List<String> = authConfigProvider.getScopes().map { it.name }
-        val scopesSaved: List<String> = getAuthScopes() ?: listOf()
-
-        return if (scopesSaved == scopesFromAuthConfig) {
-            true
-        } else {
-            saveAuthScopes(scopesFromAuthConfig)
-            false
-        }
+        val scopesFromAuthConfig: List<String>  = authConfigProvider.getScopes().map { it.name }
+        val scopesSaved = getAuthScopes()?.toList() ?: return false
+        return scopesSaved == scopesFromAuthConfig
     }
 
 }
