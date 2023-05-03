@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,11 +21,13 @@ import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.spotify.sdk.android.auth.LoginActivity
 import com.wachon.spotiwrap.core.auth.config.AuthConfig
+import com.wachon.spotiwrap.core.design.components.collectEvents
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
-    navigateToMenu: () -> Unit,
+    navigateToHome: () -> Unit,
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -36,17 +37,23 @@ fun LoginScreen(
         contract = ActivityResultContracts.StartActivityForResult()
     ) {
         val response = AuthorizationClient.getResponse(it.resultCode, it.data)
-        viewModel.handleLoginResponse(response, navigateToMenu)
+        viewModel.handleLoginResponse(response)
     }
 
-    LaunchedEffect(key1 = state.authConfig) {
-        if (state.authConfig == null) return@LaunchedEffect
-        launcher.launch(
-            LoginActivity.getAuthIntent(
-                context as Activity,
-                getAuthenticationRequest(state.authConfig!!)
-            )
-        )
+    collectEvents {
+        viewModel.event.collectLatest {
+            when (it) {
+                is LoginViewModel.Event.NavigateToHome -> navigateToHome()
+                is LoginViewModel.Event.AuthConfigReceived -> {
+                    launcher.launch(
+                        LoginActivity.getAuthIntent(
+                            context as Activity,
+                            getAuthenticationRequest(it.authConfig)
+                        )
+                    )
+                }
+            }
+        }
     }
 
     LoginContent(

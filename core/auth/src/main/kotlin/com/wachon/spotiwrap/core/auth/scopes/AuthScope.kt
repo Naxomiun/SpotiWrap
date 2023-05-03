@@ -1,6 +1,6 @@
 package com.wachon.spotiwrap.core.auth.scopes
 
-enum class AuthScopes(val value: String) {
+enum class AuthScope(val value: String) {
     UgcImageUpload("ugc-image-upload"),
     UserReadPlaybackState("user-read-playback-state"),
     UserModifyPlaybackState("user-modify-playback-state"),

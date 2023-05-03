@@ -30,8 +30,8 @@ val AuthModule
         single<TokenRepository> { DefaultTokenRepository(get(), get()) }
         factory<GetTokenUseCase> { GetToken(get()) }
         factory<GetAuthConfigUseCase> { GetAuthConfig(get()) }
-        factory<SaveAuthScopesUseCase> { SaveAuthScopes(get()) }
+        factory<SaveAuthScopesUseCase> { SaveAuthScopes(get(), get()) }
         factory<GetAuthScopesUseCase> { GetAuthScopes(get()) }
-        factory<CheckScopesAreValidUseCase> { CheckScopesAreValid(get(), get(), get()) }
+        factory<CheckScopesAreValidUseCase> { CheckScopesAreValid(get(), get()) }
         factory<GetAndPersistAccessTokenUseCase> { GetAndPersistAccessToken(get(), get()) }
     }

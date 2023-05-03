@@ -1,10 +1,10 @@
 package com.wachon.spotiwrap.core.auth.config
 
-import com.wachon.spotiwrap.core.auth.scopes.AuthScopes
+import com.wachon.spotiwrap.core.auth.scopes.AuthScope
 import com.wachon.spotiwrap.core.auth.BuildConfig
 
 interface AuthConfigProvider {
-    fun getScopes(): List<AuthScopes>
+    fun getScopes(): List<AuthScope>
     fun getClientId(): String
     fun getCampaignId(): String
     fun getClientBase64(): String
@@ -23,13 +23,13 @@ class DefaultAuthConfigProvider : AuthConfigProvider {
     private val redirectUrl = "spotiwrap://auth"
 
     private val scopes = listOf(
-        AuthScopes.UserReadEmail,
-        AuthScopes.UserReadPrivate,
-        AuthScopes.UserTopRead,
-        AuthScopes.Streaming
+        AuthScope.UserReadEmail,
+        AuthScope.UserReadPrivate,
+        AuthScope.UserTopRead,
+        AuthScope.Streaming
     )
 
-    override fun getScopes(): List<AuthScopes> {
+    override fun getScopes(): List<AuthScope> {
         return scopes
     }
 

@@ -13,10 +13,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -30,7 +27,7 @@ import com.wachon.spotiwrap.features.tracks.presentation.toptracks.TopTracksView
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MenuScreen(
+fun HomeScreen(
     viewModel: MenuViewModel = koinViewModel(),
     topArtistsViewModel: TopArtistsViewModel = koinViewModel(),
     topTracksViewModel: TopTracksViewModel = koinViewModel(),
