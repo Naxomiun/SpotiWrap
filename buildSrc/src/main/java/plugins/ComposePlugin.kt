@@ -52,6 +52,7 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.androidx.lifecycle.compose)
         implementation(libs.androidx.compose.ui.tooling.preview)
         implementation(libs.compose.landscapist.coil)
+        implementation(libs.compose.landscapist.glide)
         implementation(libs.compose.landscapist.palette)
         implementation(libs.koin.compose)
 

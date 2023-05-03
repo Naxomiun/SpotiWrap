@@ -4,24 +4,35 @@ import android.app.Activity
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.skydoves.landscapist.glide.GlideImage
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.spotify.sdk.android.auth.LoginActivity
 import com.wachon.spotiwrap.core.auth.config.AuthConfig
+import com.wachon.spotiwrap.core.design.components.BrandContainer
+import com.wachon.spotiwrap.core.design.theme.comedyFontFamily
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -50,7 +61,6 @@ fun LoginScreen(
     }
 
     LoginContent(
-        state = state,
         onLoginClicked = viewModel::login
     )
 
@@ -58,20 +68,39 @@ fun LoginScreen(
 
 @Composable
 fun LoginContent(
-    state: LoginViewModel.State,
     modifier: Modifier = Modifier,
     onLoginClicked: () -> Unit,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+    Box(
+        modifier = modifier.fillMaxSize()
     ) {
-        Button(
+        GlideImage(
+            modifier = Modifier.fillMaxSize(),
+            //TODO Find a more appropriate gif
+            imageModel = { "https://media.giphy.com/media/Y0zTJ7VrKo9P2/giphy.gif" }
+        )
+
+        Row(
             modifier = Modifier
-                .padding(16.dp),
-            onClick = { onLoginClicked() })
-        {
-            Text(text = "Login")
+                .width(180.dp)
+                .height(150.dp)
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 100.dp)
+                .clickable { onLoginClicked() },
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            BrandContainer(
+                modifier = Modifier.fillMaxSize(),
+                backgroundColor = Color.White,
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxSize(),
+                    text = "Login",
+                    //TODO Find a more appropriate typography
+                    style = TextStyle(fontFamily = comedyFontFamily, fontSize = 35.sp, textAlign = TextAlign.Center)
+                )
+            }
         }
     }
 }

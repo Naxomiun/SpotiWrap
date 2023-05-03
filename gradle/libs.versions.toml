@@ -13,7 +13,7 @@ room = "2.5.0"
 spotify = "2.0.2"
 composeCompiler = "1.4.4"
 composeBom = "2023.04.01"
-composeLandscapist = "2.1.11"
+composeLandscapist = "2.1.12"
 junit = "4.+"
 testJunit = "1.1.5"
 testEspresso = "3.5.1"
@@ -59,6 +59,7 @@ ktor-serializationJson = { module = "io.ktor:ktor-serialization-kotlinx-json", v
 loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "logginInterceptor" }
 
 compose-landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version.ref = "composeLandscapist" }
+compose-landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "composeLandscapist" }
 compose-landscapist-palette = { module = "com.github.skydoves:landscapist-palette", version.ref = "composeLandscapist" }
 
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
