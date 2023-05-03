@@ -2,9 +2,11 @@ package com.wachon.spotiwrap.core.design.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.wachon.spotiwrap.core.design.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -25,4 +27,8 @@ val Typography = Typography(
         fontSize = 12.sp
     )
     */
+)
+
+val comedyFontFamily = FontFamily(
+    Font(R.font.comedy_sketch_demo_regular)
 )

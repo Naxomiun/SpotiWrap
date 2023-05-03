@@ -7,6 +7,11 @@ plugins {
 
 android {
     namespace = Config.Feature.Artists
+    sourceSets {
+        getByName("main") {
+            resources.srcDirs("src/main/fonts")
+        }
+    }
 }
 
 dependencies {
