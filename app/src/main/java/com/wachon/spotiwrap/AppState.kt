@@ -20,8 +20,7 @@ fun rememberAppState(
 }
 
 class AppState(val navController: NavHostController, private val context: Context) {
-
-
+    
     val currentRoute: String
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination?.route
             ?: ""
@@ -36,19 +35,4 @@ class AppState(val navController: NavHostController, private val context: Contex
         navController.navigateAndPop(screen.route)
     }
 
-    fun popBackStack() {
-        navController.navigate(Screen.Login.route)
-    }
-
-    fun navigateToLogin() {
-        navController.navigate(Screen.Login.route)
-    }
-
-    fun navigateToMenu() {
-        navController.navigate(Screen.Home.route)
-    }
-
-    fun navigateToWrap() {
-        navController.navigate(Screen.Wrap.route)
-    }
 }
