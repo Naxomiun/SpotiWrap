@@ -19,26 +19,16 @@ class SplashViewModel(
     private val checkScopesAreValidUseCase: CheckScopesAreValidUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(State())
-    val state = _state.asStateFlow()
-
     private val _event = Channel<Event>()
     val event = _event.receiveAsFlow()
 
     fun checkForPersistedLogin() {
-        viewModelScope.launch {
-            val areScopesValidated = withContext(dispatcherProvider.background) {
-                checkScopesAreValidUseCase()
-            }
-            _state.update { it.copy(loading = false) }
+        viewModelScope.launch(dispatcherProvider.background) {
+            val areScopesValidated = checkScopesAreValidUseCase()
             if(areScopesValidated) _event.send(Event.NavigateToHome)
             else _event.send(Event.NavigateToLogin)
         }
     }
-
-    data class State(
-        val loading: Boolean = true
-    )
 
     sealed interface Event {
         object NavigateToLogin : Event

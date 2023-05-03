@@ -12,6 +12,7 @@ import com.wachon.spotiwrap.features.splash.presentation.SplashScreen
 fun SpotiWrapNavHost(
     appState: AppState = rememberAppState()
 ) {
+
     NavHost(
         navController = appState.navController,
         startDestination = Screen.Splash.route
@@ -31,4 +32,5 @@ fun SpotiWrapNavHost(
             HomeScreen()
         }
     }
+
 }
