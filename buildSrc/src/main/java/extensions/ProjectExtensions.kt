@@ -55,6 +55,10 @@ internal fun Project.configureKotlinAndroid(
             )
         }
     }
+
+    dependencies {
+        implementation(libs.kotlin.immutable)
+    }
 }
 
 fun Project.configureKtlint() {

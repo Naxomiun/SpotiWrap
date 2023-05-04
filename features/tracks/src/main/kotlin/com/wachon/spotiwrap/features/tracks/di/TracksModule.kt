@@ -4,8 +4,6 @@ import com.wachon.spotiwrap.features.tracks.data.DefaultTracksRepository
 import com.wachon.spotiwrap.features.tracks.data.TracksRepository
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracksUseCase
-import com.wachon.spotiwrap.features.tracks.presentation.toptracks.TopTracksViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -30,5 +28,5 @@ private val TracksDomainModule: Module
 
 private val TracksPresentationModule: Module
     get() = module {
-        viewModelOf(::TopTracksViewModel)
+
     }

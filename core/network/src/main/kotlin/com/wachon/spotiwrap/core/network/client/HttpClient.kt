@@ -5,6 +5,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.http.URLBuilder
@@ -37,6 +38,8 @@ object HttpClient {
             connectTimeoutMillis = 15000L
             socketTimeoutMillis = 15000L
         }
+
+        install(HttpCache)
 
         install(DefaultRequest) {
             val endpointUrlBuilder = URLBuilder(baseUrl)

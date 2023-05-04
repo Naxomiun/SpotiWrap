@@ -11,7 +11,7 @@ android {
 
 dependencies {
     implementation(project(":features:login"))
-    implementation(project(":features:menu"))
+    implementation(project(":features:home"))
     implementation(project(":features:splash"))
     implementation(project(":features:tracks"))
     implementation(project(":features:artists"))

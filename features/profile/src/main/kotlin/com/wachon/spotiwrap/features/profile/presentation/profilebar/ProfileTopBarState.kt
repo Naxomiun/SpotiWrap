@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.features.profile.presentation
+package com.wachon.spotiwrap.features.profile.presentation.profilebar
 
 import com.wachon.spotiwrap.core.common.model.UserProfileModel
 
