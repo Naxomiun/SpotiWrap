@@ -3,6 +3,7 @@ package com.wachon.spotiwrap.features.menu.presentation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,13 +32,15 @@ fun HomeScreen(
     viewModel: MenuViewModel = koinViewModel(),
     topArtistsViewModel: TopArtistsViewModel = koinViewModel(),
     topTracksViewModel: TopTracksViewModel = koinViewModel(),
+    paddingValues: PaddingValues
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     MenuContent(
         state = state,
         onCategorySelected = viewModel::onCategorySelected,
         topArtistsViewModel,
-        topTracksViewModel
+        topTracksViewModel,
+        paddingValues
     )
 }
 
@@ -47,10 +50,13 @@ fun MenuContent(
     onCategorySelected: (MenuCategory) -> Unit,
     topArtistsViewModel: TopArtistsViewModel,
     topTracksViewModel: TopTracksViewModel,
+    paddingValues: PaddingValues,
 ) {
-    val context = LocalContext.current
     Column(verticalArrangement = Arrangement.Top) {
-        ProfileTopBar(user = state.userProfile)
+        ProfileTopBar(
+            user = state.userProfile,
+            paddingValues = paddingValues,
+        )
         MenuBody(
             categorySelected = state.selectedCategory,
             onCategorySelected = onCategorySelected,

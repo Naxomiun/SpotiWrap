@@ -1,6 +1,7 @@
-package com.wachon.spotiwrap
+package com.wachon.spotiwrap.ui
 
 import Screen
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -10,7 +11,8 @@ import com.wachon.spotiwrap.features.splash.presentation.SplashScreen
 
 @Composable
 fun SpotiWrapNavHost(
-    appState: AppState = rememberAppState()
+    appState: AppState,
+    paddingValues: PaddingValues
 ) {
 
     NavHost(
@@ -29,7 +31,7 @@ fun SpotiWrapNavHost(
             )
         }
         composable(Screen.Home.route) {
-            HomeScreen()
+            HomeScreen(paddingValues = paddingValues)
         }
     }
 

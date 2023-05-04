@@ -33,7 +33,7 @@ import com.wachon.spotiwrap.core.auth.config.AuthConfig
 import com.wachon.spotiwrap.core.design.components.collectEvents
 import kotlinx.coroutines.flow.collectLatest
 import com.wachon.spotiwrap.core.design.components.BrandContainer
-import com.wachon.spotiwrap.core.design.theme.comedyFontFamily
+import com.wachon.spotiwrap.core.design.theme.LargeTitle
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -104,8 +104,7 @@ fun LoginContent(
                 Text(
                     modifier = Modifier.fillMaxSize(),
                     text = "Login",
-                    //TODO Find a more appropriate typography
-                    style = TextStyle(fontFamily = comedyFontFamily, fontSize = 35.sp, textAlign = TextAlign.Center)
+                    style = LargeTitle
                 )
             }
         }

@@ -24,7 +24,7 @@ class UsersRepositoryTest {
         fakeNetworkDatasource.shouldFail = false
         val userProfile = SUT.getUserInfo().first()
 
-        assertEquals("John Doe", userProfile.userName)
+        assertEquals("John Doe", userProfile.displayName)
         assertEquals("USA", userProfile.country)
         assertEquals("johndoe@example.com", userProfile.email)
         assertEquals("https://www.example.com/profile_image.jpg", userProfile.image)

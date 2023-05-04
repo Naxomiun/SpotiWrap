@@ -54,6 +54,8 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.compose.landscapist.coil)
         implementation(libs.compose.landscapist.glide)
         implementation(libs.compose.landscapist.palette)
+        implementation(libs.compose.landscapist.placeholder)
+        implementation(libs.compose.landscapist.animation)
         implementation(libs.accompanist.uiController)
         implementation(libs.koin.compose)
 

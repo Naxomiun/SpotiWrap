@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.flow.WhileSubscribedOrRetained
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
@@ -28,7 +29,7 @@ class MenuViewModel(
         )
     }.stateIn(
         scope = viewModelScope,
-        started = WhileSubscribedOrRetained,
+        started = SharingStarted.WhileSubscribed(5_000),
         initialValue = MenuScreenState()
     )
 
