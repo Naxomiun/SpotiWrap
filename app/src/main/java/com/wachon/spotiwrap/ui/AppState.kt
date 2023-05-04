@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap
+package com.wachon.spotiwrap.ui
 
 import Screen
 import android.content.Context

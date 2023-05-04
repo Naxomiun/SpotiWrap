@@ -1,56 +1,55 @@
 package com.wachon.spotiwrap.core.design.theme
 
-import android.app.Activity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-private val DarkColorPalette = darkColorScheme(
-    primary = Purple200,
-    secondary = Teal200
-)
-
-private val LightColorPalette = lightColorScheme(
-    primary = Purple500,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
+private val ColorPalette = ColorScheme(
+    primary = BubblegumPink,
+    secondary = BubblegumPink,
+    tertiary = BubblegumPink,
+    error = BubblegumPink,
+    background = Color.Black,
+    onBackground = Color.White,
+    primaryContainer = Color.Black,
+    onPrimaryContainer = Color.White,
+    secondaryContainer = Color.Black,
+    onSecondaryContainer = Color.White,
+    tertiaryContainer = Color.Black,
+    onTertiaryContainer = Color.White,
+    errorContainer = Color.Black,
+    onErrorContainer = Color.White,
+    surface = Color.Black,
+    onSurface = Color.White,
+    surfaceVariant = Color.Black,
+    onSurfaceVariant = Color.White,
+    outline = Color.Black,
+    inverseOnSurface = Color.White,
+    inverseSurface = Color.Black,
+    inversePrimary = BubblegumPink,
+    onError = BubblegumPink,
+    onPrimary = Color.Black,
     onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    onTertiary = Color.Black,
+    outlineVariant = Color.Black,
+    scrim = Color.Black,
+    surfaceTint = BubblegumPink
 )
+
 
 @Composable
-fun SpotiWrapTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-
-    val colorScheme = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
+fun SpotiWrapTheme(content: @Composable () -> Unit) {
 
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
-        color = Color.Black.copy(alpha = 0.5F),
+        color = Color.Transparent,
         darkIcons = false
     )
 
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
+        colorScheme = ColorPalette,
         shapes = Shapes,
         content = content
     )

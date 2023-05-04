@@ -34,8 +34,8 @@ data class UserProfileApi(
 
     fun toDomain(): UserProfileModel {
         return UserProfileModel(
+            displayName = this.displayName ?: "",
             country = this.country ?: "",
-            userName = this.displayName ?: "",
             email = this.email ?: "",
             image = this.images?.first()?.url ?: ""
         )
