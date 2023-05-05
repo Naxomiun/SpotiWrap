@@ -1,7 +1,7 @@
 package com.wachon.spotiwrap.core.auth.token
 
 import com.wachon.spotiwrap.core.auth.TokenRepository
-import com.wachon.spotiwrap.core.common.model.TokenModel
+import com.wachon.spotiwrap.core.auth.model.TokenModel
 
 interface GetTokenUseCase {
     suspend operator fun invoke(): TokenModel

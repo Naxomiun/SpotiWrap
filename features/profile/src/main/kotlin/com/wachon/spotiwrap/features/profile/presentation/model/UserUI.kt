@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.features.profile.presentation.model
 
-import android.util.Log
 import androidx.compose.runtime.Immutable
 import com.wachon.spotiwrap.core.common.model.UserProfileModel
 

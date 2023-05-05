@@ -25,6 +25,7 @@ import com.skydoves.landscapist.animation.crossfade.CrossfadePlugin
 import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.components.rememberImageComponent
 import com.theapache64.rebugger.Rebugger
+import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.design.theme.Title
@@ -45,8 +46,11 @@ fun ProfileTopBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(paddingValues)
-            .padding(16.dp),
+            .padding(
+                top = paddingValues.calculateTopPadding() + 24.dp,
+                bottom = 24.dp
+            )
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -64,31 +68,15 @@ fun ProfileGreetings(
     Column(
         modifier = modifier
     ) {
-        Text(
-            text = "Buenas tardes",
-            style = Title.copy(
-                platformStyle = PlatformTextStyle(
-                    includeFontPadding = false
-                ),
-                lineHeightStyle = LineHeightStyle(
-                    alignment = LineHeightStyle.Alignment.Center,
-                    trim = LineHeightStyle.Trim.None
-                )
-            ),
+        TextNoPadding(
+            text = "Good evening!",
+            style = Title,
             color = MaterialTheme.colorScheme.onBackground,
         )
-        Text(
+        TextNoPadding(
             text = username(),
-            style = Body.copy(
-                platformStyle = PlatformTextStyle(
-                    includeFontPadding = false
-                ),
-                lineHeightStyle = LineHeightStyle(
-                    alignment = LineHeightStyle.Alignment.Center,
-                    trim = LineHeightStyle.Trim.None
-                )
-            ),
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f),
+            style = Body,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
         )
 
     }

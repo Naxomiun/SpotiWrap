@@ -16,7 +16,7 @@ fun TrackModel.toUI(): TrackUI {
     return TrackUI(
         trackTitle = title,
         trackImage = imageUrl,
-        trackArtist = artists.joinToString(",") { it.name }
+        trackArtist = artists.joinToString(", ") { it.name }
     )
 }
 

@@ -34,11 +34,10 @@ class HomeViewModel(
             userProfile = userProfile,
             topTracks = topTracks
         )
-    }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = MenuScreenState()
-        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = MenuScreenState()
+    )
 
 }

@@ -7,4 +7,3 @@ data class UserProfileModel(
     val image: String
 )
 
-

@@ -1,8 +1,8 @@
 package com.wachon.spotiwrap.core.auth
 
 import com.wachon.spotiwrap.core.auth.config.AuthConfig
-import com.wachon.spotiwrap.core.common.model.RefreshTokenModel
-import com.wachon.spotiwrap.core.common.model.TokenModel
+import com.wachon.spotiwrap.core.auth.model.RefreshTokenModel
+import com.wachon.spotiwrap.core.auth.model.TokenModel
 import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedDataProvider
 import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedItem
 
