@@ -4,8 +4,6 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="jbr-17" />
         <option name="modules">
@@ -22,8 +20,8 @@
             <option value="$PROJECT_DIR$/core/persistence" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/artists" />
+            <option value="$PROJECT_DIR$/features/home" />
             <option value="$PROJECT_DIR$/features/login" />
-            <option value="$PROJECT_DIR$/features/menu" />
             <option value="$PROJECT_DIR$/features/profile" />
             <option value="$PROJECT_DIR$/features/splash" />
             <option value="$PROJECT_DIR$/features/tracks" />

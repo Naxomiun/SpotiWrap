@@ -1,6 +1,6 @@
 package com.wachon.spotiwrap.features.menu.di
 
-import com.wachon.spotiwrap.features.menu.presentation.MenuViewModel
+import com.wachon.spotiwrap.features.menu.presentation.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -25,5 +25,5 @@ private val MenuDomainModule: Module
 
 private val MenuPresentationModule: Module
     get() = module {
-        viewModelOf(::MenuViewModel)
+        viewModelOf(::HomeViewModel)
     }

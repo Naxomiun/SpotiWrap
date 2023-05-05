@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.core.common.model
+package com.wachon.spotiwrap.core.auth.model
 
 data class TokenModel(
     val accessToken: String,

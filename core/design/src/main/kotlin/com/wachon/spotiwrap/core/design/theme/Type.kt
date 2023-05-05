@@ -32,7 +32,7 @@ val Body: TextStyle
     get() = TextStyle(
         fontFamily = FontFamily.Poppins,
         fontWeight = FontWeight.W400,
-        fontSize = 17.sp
+        fontSize = 15.sp
     )
 
 val SubBody: TextStyle

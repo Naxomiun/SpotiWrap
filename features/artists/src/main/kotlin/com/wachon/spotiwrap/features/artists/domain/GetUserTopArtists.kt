@@ -34,7 +34,7 @@ class GetUserTopArtists(
             .getTopArtists(
                 limit = limit,
                 offset = offset,
-                timeRange = TopItemTimeRange.MEDIUM_TERM
+                timeRange = timeRange
             )
             .flowOn(dispatchers.background)
     }

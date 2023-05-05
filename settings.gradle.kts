@@ -17,7 +17,7 @@ include(
 //Features
 include(
     ":features:login",
-    ":features:menu",
+    ":features:home",
     ":features:splash",
     ":features:tracks",
     ":features:artists",

@@ -58,6 +58,7 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.compose.landscapist.animation)
         implementation(libs.accompanist.uiController)
         implementation(libs.koin.compose)
+        implementation(libs.compose.rebugger)
 
         implementation(libs.ktor.core)
         implementation(libs.ktor.logging)

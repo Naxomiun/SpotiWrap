@@ -1,7 +1,7 @@
 package com.wachon.spotiwrap.core.auth.token
 
-import com.wachon.spotiwrap.core.common.model.RefreshTokenModel
-import com.wachon.spotiwrap.core.common.model.TokenModel
+import com.wachon.spotiwrap.core.auth.model.RefreshTokenModel
+import com.wachon.spotiwrap.core.auth.model.TokenModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
