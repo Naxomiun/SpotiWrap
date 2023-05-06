@@ -44,7 +44,7 @@ fun SpotiWrapTheme(content: @Composable () -> Unit) {
 
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
-        color = Color.Transparent,
+        color = ColorPalette.background.copy(alpha = 0.5f),
         darkIcons = false
     )
 

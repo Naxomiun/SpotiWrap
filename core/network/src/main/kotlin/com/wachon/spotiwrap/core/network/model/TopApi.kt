@@ -48,6 +48,7 @@ data class TopItemApi(
 
     fun toTrackModel(): TrackModel {
         return TrackModel(
+            id = this.id ?: "",
             imageUrl = this.album?.images?.first()?.url ?: "",
             title = this.name ?: "",
             artists = this.artists?.map { it.toDomain() } ?: emptyList()
@@ -56,6 +57,7 @@ data class TopItemApi(
 
     fun toArtistModel(): ArtistModel {
         return ArtistModel(
+            id = this.id ?: "",
             imageUrl = this.images?.first()?.url ?: "",
             name = this.name ?: "",
         )
@@ -99,7 +101,8 @@ data class ArtistApi(
 ) {
 
     fun toDomain(): ArtistModel {
-        return ArtistModel(
+        return ArtistModel (
+            id = this.id ?: "",
             name = this.name ?: "",
             imageUrl = this.images?.first()?.url ?: ""
         )

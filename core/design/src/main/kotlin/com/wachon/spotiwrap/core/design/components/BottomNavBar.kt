@@ -35,12 +35,14 @@ import androidx.compose.ui.unit.dp
 import com.theapache64.rebugger.Rebugger
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.navigation.MainGraph
+import kotlinx.coroutines.delay
 
 @Composable
 fun BottomNavBar(
     modifier: Modifier = Modifier,
     currentRoute: () -> String,
     onSelectedItem: (BottomNavBarItem) -> Unit,
+    shouldShow: Boolean,
 ) {
 
     Rebugger(
@@ -51,16 +53,17 @@ fun BottomNavBar(
         ),
     )
 
-    var visibility by rememberSaveable {
+    var firstVisibility by rememberSaveable {
         mutableStateOf(false)
     }
 
     LaunchedEffect(Unit) {
-        visibility = true
+        delay(600)
+        firstVisibility = true
     }
 
     AnimatedVisibility(
-        visible = visibility,
+        visible = shouldShow && firstVisibility,
         enter = slideInVertically(
             initialOffsetY = { 1000 },
             animationSpec = tween(
@@ -168,7 +171,8 @@ fun BottomNavBarPreview() {
     SpotiWrapTheme {
         BottomNavBar(
             currentRoute = { BottomNavBarItem.Home.getScreenRoute() },
-            onSelectedItem = {}
+            onSelectedItem = {},
+            shouldShow = true
         )
     }
 }

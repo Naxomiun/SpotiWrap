@@ -3,6 +3,7 @@ package com.wachon.spotiwrap.ui
 import com.wachon.spotiwrap.core.navigation.AuthGraph
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
@@ -23,6 +24,7 @@ fun rememberAppState(
     AppState(authNavController, mainNavController, context)
 }
 
+@Stable
 class AppState(
     val authNavController: NavHostController,
     val mainNavController: NavHostController,

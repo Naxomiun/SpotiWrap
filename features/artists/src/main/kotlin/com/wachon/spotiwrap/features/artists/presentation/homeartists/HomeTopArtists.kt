@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.features.tracks.presentation.hometracks
+package com.wachon.spotiwrap.features.artists.presentation.homeartists
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,30 +16,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.theapache64.rebugger.Rebugger
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
-import com.wachon.spotiwrap.features.tracks.presentation.common.TrackItem
-import com.wachon.spotiwrap.features.tracks.presentation.model.TrackUI
+import com.wachon.spotiwrap.features.artists.presentation.common.ArtistItem
+import com.wachon.spotiwrap.features.artists.presentation.model.ArtistUI
 import kotlinx.collections.immutable.ImmutableList
+import com.theapache64.rebugger.Rebugger
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
-fun HomeTopTracks(
+fun HomeTopArtists(
     modifier: Modifier = Modifier,
-    tracks: ImmutableList<TrackUI>
+    artists: ImmutableList<ArtistUI>
 ) {
 
     Rebugger(
         trackMap = mapOf(
-            "tracks" to tracks
-        )
+            "modifier" to modifier,
+            "artists" to artists,
+        ),
     )
 
     Column(
@@ -47,15 +46,15 @@ fun HomeTopTracks(
             .fillMaxWidth()
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        HeaderTopTrackList()
+        HeaderTopArtistList()
         Spacer(modifier = Modifier.height(8.dp))
-        TopTrackList(tracks = tracks)
+        TopArtistList(artists = artists)
     }
 
 }
 
 @Composable
-fun HeaderTopTrackList(
+fun HeaderTopArtistList(
     modifier: Modifier = Modifier
 ) {
 
@@ -73,16 +72,16 @@ fun HeaderTopTrackList(
                         strokeWidth = size.height / 4
                     )
                 },
-            text = "Top songs",
+            text = "Top artists",
             style = Body.copy(fontWeight = FontWeight.W700)
         )
     }
 }
 
 @Composable
-fun TopTrackList(
+fun TopArtistList(
     modifier: Modifier = Modifier,
-    tracks: ImmutableList<TrackUI>
+    artists: ImmutableList<ArtistUI>
 ) {
 
     LazyRow(
@@ -92,11 +91,11 @@ fun TopTrackList(
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(
-            items = tracks,
-            key = { it.trackId }
-        ) { track ->
-            TrackItem(
-                track = track
+            items = artists,
+            key = { it.artistId }
+        ) { artist ->
+            ArtistItem(
+                artist = artist
             )
         }
     }
@@ -104,10 +103,10 @@ fun TopTrackList(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeTopTracksPreview() {
+fun HomeTopArtistsPreview() {
     SpotiWrapTheme {
-        HomeTopTracks(
-            tracks = persistentListOf()
+        HomeTopArtists(
+            artists = persistentListOf()
         )
     }
 }
