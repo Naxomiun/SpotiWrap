@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -19,8 +17,8 @@ import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
-import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.SubBody
+import com.theapache64.rebugger.Rebugger
 import com.wachon.spotiwrap.features.tracks.presentation.model.TrackUI
 
 @Composable
@@ -57,6 +55,5 @@ fun TrackItem(
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
         )
     }
-
 
 }

@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,8 +36,7 @@ import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 @Composable
 fun ProfileTopBar(
     user: UserUI?,
-    modifier: Modifier = Modifier,
-    paddingValues: PaddingValues = PaddingValues(),
+    modifier: Modifier = Modifier
 ) {
     Rebugger(
         trackMap = mapOf(
@@ -46,8 +47,9 @@ fun ProfileTopBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .statusBarsPadding()
             .padding(
-                top = paddingValues.calculateTopPadding() + 24.dp,
+                top = 24.dp,
                 bottom = 24.dp
             )
             .padding(horizontal = 16.dp),
