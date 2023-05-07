@@ -1,10 +1,7 @@
 package plugins
 
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import extensions.androidTestImplementationBom
 import extensions.implementation
-import extensions.implementationBom
 import extensions.libs
 import extensions.configureKtlint
 import extensions.configureKotlinAndroid
