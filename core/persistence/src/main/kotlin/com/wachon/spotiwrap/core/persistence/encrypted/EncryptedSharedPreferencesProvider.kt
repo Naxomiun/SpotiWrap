@@ -14,7 +14,7 @@ class EncryptedSharedPreferencesProvider(
         const val ENCRYPTED_CONFIG = "encrypted_config"
     }
 
-    private val masterKeyAlias = MasterKey.Builder(context)
+    private val masterKeyAlias = MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
 
