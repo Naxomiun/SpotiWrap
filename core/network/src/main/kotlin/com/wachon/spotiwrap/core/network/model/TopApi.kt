@@ -43,7 +43,8 @@ data class TopItemApi(
     val uri: String?,
     @SerialName("is_local")
     val isLocal: Boolean?,
-    val images: List<ImageApi>?
+    val images: List<ImageApi>?,
+    val genres: List<String>?
 ) {
 
     fun toTrackModel(): TrackModel {
@@ -60,6 +61,7 @@ data class TopItemApi(
             id = this.id ?: "",
             imageUrl = this.images?.first()?.url ?: "",
             name = this.name ?: "",
+            genres = this.genres ?: emptyList()
         )
     }
 
@@ -97,14 +99,16 @@ data class ArtistApi(
     val name: String?,
     val type: String?,
     val uri: String?,
-    val images: List<ImageApi>?
+    val images: List<ImageApi>?,
+    val genres: List<String>?
 ) {
 
     fun toDomain(): ArtistModel {
         return ArtistModel (
             id = this.id ?: "",
             name = this.name ?: "",
-            imageUrl = this.images?.first()?.url ?: ""
+            imageUrl = this.images?.first()?.url ?: "",
+            genres = this.genres.orEmpty()
         )
     }
 

@@ -80,7 +80,6 @@ fun ProfileGreetings(
             style = Body,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
         )
-
     }
 }
 

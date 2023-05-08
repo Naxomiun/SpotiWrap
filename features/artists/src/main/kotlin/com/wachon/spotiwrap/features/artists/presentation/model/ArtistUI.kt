@@ -1,9 +1,7 @@
 package com.wachon.spotiwrap.features.artists.presentation.model
 
-import android.util.Log
 import androidx.compose.runtime.Immutable
 import com.wachon.spotiwrap.core.common.model.ArtistModel
-import com.wachon.spotiwrap.core.common.model.TrackModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -11,7 +9,8 @@ import kotlinx.collections.immutable.toImmutableList
 data class ArtistUI(
     val artistId: String,
     val artistName: String,
-    val artistImage: String
+    val artistImage: String,
+    val artistGenres: List<String> = emptyList(),
 )
 
 fun ArtistModel.toUI(): ArtistUI {
@@ -19,6 +18,7 @@ fun ArtistModel.toUI(): ArtistUI {
         artistId = id,
         artistName = name,
         artistImage = imageUrl,
+        artistGenres = genres
     )
 }
 
