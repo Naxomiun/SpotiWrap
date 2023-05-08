@@ -25,7 +25,7 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                shouldShow = shouldShowBottomBar,
+                shouldShow = { shouldShowBottomBar },
                 currentRoute = { currentRoute },
                 onSelectedItem = {
                     if (currentRoute != it.getScreenRoute()) {

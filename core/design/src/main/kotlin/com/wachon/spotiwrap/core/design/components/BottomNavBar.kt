@@ -17,15 +17,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import androidx.compose.animation.*
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
@@ -36,30 +33,21 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.theapache64.rebugger.Rebugger
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.navigation.MainGraph
 import kotlinx.coroutines.delay
+import kotlin.math.roundToInt
 
 @Composable
 fun BottomNavBar(
     modifier: Modifier = Modifier,
     currentRoute: () -> String,
     onSelectedItem: (BottomNavBarItem) -> Unit,
-    shouldShow: Boolean,
+    shouldShow: () -> Boolean
 ) {
-
-    Rebugger(
-        trackMap = mapOf(
-            "modifier" to modifier,
-            "currentRoute" to currentRoute,
-            "onSelectedItem" to onSelectedItem,
-        ),
-    )
 
     var firstVisibility by rememberSaveable {
         mutableStateOf(false)
@@ -71,7 +59,7 @@ fun BottomNavBar(
     }
 
     AnimatedVisibility(
-        visible = shouldShow && firstVisibility,
+        visible = shouldShow() && firstVisibility,
         enter = slideInVertically(
             initialOffsetY = { 1000 },
             animationSpec = tween(
@@ -176,16 +164,17 @@ fun BottomBarButton(
             Icon(
                 navItem.icon,
                 contentDescription = navItem.name,
-                modifier = Modifier.drawBehind {
-                    drawCircle(
-                        color = BubblegumPink,
-                        alpha = dothAlpha,
-                        radius = 2.3.dp.toPx(),
-                        style = Fill,
-                        center = Offset(size.width/2,  (size.height + 3.dp.toPx()) + ((1f - dothAlpha) * 48.dp.toPx()))
-                    )
-                },
-                tint = iconColor
+                modifier = Modifier
+                    .drawBehind {
+                        drawCircle(
+                            color = BubblegumPink,
+                            alpha = dothAlpha,
+                            radius = 2.3.dp.toPx(),
+                            style = Fill,
+                            center = Offset(size.width / 2, (size.height + 3.dp.toPx()) + ((1f - dothAlpha) * 48.dp.toPx()))
+                        )
+                    }.offset { IntOffset(x = 0, y = ((-dothAlpha)*10).roundToInt()) },
+                tint = iconColor,
             )
 
         }
@@ -200,7 +189,7 @@ fun BottomNavBarPreview() {
         BottomNavBar(
             currentRoute = { BottomNavBarItem.Home.getScreenRoute() },
             onSelectedItem = {},
-            shouldShow = true
+            shouldShow = { true }
         )
     }
 }

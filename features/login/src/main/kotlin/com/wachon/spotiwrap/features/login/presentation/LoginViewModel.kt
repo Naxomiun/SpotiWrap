@@ -74,6 +74,4 @@ class LoginViewModel(
         object NavigateToHome : Event
     }
 
-
-
 }
