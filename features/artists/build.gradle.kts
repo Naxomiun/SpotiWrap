@@ -16,6 +16,5 @@ android {
 
 dependencies {
     implementation(project(":core:network"))
-
     testImplementation(project(":core:network"))
 }

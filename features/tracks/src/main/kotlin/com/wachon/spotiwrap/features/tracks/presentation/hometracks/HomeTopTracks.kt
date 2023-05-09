@@ -36,12 +36,6 @@ fun HomeTopTracks(
     tracks: ImmutableList<TrackUI>
 ) {
 
-    Rebugger(
-        trackMap = mapOf(
-            "tracks" to tracks
-        )
-    )
-
     Column(
         modifier = modifier
             .fillMaxWidth()

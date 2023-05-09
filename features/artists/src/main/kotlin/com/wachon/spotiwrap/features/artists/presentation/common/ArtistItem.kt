@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -15,8 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.coil.CoilImage
+import coil.compose.AsyncImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
@@ -31,15 +29,13 @@ fun ArtistItem(
         modifier = modifier
             .width(80.dp)
     ) {
-        CoilImage(
+        AsyncImage(
+            model = artist.artistImage,
+            contentScale = ContentScale.Crop,
+            contentDescription = artist.artistName,
             modifier = Modifier
                 .size(80.dp)
                 .clip(CircleShape),
-            imageModel = { artist.artistImage },
-            imageOptions = ImageOptions(
-                contentDescription = artist.artistName,
-                contentScale = ContentScale.Crop
-            )
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextNoPadding(

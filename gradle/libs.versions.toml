@@ -14,11 +14,11 @@ spotify = "2.0.2"
 composeCompiler = "1.4.4"
 composeBom = "2023.04.01"
 composeLandscapist = "2.1.12"
+coilCompose ="2.3.0"
 junit = "4.+"
 testJunit = "1.1.5"
 testEspresso = "3.5.1"
 lifecycle = "2.6.1"
-crypto = "1.1.0-alpha01"
 koinCore = "3.4.0"
 koinCompose = "3.4.3"
 gson = "2.9.0"
@@ -52,8 +52,6 @@ accompanist-uiController = { module = "com.google.accompanist:accompanist-system
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 
-androidx-crypto = { module = "androidx.security:security-crypto", version.ref = "crypto" }
-
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose" }
@@ -72,6 +70,7 @@ compose-landscapist-glide = { module = "com.github.skydoves:landscapist-glide", 
 compose-landscapist-placeholder = { module = "com.github.skydoves:landscapist-placeholder", version.ref = "composeLandscapist" }
 compose-landscapist-palette = { module = "com.github.skydoves:landscapist-palette", version.ref = "composeLandscapist" }
 compose-landscapist-animation = { module = "com.github.skydoves:landscapist-animation", version.ref = "composeLandscapist" }
+compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
