@@ -22,11 +22,12 @@ object HttpClient {
         baseUrl: String,
         interceptors: List<Interceptor>
     ) = HttpClient(OkHttp) {
+
         install(ContentNegotiation) {
             json(
                 Json {
                     ignoreUnknownKeys = true
-                    prettyPrint = true
+                    prettyPrint = false
                     isLenient = true
                     explicitNulls = false
                 }
@@ -50,6 +51,7 @@ object HttpClient {
         }
 
         engine {
+            clientCacheSize = (10 * 1024 * 1024L).toInt()
             val loggingInterceptor = HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             }

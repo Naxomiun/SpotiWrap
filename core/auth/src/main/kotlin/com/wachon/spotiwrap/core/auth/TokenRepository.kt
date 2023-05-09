@@ -3,8 +3,8 @@ package com.wachon.spotiwrap.core.auth
 import com.wachon.spotiwrap.core.auth.config.AuthConfig
 import com.wachon.spotiwrap.core.auth.model.RefreshTokenModel
 import com.wachon.spotiwrap.core.auth.model.TokenModel
-import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedDataProvider
-import com.wachon.spotiwrap.core.persistence.encrypted.EncryptedItem
+import com.wachon.spotiwrap.core.persistence.sharedpreferences.DataProvider
+import com.wachon.spotiwrap.core.persistence.sharedpreferences.SharedPreferencesItem
 
 interface TokenRepository {
     suspend fun getAccessToken(code: String, authConfig: AuthConfig): TokenModel
@@ -17,7 +17,7 @@ interface TokenRepository {
 
 class DefaultTokenRepository(
     private val tokenDataSource: TokenDatasource,
-    private val encryptedDataProvider: EncryptedDataProvider,
+    private val dataProvider: DataProvider,
 ) : TokenRepository {
 
     override suspend fun getAccessToken(code: String, authConfig: AuthConfig): TokenModel {
@@ -31,13 +31,13 @@ class DefaultTokenRepository(
     }
 
     override fun getPersistedRefreshToken(): String {
-        return encryptedDataProvider.getEncryptedString(EncryptedItem.REFRESH_TOKEN) ?: throw IllegalStateException("Refresh token not found")
+        return dataProvider.getString(SharedPreferencesItem.REFRESH_TOKEN, decrypt = true) ?: throw IllegalStateException("Refresh token not found")
     }
 
     override fun persistToken(token: TokenModel): TokenModel {
-        encryptedDataProvider.setEncryptedString(EncryptedItem.TOKEN, token.accessToken)
-        encryptedDataProvider.setEncryptedString(EncryptedItem.REFRESH_TOKEN, token.refreshToken)
-        encryptedDataProvider.setEncryptedLong(EncryptedItem.TOKEN_EXPIRE_TIMESTAMP, token.expireTimestamp)
+        dataProvider.setString(SharedPreferencesItem.TOKEN, token.accessToken, encrypt = true)
+        dataProvider.setString(SharedPreferencesItem.REFRESH_TOKEN, token.refreshToken, encrypt = true)
+        dataProvider.setLong(SharedPreferencesItem.TOKEN_EXPIRE_TIMESTAMP, token.expireTimestamp)
 
         return TokenModel(
             accessToken = token.accessToken,
@@ -47,11 +47,11 @@ class DefaultTokenRepository(
     }
 
     override fun getPersistedToken(): TokenModel {
-        val accessToken = encryptedDataProvider.getEncryptedString(EncryptedItem.TOKEN)
-        val refreshToken = encryptedDataProvider.getEncryptedString(EncryptedItem.REFRESH_TOKEN)
-        val expireTimestamp = encryptedDataProvider.getEncryptedLong(EncryptedItem.TOKEN_EXPIRE_TIMESTAMP)
+        val accessToken = dataProvider.getString(SharedPreferencesItem.TOKEN, decrypt = true)
+        val refreshToken = dataProvider.getString(SharedPreferencesItem.REFRESH_TOKEN, decrypt = true)
+        val expireTimestamp = dataProvider.getLong(SharedPreferencesItem.TOKEN_EXPIRE_TIMESTAMP)
 
-        if(accessToken == null || refreshToken == null || expireTimestamp == null) {
+        if(accessToken == null || refreshToken == null) {
             throw IllegalStateException("Token not found")
         }
 
@@ -63,8 +63,8 @@ class DefaultTokenRepository(
     }
 
     override fun updatePersistedToken(token: RefreshTokenModel): TokenModel {
-        encryptedDataProvider.setEncryptedString(EncryptedItem.TOKEN, token.accessToken)
-        encryptedDataProvider.setEncryptedLong(EncryptedItem.TOKEN_EXPIRE_TIMESTAMP, token.expireTimestamp)
+        dataProvider.setString(SharedPreferencesItem.TOKEN, token.accessToken, encrypt = true)
+        dataProvider.setLong(SharedPreferencesItem.TOKEN_EXPIRE_TIMESTAMP, token.expireTimestamp)
 
         return TokenModel(
             accessToken = token.accessToken,

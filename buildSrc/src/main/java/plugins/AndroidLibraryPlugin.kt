@@ -1,8 +1,6 @@
 package plugins
 
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.internal.dsl.InternalLibraryExtension
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import extensions.libs
 import extensions.configureKotlinAndroid
 import org.gradle.api.Plugin
@@ -10,7 +8,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import extensions.*
-import org.gradle.api.JavaVersion
 
 class AndroidLibraryPlugin : Plugin<Project> {
 

@@ -21,7 +21,7 @@ private val ColorPalette = ColorScheme(
     onTertiaryContainer = Color.White,
     errorContainer = Color.Black,
     onErrorContainer = Color.White,
-    surface = Color.Black,
+    surface = SpotifyBlack,
     onSurface = Color.White,
     surfaceVariant = Color.Black,
     onSurfaceVariant = Color.White,
@@ -44,7 +44,7 @@ fun SpotiWrapTheme(content: @Composable () -> Unit) {
 
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
-        color = Color.Transparent,
+        color = ColorPalette.background.copy(alpha = 0.5f),
         darkIcons = false
     )
 

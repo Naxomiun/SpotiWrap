@@ -1,38 +1,67 @@
 package com.wachon.spotiwrap.ui
 
-import Screen
+import com.wachon.spotiwrap.core.navigation.AuthGraph
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.wachon.spotiwrap.core.design.components.BottomNavBarItem
+import com.wachon.spotiwrap.core.navigation.GRAPH
+import com.wachon.spotiwrap.core.navigation.MainGraph
 import com.wachon.spotiwrap.core.navigation.extensions.navigateAndPop
 import com.wachon.spotiwrap.core.navigation.extensions.navigatePoppingUpToStartDestination
 
 @Composable
 fun rememberAppState(
-    navController: NavHostController = rememberNavController(),
+    authNavController: NavHostController = rememberNavController(),
+    mainNavController: NavHostController = rememberNavController(),
     context: Context = LocalContext.current
-) = remember(navController, context) {
-    AppState(navController, context)
+) = remember(authNavController, mainNavController, context) {
+    AppState(authNavController, mainNavController, context)
 }
 
-class AppState(val navController: NavHostController, private val context: Context) {
+@Stable
+class AppState(
+    val authNavController: NavHostController,
+    val mainNavController: NavHostController,
+    private val context: Context
+) {
     
     val currentRoute: String
-        @Composable get() = navController.currentBackStackEntryAsState().value?.destination?.route
+        @Composable get() = mainNavController.currentBackStackEntryAsState().value?.destination?.route
             ?: ""
 
-    fun navigatePoppingUpToStartDestination(currentRoute: String, screen: Screen) {
-        if (currentRoute != screen.route) {
-            navController.navigatePoppingUpToStartDestination(screen.route)
+    fun navigateToLogin() {
+        authNavController.navigate(AuthGraph.Login.route)
+    }
+
+    fun navigateToMainGraph() {
+        authNavController.popBackStack()
+        authNavController.navigateAndPop(GRAPH.Main)
+    }
+
+    fun bottomNavigationTo(bottomNavBarItem: BottomNavBarItem) {
+        when (bottomNavBarItem) {
+            BottomNavBarItem.Home -> navigateToHome()
+            BottomNavBarItem.Top -> navigateToTop()
+            BottomNavBarItem.Profile -> navigateToProfile()
         }
     }
 
-    fun navigateAndPop(screen: Screen) {
-        navController.navigateAndPop(screen.route)
+    private fun navigateToHome() {
+        mainNavController.navigatePoppingUpToStartDestination(MainGraph.Home.route)
+    }
+
+    private fun navigateToTop() {
+        mainNavController.navigatePoppingUpToStartDestination(MainGraph.Top.route)
+    }
+
+    private fun navigateToProfile() {
+        mainNavController.navigatePoppingUpToStartDestination(MainGraph.Profile.route)
     }
 
 }
