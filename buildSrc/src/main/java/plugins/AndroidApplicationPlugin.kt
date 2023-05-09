@@ -59,7 +59,6 @@ class AndroidApplicationPlugin : Plugin<Project> {
             configureKotlinAndroid(this)
             configureKtlint()
             configureCompose(this)
-            configureRoom()
 
             dependencies {
                 implementation(libs.koin.core)

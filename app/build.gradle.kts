@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":core:auth"))
     implementation(project(":core:persistence"))
     implementation(project(":core:network"))
+    implementation(project(":core:database"))
     implementation(project(":core:navigation"))
     implementation(project(":core:design"))
 }

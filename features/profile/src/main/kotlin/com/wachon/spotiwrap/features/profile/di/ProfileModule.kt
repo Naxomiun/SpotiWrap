@@ -17,7 +17,7 @@ val ProfileModule = module {
 
 private val ProfileDataModule: Module
     get() = module {
-        single<UserRepository> { DefaultUserRepository(get()) }
+        single<UserRepository> { DefaultUserRepository(get(), get()) }
     }
 
 private val ProfileDomainModule: Module
