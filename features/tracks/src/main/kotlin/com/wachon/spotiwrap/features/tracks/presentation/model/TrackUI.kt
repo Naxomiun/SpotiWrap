@@ -7,6 +7,7 @@ import kotlinx.collections.immutable.toImmutableList
 
 @Immutable
 data class TrackUI(
+    val trackId: String,
     val trackTitle: String,
     val trackArtist: String,
     val trackImage: String
@@ -14,6 +15,7 @@ data class TrackUI(
 
 fun TrackModel.toUI(): TrackUI {
     return TrackUI(
+        trackId = id,
         trackTitle = title,
         trackImage = imageUrl,
         trackArtist = artists.joinToString(", ") { it.name }

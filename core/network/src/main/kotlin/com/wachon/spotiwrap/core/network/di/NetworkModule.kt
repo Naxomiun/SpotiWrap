@@ -26,7 +26,7 @@ val NetworkModule: Module
                 interceptors = listOf(
                     get<ThreadInterceptor>(),
                     get<NetworkInterceptor>()
-                )
+                ),
             )
         }
 
