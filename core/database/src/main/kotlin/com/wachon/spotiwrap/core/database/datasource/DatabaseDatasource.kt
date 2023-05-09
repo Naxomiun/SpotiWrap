@@ -3,6 +3,7 @@ package com.wachon.spotiwrap.core.database.datasource
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.RoomDatabase
 import com.wachon.spotiwrap.core.database.model.TrackDB
@@ -17,7 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
 
 @Dao
 interface ProfileDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProfile(profileDB: UserProfileDB)
 
     @Query("SELECT * FROM profile")
@@ -26,7 +27,7 @@ interface ProfileDao {
 
 @Dao
 interface TrackDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTracks(tracksDB: List<TrackDB>)
 
     @Query("SELECT * FROM tracks")

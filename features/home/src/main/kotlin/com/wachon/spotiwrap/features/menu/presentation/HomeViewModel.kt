@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.features.menu.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
@@ -23,11 +22,11 @@ class HomeViewModel(
     getUserTopTracks: GetUserTopTracksUseCase,
 ) : ViewModel() {
 
+    private val userProfile = getUserProfile()
+        .map { it.toUI() }
     private val topTracks = getUserTopTracks(limit = 10)
         .map { it.toUI() }
     private val topArtists = getUserTopArtists(limit = 10)
-        .map { it.toUI() }
-    private val userProfile = getUserProfile()
         .map { it.toUI() }
 
     val uiState = combine(

@@ -4,11 +4,12 @@ import com.wachon.spotiwrap.core.common.model.UserProfileModel
 import com.wachon.spotiwrap.core.database.datasource.ProfileDao
 import com.wachon.spotiwrap.core.database.model.UserProfileDB
 import com.wachon.spotiwrap.core.network.datasource.NetworkSpotifyDatasource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 interface UserRepository {
     fun getUserInfo(): Flow<UserProfileModel>
@@ -24,20 +25,20 @@ class DefaultUserRepository(
     }
 
     private fun sync() {
-        spotifyDatasource
-            .getUserInfo()
-            .map { it.toDomain() }
-            .onEach {
-                profileDao.insertProfile(it.toDB())
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+
+            spotifyDatasource
+                .getUserInfo()
+                .map { it.toDomain() }
+                .collect { profileDao.insertProfile(it.toDB()) }
+
+        }
     }
 
     override fun getUserInfo(): Flow<UserProfileModel> = profileDao
         .getProfile()
         .map { it.toDomain() }
-        .flatMapConcat { userProfileModel ->
-            flowOf(userProfileModel)
-        }
+        .catch { }
 
     private fun UserProfileModel.toDB() = UserProfileDB(email, displayName, country, image)
 
