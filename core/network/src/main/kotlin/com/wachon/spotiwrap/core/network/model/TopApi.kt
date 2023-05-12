@@ -99,8 +99,7 @@ data class ArtistApi(
     val name: String?,
     val type: String?,
     val uri: String?,
-    val images: List<ImageApi>?,
-    val genres: List<String>?
+    val images: List<ImageApi>?
 ) {
 
     fun toDomain(): ArtistModel {
@@ -108,7 +107,7 @@ data class ArtistApi(
             id = this.id ?: "",
             name = this.name ?: "",
             imageUrl = this.images?.first()?.url ?: "",
-            genres = this.genres.orEmpty()
+            genres = emptyList()
         )
     }
 
