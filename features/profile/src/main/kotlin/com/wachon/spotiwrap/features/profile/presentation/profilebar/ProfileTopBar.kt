@@ -3,7 +3,6 @@ package com.wachon.spotiwrap.features.profile.presentation.profilebar
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,21 +11,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.PlatformTextStyle
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.animation.crossfade.CrossfadePlugin
-import com.skydoves.landscapist.coil.CoilImage
-import com.skydoves.landscapist.components.rememberImageComponent
-import com.theapache64.rebugger.Rebugger
+import coil.compose.AsyncImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
@@ -38,11 +30,6 @@ fun ProfileTopBar(
     user: UserUI?,
     modifier: Modifier = Modifier
 ) {
-    Rebugger(
-        trackMap = mapOf(
-            "user" to user
-        )
-    )
 
     Row(
         modifier = modifier
@@ -89,7 +76,10 @@ fun ProfileImage(
     imageUrl: () -> String
 ) {
 
-    CoilImage(
+    AsyncImage(
+        model = imageUrl(),
+        contentScale = ContentScale.Crop,
+        contentDescription = null,
         modifier = modifier
             .size(55.dp)
             .border(
@@ -99,13 +89,6 @@ fun ProfileImage(
             )
             .padding(6.dp)
             .clip(CircleShape),
-        imageModel = imageUrl,
-        imageOptions = ImageOptions(
-            contentScale = ContentScale.Crop
-        ),
-        component = rememberImageComponent {
-            +CrossfadePlugin()
-        }
     )
 }
 

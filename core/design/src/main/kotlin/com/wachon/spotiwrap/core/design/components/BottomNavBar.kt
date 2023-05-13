@@ -4,15 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Face
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.List
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import androidx.compose.animation.*
@@ -20,22 +15,25 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.wachon.spotiwrap.core.design.R
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.navigation.MainGraph
 import kotlinx.coroutines.delay
@@ -161,8 +159,8 @@ fun BottomBarButton(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                navItem.icon,
+            Image(
+                painter = painterResource(id = navItem.icon),
                 contentDescription = navItem.name,
                 modifier = Modifier
                     .drawBehind {
@@ -174,7 +172,7 @@ fun BottomBarButton(
                             center = Offset(size.width / 2, (size.height + 3.dp.toPx()) + ((1f - dothAlpha) * 48.dp.toPx()))
                         )
                     }.offset { IntOffset(x = 0, y = ((-dothAlpha)*10).roundToInt()) },
-                tint = iconColor,
+                colorFilter = ColorFilter.tint(iconColor),
             )
 
         }
@@ -194,10 +192,10 @@ fun BottomNavBarPreview() {
     }
 }
 
-enum class BottomNavBarItem(val icon: ImageVector) {
-    Home(icon = Icons.Outlined.Home),
-    Top(icon = Icons.Outlined.List),
-    Profile(icon = Icons.Outlined.Face);
+enum class BottomNavBarItem(val icon: Int) {
+    Home(icon = R.drawable.ic_home),
+    Top(icon = R.drawable.ic_top),
+    Profile(icon = R.drawable.ic_profile);
 
     fun getScreenRoute() = when (this) {
         Home -> MainGraph.Home.route

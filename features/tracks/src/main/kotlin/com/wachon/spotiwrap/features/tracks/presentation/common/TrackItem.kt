@@ -13,8 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.coil.CoilImage
+import coil.compose.AsyncImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SubBody
@@ -31,14 +30,12 @@ fun TrackItem(
         modifier = modifier
             .width(100.dp)
     ) {
-        CoilImage(
+        AsyncImage(
+            model = track.trackImage,
+            contentDescription = track.trackTitle,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(100.dp),
-            imageModel = { track.trackImage },
-            imageOptions = ImageOptions(
-                contentDescription = track.trackTitle,
-                contentScale = ContentScale.Crop
-            )
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextNoPadding(

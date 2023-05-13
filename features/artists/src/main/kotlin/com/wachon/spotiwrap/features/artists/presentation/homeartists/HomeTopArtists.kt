@@ -34,13 +34,6 @@ fun HomeTopArtists(
     artists: ImmutableList<ArtistUI>
 ) {
 
-    Rebugger(
-        trackMap = mapOf(
-            "modifier" to modifier,
-            "artists" to artists,
-        ),
-    )
-
     Column(
         modifier = modifier
             .fillMaxWidth()
