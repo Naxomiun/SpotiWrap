@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.features.home.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
@@ -42,9 +41,6 @@ class HomeViewModel(
         topArtists,
         topGenres
     ) { userProfile, topTracks, topArtists, topGenres ->
-
-        Log.e("CACA", topGenres.toString())
-
         HomeScreenState(
             loading = false,
             userProfile = userProfile,

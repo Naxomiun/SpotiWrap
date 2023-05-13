@@ -1,18 +1,27 @@
 package com.wachon.spotiwrap.features.home.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.wachon.spotiwrap.core.common.model.MusicGenre
+import com.wachon.spotiwrap.core.design.theme.SubBody
 import com.wachon.spotiwrap.features.artists.presentation.homeartists.HomeTopArtists
 import com.wachon.spotiwrap.features.profile.presentation.profilebar.ProfileTopBar
 import com.wachon.spotiwrap.features.tracks.presentation.hometracks.HomeTopTracks
@@ -50,11 +59,29 @@ fun HomeContent(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopGenres(
-    genres: ImmutableList<MusicGenre>
+    genres: ImmutableList<String>
 ) {
-    genres.forEach {
-        Text(text = it.name, style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground))
+    LazyHorizontalStaggeredGrid(rows = StaggeredGridCells.Fixed(3)) {
+        items(genres) { genre ->
+            AssistChip(
+                onClick = { },
+                label = {
+                    Text(
+                        genre,
+                        style = SubBody
+                    )
+                },
+                leadingIcon = {
+                    Image(
+                        rememberVectorPainter(image = ),
+                        contentDescription = "Localized description",
+                        Modifier.size(AssistChipDefaults.IconSize)
+                    )
+                }
+            )
+        }
     }
 }

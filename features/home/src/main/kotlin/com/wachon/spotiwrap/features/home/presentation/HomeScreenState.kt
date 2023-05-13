@@ -1,7 +1,6 @@
 package com.wachon.spotiwrap.features.home.presentation
 
 import androidx.compose.runtime.Immutable
-import com.wachon.spotiwrap.core.common.model.MusicGenre
 import com.wachon.spotiwrap.features.artists.presentation.model.ArtistUI
 import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 import com.wachon.spotiwrap.features.tracks.presentation.model.TrackUI
