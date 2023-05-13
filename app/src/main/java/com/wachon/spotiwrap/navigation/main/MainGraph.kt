@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.wachon.spotiwrap.core.navigation.GRAPH
 import com.wachon.spotiwrap.core.navigation.MainGraph.*
-import com.wachon.spotiwrap.features.menu.presentation.HomeScreen
+import com.wachon.spotiwrap.features.home.presentation.HomeScreen
 import com.wachon.spotiwrap.ui.AppState
 
 @Composable

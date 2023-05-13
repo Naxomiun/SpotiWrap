@@ -13,5 +13,5 @@ data class HomeScreenState(
     val userProfile: UserUI? = null,
     val topTracks: ImmutableList<TrackUI> = persistentListOf(),
     val topArtists: ImmutableList<ArtistUI> = persistentListOf(),
-    val topGenres: ImmutableList<MusicGenre> = persistentListOf()
+    val topGenres: ImmutableList<String> = persistentListOf()
 )
