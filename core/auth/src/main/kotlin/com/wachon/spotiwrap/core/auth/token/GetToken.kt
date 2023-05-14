@@ -4,23 +4,19 @@ import com.wachon.spotiwrap.core.auth.TokenRepository
 import com.wachon.spotiwrap.core.auth.model.TokenModel
 
 interface GetTokenUseCase {
-    suspend operator fun invoke(): TokenModel
+    suspend operator fun invoke(refresh: Boolean = false): TokenModel
 }
 
 class GetToken(
     private val tokenRepository: TokenRepository
 ) : GetTokenUseCase {
 
-    override suspend fun invoke(): TokenModel {
+    override suspend fun invoke(refresh: Boolean): TokenModel {
         val token = tokenRepository.getPersistedToken()
-        if(!tokenHasExpired(token.expireTimestamp)) {
-            return token
+        if(refresh) {
+            return tokenRepository.refreshToken()
         }
-        return tokenRepository.refreshToken()
-    }
-
-    private fun tokenHasExpired(expireTimestamp: Long): Boolean {
-        return expireTimestamp < System.currentTimeMillis()
+        return token
     }
 
 }
