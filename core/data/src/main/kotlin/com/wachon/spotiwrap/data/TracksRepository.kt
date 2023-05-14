@@ -36,7 +36,7 @@ class DefaultTracksRepository(
         CoroutineScope(Dispatchers.IO).launch {
             spotifyDatasource.getTopItems(
                 type = TopItemType.TRACKS.name.lowercase(),
-                limit = 10,
+                limit = 50,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             ).collect { topApi ->
