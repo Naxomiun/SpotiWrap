@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.tracks.presentation.common
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -9,11 +10,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.common.R.drawable
+import com.wachon.spotiwrap.core.common.model.ItemFame.DOWN
+import com.wachon.spotiwrap.core.common.model.ItemFame.EVEN
+import com.wachon.spotiwrap.core.common.model.ItemFame.NEW
+import com.wachon.spotiwrap.core.common.model.ItemFame.NONE
+import com.wachon.spotiwrap.core.common.model.ItemFame.UP
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SubBody
@@ -50,6 +58,20 @@ fun TrackItem(
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
         )
+        if (track.trackFame != NONE) {
+            Image(
+                when (track.trackFame) {
+                    UP -> painterResource(drawable.fame_up)
+                    EVEN -> painterResource(drawable.fame_even)
+                    DOWN -> painterResource(drawable.fame_down)
+                    NEW -> painterResource(drawable.fame_new)
+                    NONE -> TODO()
+                },
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(20.dp)
+            )
+        }
     }
 
 }

@@ -13,6 +13,7 @@ object Config  {
     object Core {
         const val Network = "$baseApplicationId.core.network"
         const val Database = "$baseApplicationId.core.database"
+        const val Data = "$baseApplicationId.core.data"
         const val Persistence = "$baseApplicationId.core.persistence"
         const val Auth = "$baseApplicationId.core.auth"
         const val Navigation = "$baseApplicationId.core.navigation"

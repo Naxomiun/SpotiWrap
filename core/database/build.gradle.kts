@@ -15,4 +15,5 @@ dependencies {
     implementation(libs.room.rxjava3)
     implementation(libs.room.guava)
     implementation(libs.room.paging)
+    implementation(libs.gson)
 }

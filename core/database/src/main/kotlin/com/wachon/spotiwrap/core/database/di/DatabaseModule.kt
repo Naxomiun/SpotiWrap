@@ -12,9 +12,12 @@ val DatabaseModule
                 androidApplication(),
                 AppDatabase::class.java,
                 "app_database"
-            ).build()
+            )
+                .fallbackToDestructiveMigration()
+                .build()
         }
 
         factory { get<AppDatabase>().profileDao() }
         factory { get<AppDatabase>().trackDao() }
+        factory { get<AppDatabase>().artistDao() }
     }

@@ -10,9 +10,11 @@ data class UserProfileDB(
     val displayName: String,
     val country: String,
     val image: String,
-    //TODO add time stamp
 ) {
     fun toDomain(): UserProfileModel = UserProfileModel(
-        displayName = this.displayName, country = this.country, email = this.email, image = this.image
+        displayName = this.displayName,
+        country = this.country,
+        email = this.email, image =
+        this.image
     )
 }
