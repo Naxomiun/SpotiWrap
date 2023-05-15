@@ -39,22 +39,22 @@ fun TextGradientFame(
             text = text,
             style = textStyle,
             maxLines = 1,
-            softWrap = false,
-            overflow = TextOverflow.Clip
+            softWrap = fame == NONE,
+            overflow = if (fame == NONE) TextOverflow.Ellipsis else TextOverflow.Clip
         )
-        Box(
-            modifier = Modifier
-                .height(25.dp)
-                .fillMaxWidth()
-                .background(
-                    Brush.horizontalGradient(
-                        colors = listOf(Color.Transparent, Color.Black),
-                        startX = gradientStart,
-                        endX = gradientEnd
+        if (fame != NONE) {
+            Box(
+                modifier = Modifier
+                    .height(25.dp)
+                    .fillMaxWidth()
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(Color.Transparent, Color.Black),
+                            startX = gradientStart,
+                            endX = gradientEnd
+                        )
                     )
-                )
-        ) {
-            if (fame != NONE) {
+            ) {
                 Row(
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically,
