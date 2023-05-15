@@ -5,14 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.auth.scopes.CheckScopesAreValidUseCase
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SplashViewModel(
     private val dispatcherProvider: DispatcherProvider,

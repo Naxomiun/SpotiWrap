@@ -14,6 +14,7 @@ import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.data.repository.ArtistsRepository
 import com.wachon.spotiwrap.data.repository.TracksRepository
 import com.wachon.spotiwrap.data.repository.UserRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
@@ -32,19 +33,21 @@ class SyncWorker(
     private val artistsRepository: ArtistsRepository by inject()
 
     override suspend fun doWork(): Result = withContext(dispatcherProvider.background) {
+        try {
+            val syncedSuccessfully = awaitAll(
+                async { tracksRepository.sync() },
+                async { userRepository.sync() },
+                async { artistsRepository.sync() }
+            ).all { it.isSuccess }
 
-        val syncedSuccessfully = awaitAll(
-            async { tracksRepository.sync() },
-            async { userRepository.sync() },
-            async { artistsRepository.sync() }
-        ).all { it.isSuccess }
-
-        if (syncedSuccessfully) {
-            Result.success()
-        } else {
+            if (syncedSuccessfully) {
+                Result.success()
+            } else {
+                Result.retry()
+            }
+        } catch (e: Exception) {
             Result.retry()
         }
-
     }
 
     companion object {
