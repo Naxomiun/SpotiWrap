@@ -33,25 +33,24 @@ class SyncWorker(
     private val artistsRepository: ArtistsRepository by inject()
 
     override suspend fun doWork(): Result = withContext(dispatcherProvider.background) {
-        try {
-            val syncedSuccessfully = awaitAll(
-                async { tracksRepository.sync() },
-                async { userRepository.sync() },
-                async { artistsRepository.sync() }
-            ).all { it.isSuccess }
 
-            if (syncedSuccessfully) {
-                Result.success()
-            } else {
-                Result.retry()
-            }
-        } catch (e: Exception) {
+        val syncedSuccessfully = awaitAll(
+            async { tracksRepository.sync() },
+            async { userRepository.sync() },
+            async { artistsRepository.sync() }
+        ).all { it.isSuccess }
+
+        if (syncedSuccessfully) {
+            Result.success()
+        } else {
             Result.retry()
         }
+
     }
 
     companion object {
         fun startUpSyncWork() = OneTimeWorkRequestBuilder<SyncWorker>()
+            .setConstraints(SyncConstraints)
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .build()
     }
@@ -71,4 +70,9 @@ object Sync {
 }
 
 internal const val SyncWorkName = "SyncWorkName"
+
+val SyncConstraints
+    get() = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.CONNECTED)
+        .build()
 
