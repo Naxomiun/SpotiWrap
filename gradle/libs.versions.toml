@@ -27,11 +27,12 @@ coroutines-test = "1.6.4"
 accompanist = "0.30.1"
 rebugger = "1.0.0-alpha02"
 kotlinImmutable = "0.3.5"
+workManager = "2.8.1"
 
 [libraries]
 
 androidx-compose-activity = "androidx.activity:activity-compose:1.7.1"
-androidx-compose-navigation = "androidx.navigation:navigation-compose:2.6.0-beta01"
+androidx-compose-navigation = "androidx.navigation:navigation-compose:2.6.0-rc01"
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
@@ -51,10 +52,12 @@ accompanist-uiController = { module = "com.google.accompanist:accompanist-system
 
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose" }
+koin-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koinCore" }
 
 ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }

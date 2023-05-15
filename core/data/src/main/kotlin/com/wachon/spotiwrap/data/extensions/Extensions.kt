@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.extensions
+package com.wachon.spotiwrap.data.extensions
 
 import com.wachon.spotiwrap.core.database.model.ArtistDB
 import com.wachon.spotiwrap.core.database.model.TrackDB

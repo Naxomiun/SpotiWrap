@@ -2,7 +2,7 @@ package com.wachon.spotiwrap.features.profile.domain
 
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.core.common.model.UserProfileModel
-import com.wachon.spotiwrap.data.UserRepository
+import com.wachon.spotiwrap.data.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
