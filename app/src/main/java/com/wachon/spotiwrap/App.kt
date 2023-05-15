@@ -15,6 +15,7 @@ import org.koin.core.context.startKoin
 import android.content.Context
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
+import com.wachon.spotiwrap.data.worker.Sync
 
 class App : Application(), ImageLoaderFactory {
 
@@ -49,18 +50,3 @@ class App : Application(), ImageLoaderFactory {
     }
 
 }
-
-object Sync {
-    fun initialize(context: Context) {
-        WorkManager
-            .getInstance(context)
-            .enqueueUniqueWork(
-                SyncWorkName,
-                ExistingWorkPolicy.KEEP,
-                SyncWorker.startUpSyncWork(),
-            )
-    }
-}
-
-
-internal const val SyncWorkName = "SyncWorkName"

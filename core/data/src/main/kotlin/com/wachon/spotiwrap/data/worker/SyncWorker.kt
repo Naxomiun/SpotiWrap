@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.Data
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
+import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.data.repository.ArtistsRepository
@@ -52,3 +54,18 @@ class SyncWorker(
     }
 
 }
+
+object Sync {
+    fun initialize(context: Context) {
+        WorkManager
+            .getInstance(context)
+            .enqueueUniqueWork(
+                SyncWorkName,
+                ExistingWorkPolicy.KEEP,
+                SyncWorker.startUpSyncWork(),
+            )
+    }
+}
+
+internal const val SyncWorkName = "SyncWorkName"
+
