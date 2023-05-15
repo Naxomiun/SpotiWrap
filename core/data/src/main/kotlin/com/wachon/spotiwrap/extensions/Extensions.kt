@@ -13,14 +13,16 @@ fun UserProfileApi.toTrackDB() = UserProfileDB(
     image = this.images.first().url
 )
 
-fun TopItemApi.toTrackDB(index: Int) = TrackDB(
-    trackId = this.id ?: "",
-    trackIndex = index,
-    trackFame = this.fame,
-    trackTitle = this.name ?: "",
-    trackArtist = this.artists?.joinToString(", ") { it.name ?: "" } ?: "",
-    trackImage = this.images?.first()?.url ?: "",
-)
+fun TopItemApi.toTrackDB(index: Int): TrackDB {
+    return TrackDB(
+        trackId = this.id ?: "",
+        trackIndex = index,
+        trackFame = this.fame,
+        trackTitle = this.name ?: "",
+        trackArtist = this.artists?.joinToString(", ") { it.name ?: "" } ?: "",
+        trackImage = this.album?.images?.first()?.url ?: "",
+    )
+}
 
 fun TopItemApi.toArtistDB(index: Int) = ArtistDB(
     artistId = this.id ?: "",
