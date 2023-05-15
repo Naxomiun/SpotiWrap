@@ -53,6 +53,7 @@ internal fun Project.configureKotlinAndroid(
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=kotlinx.coroutines.FlowPreview",
             )
+            freeCompilerArgs = freeCompilerArgs + listOf("-Xcontext-receivers")
         }
     }
 

@@ -1,19 +1,26 @@
 package com.wachon.spotiwrap.features.home.presentation
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -74,22 +81,17 @@ fun HomeContent(
         item { HomeTopTracks(tracks = state.topTracks) }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item { HomeTopArtists(artists = state.topArtists) }
-        item { Spacer(modifier = Modifier.height(16.dp)) }
-        item { HomeTopGenres(genres = state.topGenres) }
+        item { Spacer(modifier = Modifier.height(32.dp)) }
+        HomeTopGenres(genres = state.topGenres)
     }
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalLayoutApi::class
-)
-@Composable
+context(LazyListScope)
 fun HomeTopGenres(
     genres: ImmutableList<String>
 ) {
-
-    Column {
-        Spacer(modifier = Modifier.height(16.dp))
+    item { Spacer(modifier = Modifier.height(16.dp)) }
+    item {
         Row(
             modifier = Modifier
                 .padding(horizontal = 24.dp)
@@ -108,33 +110,21 @@ fun HomeTopGenres(
                 style = Body.copy(fontWeight = FontWeight.W700)
             )
         }
+    }
+    itemsIndexed(
+        items = genres,
+        key = { _, genre -> genre }
+    ) { index, genre ->
 
-        FlowRow(
+        val fraction = (1 + index).toFloat() / genres.size
+
+        Box(
             modifier = Modifier
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 24.dp)
+                .fillMaxWidth(fraction = fraction)
+                .background(color = BubblegumPink)
         ) {
-            genres.forEachIndexed { index, s ->
-                AssistChip(
-                    onClick = { },
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    label = {
-                        Text(
-                            text = s,
-                            style = Body
-                        )
-                    },
-                    leadingIcon = {
-                        Text(
-                            text = (index + 1).toString(),
-                            style = SmallTitle
-                        )
-                    }
-                )
-            }
+            Text(text = genre, style = SubBody, modifier = Modifier.padding(8.dp))
         }
     }
 }
