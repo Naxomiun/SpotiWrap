@@ -15,9 +15,7 @@ val DataModule = module {
     includes(
         DatabaseModule,
         NetworkModule,
-        DataDataModule,
-        DataDomainModule,
-        DataPresentationModule
+        DataDataModule
     )
 }
 
@@ -26,14 +24,4 @@ private val DataDataModule: Module
         single<UserRepository> { DefaultUserRepository(get(), get()) }
         single<TracksRepository> { DefaultTracksRepository(get(), get()) }
         single<ArtistsRepository> { DefaultArtistsRepository(get(), get()) }
-    }
-
-private val DataDomainModule: Module
-    get() = module {
-
-    }
-
-private val DataPresentationModule: Module
-    get() = module {
-
     }
