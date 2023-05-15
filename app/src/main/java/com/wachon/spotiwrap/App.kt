@@ -4,11 +4,18 @@ import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
+import com.wachon.spotiwrap.data.worker.SyncWorker
 import com.wachon.spotiwrap.di.CoreModules
 import com.wachon.spotiwrap.di.FeaturesModule
+import com.wachon.spotiwrap.di.WorkerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
+import android.content.Context
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
+import com.wachon.spotiwrap.data.worker.Sync
 
 class App : Application(), ImageLoaderFactory {
 
@@ -18,11 +25,15 @@ class App : Application(), ImageLoaderFactory {
         startKoin {
             androidLogger()
             androidContext(this@App)
+            workManagerFactory()
             modules(
                 CoreModules,
-                FeaturesModule
+                FeaturesModule,
+                WorkerModule
             )
         }
+
+        Sync.initialize(this)
     }
 
     override fun newImageLoader(): ImageLoader {

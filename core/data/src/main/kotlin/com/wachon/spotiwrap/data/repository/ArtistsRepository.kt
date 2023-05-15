@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.data
+package com.wachon.spotiwrap.data.repository
 
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.ItemFame
@@ -8,14 +8,12 @@ import com.wachon.spotiwrap.core.database.datasource.ArtistDao
 import com.wachon.spotiwrap.core.database.model.ArtistDB
 import com.wachon.spotiwrap.core.network.datasource.NetworkSpotifyDatasource
 import com.wachon.spotiwrap.core.network.model.TopItemApi
-import com.wachon.spotiwrap.extensions.toArtistDB
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.wachon.spotiwrap.data.extensions.toArtistDB
+import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 
-interface ArtistsRepository {
+interface ArtistsRepository: Syncable {
     fun getTopArtists(
         limit: Int,
         offset: Int,
@@ -28,23 +26,22 @@ class DefaultArtistsRepository(
     private val spotifyDatasource: NetworkSpotifyDatasource
 ) : ArtistsRepository {
 
-    init {
-        sync()
-    }
-
-    private fun sync() {
-        CoroutineScope(Dispatchers.IO).launch {
-            spotifyDatasource.getTopItems(
+    override suspend fun sync(): Result<Boolean> {
+        try {
+            val apiItems = spotifyDatasource.getTopItems(
                 type = TopItemType.ARTISTS.name.lowercase(),
                 limit = 50,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
-            ).collect { topApi ->
-                artistDao.insertArtists(
-                    compareFame(topApi.items ?: emptyList(), artistDao.getArtistsNoFlow())
-                        .mapIndexed { index, topItemApi -> topItemApi.toArtistDB(index) }
-                )
-            }
+            )
+
+            artistDao.insertArtists(
+                compareFame(apiItems.items ?: emptyList(), artistDao.getArtistsNoFlow())
+                    .mapIndexed { index, topItemApi -> topItemApi.toArtistDB(index) }
+            )
+            return Result.success(true)
+        }catch (e: Exception) {
+            return Result.failure(e)
         }
     }
 

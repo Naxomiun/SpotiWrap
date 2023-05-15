@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.data
+package com.wachon.spotiwrap.data.repository
 
 import com.wachon.spotiwrap.core.common.model.ItemFame
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
@@ -8,14 +8,12 @@ import com.wachon.spotiwrap.core.database.datasource.TrackDao
 import com.wachon.spotiwrap.core.database.model.TrackDB
 import com.wachon.spotiwrap.core.network.datasource.NetworkSpotifyDatasource
 import com.wachon.spotiwrap.core.network.model.TopItemApi
-import com.wachon.spotiwrap.extensions.toTrackDB
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.wachon.spotiwrap.data.extensions.toTrackDB
+import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 
-interface TracksRepository {
+interface TracksRepository: Syncable {
     fun getTopTracks(
         limit: Int,
         offset: Int,
@@ -28,23 +26,23 @@ class DefaultTracksRepository(
     private val spotifyDatasource: NetworkSpotifyDatasource
 ) : TracksRepository {
 
-    init {
-        sync()
-    }
-
-    private fun sync() {
-        CoroutineScope(Dispatchers.IO).launch {
-            spotifyDatasource.getTopItems(
+    override suspend fun sync(): Result<Boolean> {
+        try {
+            val apiItems = spotifyDatasource.getTopItems(
                 type = TopItemType.TRACKS.name.lowercase(),
                 limit = 50,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
-            ).collect { topApi ->
-                trackDao.insertTracks(
-                    compareFame(topApi.items ?: emptyList(), trackDao.getTracksNoFlow())
-                        .mapIndexed { index, topItemApi -> topItemApi.toTrackDB(index) }
-                )
-            }
+            )
+
+            trackDao.insertTracks(
+                compareFame(apiItems.items ?: emptyList(), trackDao.getTracksNoFlow())
+                    .mapIndexed { index, topItemApi -> topItemApi.toTrackDB(index) }
+            )
+            
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(e)
         }
     }
 

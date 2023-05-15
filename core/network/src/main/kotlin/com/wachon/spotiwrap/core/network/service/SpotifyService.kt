@@ -13,23 +13,21 @@ class SpotifyService(
     private val httpClient: HttpClient
 ) {
 
-    fun getMe(): Flow<UserProfileApi> = flow {
-        emit(httpClient.get("/v1/me").body())
+    suspend fun getMe(): UserProfileApi {
+        return httpClient.get("/v1/me").body()
     }
 
-    fun getTop(
+    suspend fun getTop(
         type: String,
         limit: Int? = 10,
         offset: Int? = 0,
         timeRange: String
-    ): Flow<TopApi> = flow {
-        emit(
-            httpClient.get("/v1/me/top/$type") {
-                parameter("limit", limit)
-                parameter("offset", offset)
-                parameter("time_range", timeRange)
-            }.body()
-        )
+    ): TopApi {
+        return httpClient.get("/v1/me/top/$type") {
+            parameter("limit", limit)
+            parameter("offset", offset)
+            parameter("time_range", timeRange)
+        }.body()
     }
 
 }

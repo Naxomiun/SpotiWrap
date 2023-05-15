@@ -61,6 +61,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
             dependencies {
                 implementation(libs.koin.core)
                 implementation(libs.koin.android)
+                implementation(libs.koin.workmanager)
             }
         }
     }

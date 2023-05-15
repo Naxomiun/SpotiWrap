@@ -1,13 +1,13 @@
-package com.wachon.spotiwrap.di
+package com.wachon.spotiwrap.data.di
 
 import com.wachon.spotiwrap.core.database.di.DatabaseModule
 import com.wachon.spotiwrap.core.network.di.NetworkModule
-import com.wachon.spotiwrap.data.ArtistsRepository
-import com.wachon.spotiwrap.data.DefaultArtistsRepository
-import com.wachon.spotiwrap.data.DefaultTracksRepository
-import com.wachon.spotiwrap.data.DefaultUserRepository
-import com.wachon.spotiwrap.data.TracksRepository
-import com.wachon.spotiwrap.data.UserRepository
+import com.wachon.spotiwrap.data.repository.ArtistsRepository
+import com.wachon.spotiwrap.data.repository.DefaultArtistsRepository
+import com.wachon.spotiwrap.data.repository.DefaultTracksRepository
+import com.wachon.spotiwrap.data.repository.DefaultUserRepository
+import com.wachon.spotiwrap.data.repository.TracksRepository
+import com.wachon.spotiwrap.data.repository.UserRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

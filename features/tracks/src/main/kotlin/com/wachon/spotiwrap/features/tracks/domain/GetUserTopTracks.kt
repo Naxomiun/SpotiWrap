@@ -3,7 +3,7 @@ package com.wachon.spotiwrap.features.tracks.domain
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.common.model.TrackModel
-import com.wachon.spotiwrap.data.TracksRepository
+import com.wachon.spotiwrap.data.repository.TracksRepository
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks.Companion.DEFAULT_LIMIT
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks.Companion.DEFAULT_OFFSET
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks.Companion.DEFAULT_TIME_RANGE

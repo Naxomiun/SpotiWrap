@@ -20,11 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.core.common.model.ItemFame
-import com.wachon.spotiwrap.core.common.model.ItemFame.DOWN
-import com.wachon.spotiwrap.core.common.model.ItemFame.EVEN
-import com.wachon.spotiwrap.core.common.model.ItemFame.NEW
 import com.wachon.spotiwrap.core.common.model.ItemFame.NONE
-import com.wachon.spotiwrap.core.common.model.ItemFame.UP
 
 @Composable
 fun TextGradientFame(
@@ -66,15 +62,7 @@ fun TextGradientFame(
                         .fillMaxSize()
                 ) {
                     Image(
-                        when (fame) {
-                            UP -> painterResource(UP.drawableResId)
-                            EVEN -> painterResource(EVEN.drawableResId)
-                            DOWN -> painterResource(DOWN.drawableResId)
-                            NEW -> painterResource(NEW.drawableResId)
-                            else -> {
-                                painterResource(NONE.drawableResId)
-                            }
-                        },
+                        painterResource(id = fame.drawableResId),
                         contentDescription = fame.name,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
