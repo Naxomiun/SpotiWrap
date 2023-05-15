@@ -1,7 +1,9 @@
 package com.wachon.spotiwrap.features.home.presentation
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -114,12 +116,16 @@ fun HomeTopGenres(
 
         LaunchedEffect(key1 = Unit) {
             if (animateWidth) return@LaunchedEffect
-            delay(100 * index.toLong())
             animateWidth = true
         }
 
         val width by animateFloatAsState(
-            (if (animateWidth) genre.genreChartValue else 0f), label = ""
+            (if (animateWidth) genre.genreChartValue else 0f), label = "",
+            animationSpec = tween(
+                durationMillis = 1000,
+                delayMillis = 100 * index,
+                easing = LinearOutSlowInEasing
+            )
         )
 
         BoxWithConstraints(
