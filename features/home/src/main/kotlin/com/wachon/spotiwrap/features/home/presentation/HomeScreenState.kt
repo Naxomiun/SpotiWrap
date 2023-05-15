@@ -2,6 +2,7 @@ package com.wachon.spotiwrap.features.home.presentation
 
 import androidx.compose.runtime.Immutable
 import com.wachon.spotiwrap.features.artists.presentation.model.ArtistUI
+import com.wachon.spotiwrap.features.home.domain.TopGenreUI
 import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 import com.wachon.spotiwrap.features.tracks.presentation.model.TrackUI
 import kotlinx.collections.immutable.ImmutableList
@@ -13,5 +14,5 @@ data class HomeScreenState(
     val userProfile: UserUI? = null,
     val topTracks: ImmutableList<TrackUI> = persistentListOf(),
     val topArtists: ImmutableList<ArtistUI> = persistentListOf(),
-    val topGenres: ImmutableList<String> = persistentListOf()
+    val topGenres: ImmutableList<TopGenreUI> = persistentListOf()
 )

@@ -16,6 +16,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -57,6 +58,9 @@ fun BottomNavBar(
     }
 
     AnimatedVisibility(
+        modifier = modifier
+            .navigationBarsPadding()
+            .padding(bottom = 24.dp),
         visible = shouldShow() && firstVisibility,
         enter = slideInVertically(
             initialOffsetY = { 1000 },
@@ -75,6 +79,7 @@ fun BottomNavBar(
     ) {
         BottomBarSurface(
             modifier = modifier
+                .height(IntrinsicSize.Min)
         ) {
             BottomNavBarItem.values().forEach {
                 BottomBarButton(
@@ -94,16 +99,13 @@ fun BottomBarSurface(
 ) {
 
     Box(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
     ) {
         Surface(
             shadowElevation = 0.dp,
             color = MaterialTheme.colorScheme.surface,
             modifier = modifier
-                .safeContentPadding()
-                .padding(20.dp)
-                .width(IntrinsicSize.Min)
-                .height(IntrinsicSize.Min)
                 .shadow(
                     elevation = 5.dp,
                     shape = RoundedCornerShape(20)
@@ -112,7 +114,6 @@ fun BottomBarSurface(
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(10.dp),
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
             ) {
