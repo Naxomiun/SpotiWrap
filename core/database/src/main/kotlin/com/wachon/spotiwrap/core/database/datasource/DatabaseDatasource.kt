@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.Flow
     ],
     version = 1
 )
-//@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun profileDao(): ProfileDao
     abstract fun trackDao(): TrackDao

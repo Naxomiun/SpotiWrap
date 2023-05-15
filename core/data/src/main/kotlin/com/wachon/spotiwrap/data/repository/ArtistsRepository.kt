@@ -13,7 +13,7 @@ import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-interface ArtistsRepository: Syncable {
+interface ArtistsRepository : Syncable {
     fun getTopArtists(
         limit: Int,
         offset: Int,
@@ -35,14 +35,35 @@ class DefaultArtistsRepository(
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
 
-            artistDao.insertArtists(
-                compareFame(apiItems.items ?: emptyList(), artistDao.getArtistsNoFlow())
-                    .mapIndexed { index, topItemApi -> topItemApi.toArtistDB(index) }
-            )
+            val dbItems = artistDao.getArtistsNoFlow()
+
+            if (!isContentTheSame(apiItems.items ?: emptyList(), dbItems)) {
+                artistDao.insertArtists(
+                    compareFame(apiItems.items ?: emptyList(), dbItems)
+                        .mapIndexed { index, topItemApi -> topItemApi.toArtistDB(index) }
+                )
+            }
             return Result.success(true)
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             return Result.failure(e)
         }
+    }
+
+    private fun isContentTheSame(items: List<TopItemApi>, artistsDB: List<ArtistDB>): Boolean {
+        if (items.size != artistsDB.size) {
+            return false
+        }
+
+        for (i in items.indices) {
+            val item = items[i]
+            val artist = artistsDB[i]
+
+            if (item.name != artist.artistName) {
+                return false
+            }
+        }
+
+        return true
     }
 
     private fun compareFame(items: List<TopItemApi>, artistsDB: List<ArtistDB>): List<TopItemApi> {

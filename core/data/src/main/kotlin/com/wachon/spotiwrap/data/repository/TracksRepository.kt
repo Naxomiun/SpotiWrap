@@ -13,7 +13,7 @@ import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-interface TracksRepository: Syncable {
+interface TracksRepository : Syncable {
     fun getTopTracks(
         limit: Int,
         offset: Int,
@@ -35,15 +35,36 @@ class DefaultTracksRepository(
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
 
-            trackDao.insertTracks(
-                compareFame(apiItems.items ?: emptyList(), trackDao.getTracksNoFlow())
-                    .mapIndexed { index, topItemApi -> topItemApi.toTrackDB(index) }
-            )
-            
+            val dbItems = trackDao.getTracksNoFlow()
+
+            if (!isContentTheSame(apiItems.items ?: emptyList(), dbItems)) {
+                trackDao.insertTracks(
+                    compareFame(apiItems.items ?: emptyList(), dbItems)
+                        .mapIndexed { index, topItemApi -> topItemApi.toTrackDB(index) }
+                )
+
+            }
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(e)
         }
+    }
+
+    private fun isContentTheSame(items: List<TopItemApi>, tracksDB: List<TrackDB>): Boolean {
+        if (items.size != tracksDB.size) {
+            return false
+        }
+
+        for (i in items.indices) {
+            val item = items[i]
+            val track = tracksDB[i]
+
+            if (item.name != track.trackTitle) {
+                return false
+            }
+        }
+
+        return true
     }
 
     private fun compareFame(items: List<TopItemApi>, tracksDB: List<TrackDB>): List<TopItemApi> {
