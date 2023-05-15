@@ -43,7 +43,6 @@ import com.wachon.spotiwrap.features.home.domain.TopGenreUI
 import com.wachon.spotiwrap.features.profile.presentation.profilebar.ProfileTopBar
 import com.wachon.spotiwrap.features.tracks.presentation.hometracks.HomeTopTracks
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
