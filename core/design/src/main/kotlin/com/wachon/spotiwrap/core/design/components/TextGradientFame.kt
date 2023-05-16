@@ -30,6 +30,7 @@ fun TextGradientFame(
     gradientStart: Float,
     gradientEnd: Float
 ) {
+    val hasToHideFame = (fame == NONE)
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,10 +40,10 @@ fun TextGradientFame(
             text = text,
             style = textStyle,
             maxLines = 1,
-            softWrap = fame == NONE,
-            overflow = if (fame == NONE) TextOverflow.Ellipsis else TextOverflow.Clip
+            softWrap = hasToHideFame,
+            overflow = if (hasToHideFame) TextOverflow.Ellipsis else TextOverflow.Clip
         )
-        if (fame != NONE) {
+        if (!hasToHideFame) {
             Box(
                 modifier = Modifier
                     .height(25.dp)

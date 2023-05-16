@@ -36,54 +36,29 @@ class DefaultTracksRepository(
             )
 
             val dbItems = trackDao.getTracksNoFlow()
+            trackDao.insertTracks(
+                mapTopItemsToTrackDB(apiItems.items ?: emptyList(), dbItems)
+            )
 
-            if (!isContentTheSame(apiItems.items ?: emptyList(), dbItems)) {
-                trackDao.insertTracks(
-                    compareFame(apiItems.items ?: emptyList(), dbItems)
-                        .mapIndexed { index, topItemApi -> topItemApi.toTrackDB(index) }
-                )
-
-            }
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(e)
         }
     }
 
-    private fun isContentTheSame(items: List<TopItemApi>, tracksDB: List<TrackDB>): Boolean {
-        if (items.size != tracksDB.size) {
-            return false
-        }
-
-        for (i in items.indices) {
-            val item = items[i]
-            val track = tracksDB[i]
-
-            if (item.name != track.trackTitle) {
-                return false
-            }
-        }
-
-        return true
-    }
-
-    private fun compareFame(items: List<TopItemApi>, tracksDB: List<TrackDB>): List<TopItemApi> {
+    private fun mapTopItemsToTrackDB(items: List<TopItemApi>, tracksDB: List<TrackDB>): List<TrackDB> {
         return items.mapIndexed { index, topItem ->
-            tracksDB.find { it.trackId == topItem.id }
-                .also { trackDB ->
-                    if (tracksDB.isEmpty()) {
-                        topItem.fame = ItemFame.NONE
-                    } else if (trackDB == null) {
-                        topItem.fame = ItemFame.NEW
-                    } else {
-                        when {
-                            index < trackDB.trackIndex -> topItem.fame = ItemFame.UP
-                            index == trackDB.trackIndex -> topItem.fame = ItemFame.EVEN
-                            index > trackDB.trackIndex -> topItem.fame = ItemFame.DOWN
-                        }
-                    }
+            val trackDB = tracksDB.find { it.trackId == topItem.id }
+            topItem.toTrackDB(
+                index = index,
+                fame = when {
+                    tracksDB.isEmpty() -> ItemFame.NONE
+                    trackDB == null -> ItemFame.NEW
+                    index < trackDB.trackIndex -> ItemFame.UP
+                    index > trackDB.trackIndex -> ItemFame.DOWN
+                    else -> ItemFame.NONE
                 }
-            topItem
+            )
         }
     }
 

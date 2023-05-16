@@ -36,54 +36,29 @@ class DefaultArtistsRepository(
             )
 
             val dbItems = artistDao.getArtistsNoFlow()
+            artistDao.insertArtists(
+                mapTopItemsToArtistDB(apiItems.items ?: emptyList(), dbItems)
+            )
 
-            if (!isContentTheSame(apiItems.items ?: emptyList(), dbItems)) {
-                artistDao.insertArtists(
-                    compareFame(apiItems.items ?: emptyList(), dbItems)
-                        .mapIndexed { index, topItemApi -> topItemApi.toArtistDB(index) }
-                )
-            }
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(e)
         }
     }
 
-    private fun isContentTheSame(items: List<TopItemApi>, artistsDB: List<ArtistDB>): Boolean {
-        if (items.size != artistsDB.size) {
-            return false
-        }
-
-        for (i in items.indices) {
-            val item = items[i]
-            val artist = artistsDB[i]
-
-            if (item.name != artist.artistName) {
-                return false
-            }
-        }
-
-        return true
-    }
-
-    private fun compareFame(items: List<TopItemApi>, artistsDB: List<ArtistDB>): List<TopItemApi> {
+    private fun mapTopItemsToArtistDB(items: List<TopItemApi>, artistsDB: List<ArtistDB>): List<ArtistDB> {
         return items.mapIndexed { index, topItem ->
-            artistsDB.find { it.artistId == topItem.id }
-                .also { artistDB ->
-                    if (artistsDB.isEmpty()) {
-                        topItem.fame = ItemFame.NONE
-                    } else if (artistDB == null) {
-                        topItem.fame = ItemFame.NEW
-                    } else {
-                        when {
-                            index < artistDB.artistIndex -> topItem.fame = ItemFame.UP
-                            index == artistDB.artistIndex -> topItem.fame = ItemFame.EVEN
-                            index > artistDB.artistIndex -> topItem.fame = ItemFame.DOWN
-                        }
-                    }
-
+            val artistDB = artistsDB.find { it.artistId == topItem.id }
+            topItem.toArtistDB(
+                index = index,
+                fame = when {
+                    artistsDB.isEmpty() -> ItemFame.NONE
+                    artistDB == null -> ItemFame.NEW
+                    index < artistDB.artistIndex -> ItemFame.UP
+                    index > artistDB.artistIndex -> ItemFame.DOWN
+                    else -> ItemFame.NONE
                 }
-            topItem
+            )
         }
     }
 

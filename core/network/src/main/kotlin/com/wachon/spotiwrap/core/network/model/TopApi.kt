@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.core.network.model
 
-import com.wachon.spotiwrap.core.common.model.ItemFame
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -53,7 +52,6 @@ data class TopItemApi(
     val isLocal: Boolean?,
     @SerialName("images")
     val images: List<ImageApi>?,
-    var fame: ItemFame = ItemFame.EVEN
 )
 
 @Serializable

@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.data.extensions
 
+import com.wachon.spotiwrap.core.common.model.ItemFame
 import com.wachon.spotiwrap.core.database.model.ArtistDB
 import com.wachon.spotiwrap.core.database.model.TrackDB
 import com.wachon.spotiwrap.core.database.model.UserProfileDB
@@ -13,21 +14,21 @@ fun UserProfileApi.toTrackDB() = UserProfileDB(
     image = this.images.first().url
 )
 
-fun TopItemApi.toTrackDB(index: Int): TrackDB {
+fun TopItemApi.toTrackDB(index: Int, fame: ItemFame): TrackDB {
     return TrackDB(
         trackId = this.id ?: "",
         trackIndex = index,
-        trackFame = this.fame,
+        trackFame = fame,
         trackTitle = this.name ?: "",
         trackArtist = this.artists?.joinToString(", ") { it.name ?: "" } ?: "",
         trackImage = this.album?.images?.first()?.url ?: "",
     )
 }
 
-fun TopItemApi.toArtistDB(index: Int) = ArtistDB(
+fun TopItemApi.toArtistDB(index: Int, fame: ItemFame) = ArtistDB(
     artistId = this.id ?: "",
     artistIndex = index,
-    artistFame = this.fame,
+    artistFame = fame,
     artistName = this.name ?: "",
     artistImage = this.images?.first()?.url ?: "",
 )
