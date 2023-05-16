@@ -30,7 +30,7 @@ class DefaultArtistsRepository(
         try {
             val apiItems = spotifyDatasource.getTopItems(
                 type = TopItemType.ARTISTS.name.lowercase(),
-                limit = 50,
+                limit = 1,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
