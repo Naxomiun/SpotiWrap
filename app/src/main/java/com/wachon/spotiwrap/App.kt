@@ -6,9 +6,12 @@ import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import com.wachon.spotiwrap.di.CoreModules
 import com.wachon.spotiwrap.di.FeaturesModule
+import com.wachon.spotiwrap.di.WorkerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
+import com.wachon.spotiwrap.data.worker.Sync
 
 class App : Application(), ImageLoaderFactory {
 
@@ -18,9 +21,11 @@ class App : Application(), ImageLoaderFactory {
         startKoin {
             androidLogger()
             androidContext(this@App)
+            workManagerFactory()
             modules(
                 CoreModules,
-                FeaturesModule
+                FeaturesModule,
+                WorkerModule
             )
         }
     }

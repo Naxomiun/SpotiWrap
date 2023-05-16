@@ -1,5 +1,3 @@
-import extensions.implementation
-
 plugins {
     spotiwrap_android_library
     spotiwrap_compose_library
@@ -12,5 +10,5 @@ android {
 
 dependencies {
     implementation(project(":core:auth"))
-    implementation(project(":core:network"))
+    implementation(project(":core:data"))
 }

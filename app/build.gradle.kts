@@ -19,8 +19,10 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:auth"))
     implementation(project(":core:persistence"))
-    implementation(project(":core:network"))
+    implementation(project(":core:data"))
     implementation(project(":core:navigation"))
     implementation(project(":core:design"))
+
+    implementation(libs.androidx.workmanager)
 }
 
