@@ -32,6 +32,18 @@ fun DependencyHandlerScope.kapt(dependency: String) {
     add("kapt", dependency)
 }
 
+fun DependencyHandlerScope.kapt(dependency: Provider<MinimalExternalModuleDependency>) {
+    add("kapt", dependency)
+}
+
+fun DependencyHandlerScope.ksp(dependency: String) {
+    add("ksp", dependency)
+}
+
+fun DependencyHandlerScope.ksp(dependency: Provider<MinimalExternalModuleDependency>) {
+    add("ksp", dependency)
+}
+
 fun DependencyHandlerScope.testImplementation(dependency: String) {
     add("testImplementation", dependency)
 }

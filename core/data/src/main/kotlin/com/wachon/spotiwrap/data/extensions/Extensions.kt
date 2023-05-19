@@ -31,4 +31,5 @@ fun TopItemApi.toArtistDB(index: Int, fame: ItemFame) = ArtistDB(
     artistFame = fame,
     artistName = this.name ?: "",
     artistImage = this.images?.first()?.url ?: "",
+    artistGenres = this.genres ?: emptyList()
 )

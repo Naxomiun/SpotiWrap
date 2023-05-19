@@ -1,15 +1,16 @@
-package com.wachon.spotiwrap.features.menu.presentation
+package com.wachon.spotiwrap.features.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
-import com.wachon.spotiwrap.data.worker.Sync
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtistsUseCase
 import com.wachon.spotiwrap.features.artists.presentation.model.toUI
+import com.wachon.spotiwrap.features.home.domain.GetUserTopGenresFromArtistsUseCase
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
 import com.wachon.spotiwrap.features.profile.presentation.model.toUI
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracksUseCase
 import com.wachon.spotiwrap.features.tracks.presentation.model.toUI
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -24,6 +25,7 @@ class HomeViewModel(
     getUserProfile: GetUserProfileUseCase,
     getUserTopArtists: GetUserTopArtistsUseCase,
     getUserTopTracks: GetUserTopTracksUseCase,
+    getUserTopGenres: GetUserTopGenresFromArtistsUseCase
 ) : ViewModel() {
 
     private val _event = Channel<Event>()
@@ -31,10 +33,13 @@ class HomeViewModel(
 
     private val userProfile = getUserProfile()
         .map { it.toUI() }
+
     private val topTracks = getUserTopTracks(limit = 10)
         .map { it.toUI() }
+
     private val topArtists = getUserTopArtists(limit = 10)
-        .map { it.toUI() }
+
+    private val topGenres = getUserTopGenres(topArtists)
 
     init {
         launchSyncWorker()
@@ -43,19 +48,21 @@ class HomeViewModel(
     val uiState = combine(
         userProfile,
         topTracks,
-        topArtists
-    ) { userProfile, topTracks, topArtists ->
-        MenuScreenState(
+        topArtists,
+        topGenres
+    ) { userProfile, topTracks, topArtists, topGenres ->
+        HomeScreenState(
             loading = false,
             userProfile = userProfile,
             topTracks = topTracks,
-            topArtists = topArtists
+            topArtists = topArtists.toUI(),
+            topGenres = topGenres.toImmutableList()
         )
     }   .flowOn(dispatcherProvider.background)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = MenuScreenState()
+            initialValue = HomeScreenState()
         )
 
     private fun launchSyncWorker() {
