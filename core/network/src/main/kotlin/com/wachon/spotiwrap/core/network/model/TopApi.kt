@@ -1,7 +1,5 @@
 package com.wachon.spotiwrap.core.network.model
 
-import com.wachon.spotiwrap.core.common.model.ArtistModel
-import com.wachon.spotiwrap.core.common.model.TrackModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -18,7 +16,9 @@ data class TopApi(
 
 @Serializable
 data class TopItemApi(
+    @SerialName("album")
     val album: AlbumApi?,
+    @SerialName("artists")
     val artists: List<ArtistApi>?,
     @SerialName("available_markets")
     val availableMarkets: List<String>?,
@@ -26,46 +26,33 @@ data class TopItemApi(
     val discNumber: Long?,
     @SerialName("duration_ms")
     val durationMS: Long?,
+    @SerialName("explicit")
     val explicit: Boolean?,
     @SerialName("external_ids")
     val externalIds: ExternalIdsApi?,
     @SerialName("external_urls")
     val externalUrls: ExternalUrlsApi?,
+    @SerialName("href")
     val href: String?,
+    @SerialName("id")
     val id: String?,
+    @SerialName("name")
     val name: String?,
+    @SerialName("popularity")
     val popularity: Long?,
     @SerialName("preview_url")
     val previewURL: String?,
     @SerialName("track_number")
     val trackNumber: Long?,
+    @SerialName("type")
     val type: String?,
+    @SerialName("uri")
     val uri: String?,
     @SerialName("is_local")
     val isLocal: Boolean?,
+    @SerialName("images")
     val images: List<ImageApi>?,
-    val genres: List<String>?
-) {
-
-    fun toTrackModel(): TrackModel {
-        return TrackModel(
-            id = this.id ?: "",
-            imageUrl = this.album?.images?.first()?.url ?: "",
-            title = this.name ?: "",
-            artists = this.artists?.map { it.toDomain() } ?: emptyList()
-        )
-    }
-
-    fun toArtistModel(): ArtistModel {
-        return ArtistModel(
-            id = this.id ?: "",
-            imageUrl = this.images?.first()?.url ?: "",
-            name = this.name ?: "",
-            genres = this.genres ?: emptyList()
-        )
-    }
-
-}
+)
 
 @Serializable
 data class AlbumApi(
@@ -100,18 +87,7 @@ data class ArtistApi(
     val type: String?,
     val uri: String?,
     val images: List<ImageApi>?
-) {
-
-    fun toDomain(): ArtistModel {
-        return ArtistModel (
-            id = this.id ?: "",
-            name = this.name ?: "",
-            imageUrl = this.images?.first()?.url ?: "",
-            genres = emptyList()
-        )
-    }
-
-}
+)
 
 @Serializable
 data class ExternalIdsApi(

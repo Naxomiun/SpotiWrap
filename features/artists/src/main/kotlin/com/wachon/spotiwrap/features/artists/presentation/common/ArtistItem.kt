@@ -11,23 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.wachon.spotiwrap.core.design.components.TextNoPadding
+import com.wachon.spotiwrap.core.common.model.ItemFame.UP
+import com.wachon.spotiwrap.core.design.components.TextGradientFame
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.features.artists.presentation.model.ArtistUI
 
 @Composable
 fun ArtistItem(
-    modifier: Modifier = Modifier,
-    artist: ArtistUI
+    modifier: Modifier = Modifier, artist: ArtistUI
 ) {
     Column(
-        modifier = modifier
-            .width(80.dp)
+        modifier = modifier.width(80.dp)
     ) {
         AsyncImage(
             model = artist.artistImage,
@@ -38,11 +36,12 @@ fun ArtistItem(
                 .clip(CircleShape),
         )
         Spacer(modifier = Modifier.height(8.dp))
-        TextNoPadding(
+        TextGradientFame(
             text = artist.artistName,
-            style = Body.copy(fontWeight = FontWeight.W600),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            textStyle = Body.copy(fontWeight = FontWeight.W600),
+            fame = artist.artistFame,
+            gradientStart = 120f,
+            gradientEnd = 185f
         )
     }
 }
@@ -54,6 +53,7 @@ fun ArtistItem() {
         ArtistItem(
             artist = ArtistUI(
                 artistId = "1",
+                artistFame = UP,
                 artistName = "Machine Gun Kelly",
                 artistImage = "https://i.scdn.co/image/ab6761610000e5ebd7b7b6b4b2b9b2b9b2b9b2b9"
             )

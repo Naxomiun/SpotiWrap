@@ -1,10 +1,7 @@
 package com.wachon.spotiwrap.features.artists.di
 
-import com.wachon.spotiwrap.features.artists.data.ArtistsRepository
-import com.wachon.spotiwrap.features.artists.data.DefaultArtistsRepository
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtists
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtistsUseCase
-import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -18,7 +15,7 @@ val ArtistsModule = module {
 
 private val ArtistsDataModule: Module
     get() = module {
-        single<ArtistsRepository> { DefaultArtistsRepository(get()) }
+
     }
 
 private val ArtistsDomainModule: Module

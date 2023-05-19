@@ -11,11 +11,14 @@ import com.wachon.spotiwrap.features.profile.presentation.model.toUI
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracksUseCase
 import com.wachon.spotiwrap.features.tracks.presentation.model.toUI
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
     dispatcherProvider: DispatcherProvider,
@@ -24,6 +27,9 @@ class HomeViewModel(
     getUserTopTracks: GetUserTopTracksUseCase,
     getUserTopGenres: GetUserTopGenresFromArtistsUseCase
 ) : ViewModel() {
+
+    private val _event = Channel<Event>()
+    val event = _event.receiveAsFlow()
 
     private val userProfile = getUserProfile()
         .map { it.toUI() }
@@ -34,6 +40,10 @@ class HomeViewModel(
     private val topArtists = getUserTopArtists(limit = 10)
 
     private val topGenres = getUserTopGenres(topArtists)
+
+    init {
+        launchSyncWorker()
+    }
 
     val uiState = combine(
         userProfile,
@@ -54,5 +64,21 @@ class HomeViewModel(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = HomeScreenState()
         )
+
+    private fun launchSyncWorker() {
+        viewModelScope.launch {
+            _event.send(Event.LaunchSyncWorker)
+        }
+    }
+
+    fun forceSync() {
+        viewModelScope.launch {
+            _event.send(Event.LaunchSyncWorker)
+        }
+    }
+
+    sealed interface Event {
+        object LaunchSyncWorker : Event
+    }
 
 }

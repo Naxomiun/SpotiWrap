@@ -57,11 +57,11 @@ class AndroidApplicationPlugin : Plugin<Project> {
             configureKotlinAndroid(this)
             configureKtlint()
             configureCompose(this)
-            configureRoom()
 
             dependencies {
                 implementation(libs.koin.core)
                 implementation(libs.koin.android)
+                implementation(libs.koin.workmanager)
             }
         }
     }

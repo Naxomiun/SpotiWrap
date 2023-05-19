@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.design.components.TextGradientFame
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SubBody
@@ -38,11 +39,12 @@ fun TrackItem(
                 .size(100.dp),
         )
         Spacer(modifier = Modifier.height(8.dp))
-        TextNoPadding(
+        TextGradientFame(
             text = track.trackTitle,
-            style = Body.copy(fontWeight = FontWeight.W600),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            textStyle = Body.copy(fontWeight = FontWeight.W600),
+            fame = track.trackFame,
+            gradientStart = 175f,
+            gradientEnd = 240f
         )
         TextNoPadding(
             text = track.trackArtist,

@@ -1,7 +1,5 @@
 package com.wachon.spotiwrap.features.profile.di
 
-import com.wachon.spotiwrap.features.profile.data.DefaultUserRepository
-import com.wachon.spotiwrap.features.profile.data.UserRepository
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfile
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
 import org.koin.core.module.Module
@@ -17,7 +15,7 @@ val ProfileModule = module {
 
 private val ProfileDataModule: Module
     get() = module {
-        single<UserRepository> { DefaultUserRepository(get()) }
+
     }
 
 private val ProfileDomainModule: Module

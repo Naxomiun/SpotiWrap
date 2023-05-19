@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface NetworkSpotifyDatasource {
 
-    fun getUserInfo(): Flow<UserProfileApi>
+    suspend fun getUserInfo(): UserProfileApi
 
-    fun getTopItems(
+    suspend fun getTopItems(
         type: String,
         limit: Int,
         offset: Int,
         timeRange: String
-    ): Flow<TopApi>
+    ): TopApi
 
 }
 
@@ -22,17 +22,17 @@ class DefaultNetworkSpotifyDatasource(
     private val spotifyService: SpotifyService
 ) : NetworkSpotifyDatasource {
 
-    override fun getUserInfo(): Flow<UserProfileApi> {
+    override suspend fun getUserInfo(): UserProfileApi {
         return spotifyService
             .getMe()
     }
 
-    override fun getTopItems(
+    override suspend fun getTopItems(
         type: String,
         limit: Int,
         offset: Int,
         timeRange: String
-    ): Flow<TopApi> {
+    ): TopApi {
         return spotifyService
             .getTop(
                 type = type,

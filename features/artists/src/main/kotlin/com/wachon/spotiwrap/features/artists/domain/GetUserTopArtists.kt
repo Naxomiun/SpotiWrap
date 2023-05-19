@@ -3,7 +3,7 @@ package com.wachon.spotiwrap.features.artists.domain
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
-import com.wachon.spotiwrap.features.artists.data.ArtistsRepository
+import com.wachon.spotiwrap.data.repository.ArtistsRepository
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtists.Companion.DEFAULT_LIMIT
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtists.Companion.DEFAULT_OFFSET
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtists.Companion.DEFAULT_TIME_RANGE

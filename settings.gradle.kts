@@ -6,12 +6,14 @@ include(
 
 //Core
 include(
-    "core:common",
-    "core:network",
-    "core:persistence",
-    "core:auth",
-    "core:navigation",
-    "core:design",
+    ":core:common",
+    ":core:network",
+    ":core:persistence",
+    ":core:auth",
+    ":core:navigation",
+    ":core:design",
+    ":core:data",
+    ":core:database"
 )
 
 //Features

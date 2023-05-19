@@ -1,17 +1,16 @@
 package com.wachon.spotiwrap.core.network.model
 
-import com.wachon.spotiwrap.core.common.model.UserProfileModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserProfileApi(
     @SerialName("country")
-    val country: String?,
+    val country: String,
     @SerialName("display_name")
-    val displayName: String?,
+    val displayName: String,
     @SerialName("email")
-    val email: String?,
+    val email: String,
     @SerialName("explicit_content")
     val explicitContent: ExplicitContentApi?,
     @SerialName("external_urls")
@@ -23,25 +22,14 @@ data class UserProfileApi(
     @SerialName("id")
     val id: String?,
     @SerialName("images")
-    val images: List<ImageApi>?,
+    val images: List<ImageApi>,
     @SerialName("product")
-    val product: String?,
+    val product: String,
     @SerialName("type")
-    val type: String?,
+    val type: String,
     @SerialName("uri")
-    val uri: String?
-) {
-
-    fun toDomain(): UserProfileModel {
-        return UserProfileModel(
-            displayName = this.displayName ?: "",
-            country = this.country ?: "",
-            email = this.email ?: "",
-            image = this.images?.first()?.url ?: ""
-        )
-    }
-
-}
+    val uri: String
+)
 
 @Serializable
 data class ExplicitContentApi(

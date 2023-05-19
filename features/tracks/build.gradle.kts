@@ -8,6 +8,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:network"))
-
+    implementation(project(":core:data"))
 }
