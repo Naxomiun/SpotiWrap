@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.data.repository
 
+import android.util.Log
 import com.wachon.spotiwrap.core.common.model.ItemFame
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.common.model.TopItemType
@@ -35,7 +36,10 @@ class DefaultTracksRepository(
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
 
+            Log.e("caca", "sync: $apiItems")
+
             val dbItems = trackDao.getTracksNoFlow()
+
             trackDao.insertTracks(
                 mapTopItemsToTrackDB(apiItems.items ?: emptyList(), dbItems)
             )
@@ -65,7 +69,11 @@ class DefaultTracksRepository(
     override fun getTopTracks(
         limit: Int, offset: Int, timeRange: TopItemTimeRange
     ): Flow<List<TrackModel>> {
-        return trackDao.getTracks().map { trackDBList -> trackDBList.map { it.toDomain() } }
+        return trackDao
+            .getTracks()
+            .map { trackDBList ->
+                trackDBList.map { it.toDomain() }
+            }
     }
 
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
 interface GetUserProfileUseCase {
-    operator fun invoke(): Flow<UserProfileModel>
+    operator fun invoke(): Flow<UserProfileModel?>
 }
 
 class GetUserProfile(
@@ -15,7 +15,7 @@ class GetUserProfile(
     private val dispatchers: DispatcherProvider
 ) : GetUserProfileUseCase {
 
-    override fun invoke(): Flow<UserProfileModel> {
+    override fun invoke(): Flow<UserProfileModel?> {
         return userRepository
             .getUserInfo()
             .flowOn(dispatchers.background)

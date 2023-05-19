@@ -37,7 +37,7 @@ interface ProfileDao {
     fun getProfileNoFLow(): UserProfileDB
 
     @Query("SELECT * FROM profile")
-    fun getProfile(): Flow<UserProfileDB>
+    fun getProfile(): Flow<UserProfileDB?>
 }
 
 @Dao

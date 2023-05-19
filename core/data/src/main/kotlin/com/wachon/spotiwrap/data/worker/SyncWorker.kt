@@ -17,6 +17,7 @@ import com.wachon.spotiwrap.data.repository.UserRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

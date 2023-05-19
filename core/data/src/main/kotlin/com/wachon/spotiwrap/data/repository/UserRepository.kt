@@ -7,14 +7,16 @@ import com.wachon.spotiwrap.data.extensions.toTrackDB
 import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 interface UserRepository: Syncable {
-    fun getUserInfo(): Flow<UserProfileModel>
+    fun getUserInfo(): Flow<UserProfileModel?>
 }
 
 class DefaultUserRepository(
-    private val profileDao: ProfileDao, private val spotifyDatasource: NetworkSpotifyDatasource
+    private val profileDao: ProfileDao,
+    private val spotifyDatasource: NetworkSpotifyDatasource
 ) : UserRepository {
 
     override suspend fun sync(): Result<Boolean> {
@@ -27,6 +29,11 @@ class DefaultUserRepository(
         }
     }
 
-    override fun getUserInfo(): Flow<UserProfileModel> = profileDao.getProfile().map { it.toDomain() }.catch { }
+    override fun getUserInfo(): Flow<UserProfileModel?> {
+        return profileDao
+            .getProfile()
+            .map { it?.toDomain() }
+
+    }
 
 }
