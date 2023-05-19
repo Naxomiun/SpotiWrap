@@ -147,16 +147,15 @@ fun HomeTopGenres(
             Modifier
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .clip(RoundedCornerShape(30))
-                .height(28.dp)
+                .height(24.dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
             Box(
                 modifier = Modifier
-                    .padding(6.dp)
                     .animateContentSize()
                     .clip(RoundedCornerShape(30))
-                    .height(28.dp)
+                    .height(24.dp)
                     .fillMaxWidth(fraction = width)
                     .background(color = BubblegumPink)
             )

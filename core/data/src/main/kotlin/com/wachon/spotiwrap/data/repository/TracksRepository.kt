@@ -36,8 +36,6 @@ class DefaultTracksRepository(
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
 
-            Log.e("caca", "sync: $apiItems")
-
             val dbItems = trackDao.getTracksNoFlow()
 
             trackDao.insertTracks(
