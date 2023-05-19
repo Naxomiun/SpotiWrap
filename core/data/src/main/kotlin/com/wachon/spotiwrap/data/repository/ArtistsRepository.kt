@@ -35,6 +35,8 @@ class DefaultArtistsRepository(
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
 
+            apiItems
+
             val dbItems = artistDao.getArtistsNoFlow()
             artistDao.insertArtists(
                 mapTopItemsToArtistDB(apiItems.items ?: emptyList(), dbItems)

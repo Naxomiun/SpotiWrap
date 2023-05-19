@@ -20,6 +20,8 @@ class GetTopGenresFromArtists(
             val counts = it.flatMap {
                 it.genres
             }
+                .filterNotNull()
+                .filter { it.isNotBlank() }
                 .groupingBy { it }
                 .eachCount()
                 .toList()
