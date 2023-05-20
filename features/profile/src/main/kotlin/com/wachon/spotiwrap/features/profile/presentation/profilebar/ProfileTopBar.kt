@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
@@ -25,9 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.wachon.spotiwrap.core.common.model.ItemFame
-import com.wachon.spotiwrap.core.common.model.TrackModel
-import com.wachon.spotiwrap.core.design.components.TextGradientFame
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SmallTitle
