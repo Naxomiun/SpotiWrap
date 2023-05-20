@@ -1,9 +1,24 @@
 package com.wachon.spotiwrap.features.profile.presentation.profilebar
 
+import androidx.compose.runtime.Immutable
+import com.wachon.spotiwrap.core.common.model.CurrentTrackModel
+import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.core.common.model.UserProfileModel
+import com.wachon.spotiwrap.features.profile.presentation.model.CurrentTrackUI
+import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 
-sealed interface ProfileTopBarState {
-    data class Success(val userProfileModel: UserProfileModel) : ProfileTopBarState
-    object Loading : ProfileTopBarState
-    object Error : ProfileTopBarState
+@Immutable
+data class ProfileTopBarState(
+    val userUI: UserUI? = null,
+    val currentTrackUI: CurrentTrackUI? = null
+) {
+
+    fun isLoading(): Boolean {
+        return userUI == null
+    }
+
+    fun isCurrentSongPlaying(): Boolean {
+        return currentTrackUI != null
+    }
+
 }

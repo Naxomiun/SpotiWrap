@@ -26,6 +26,7 @@ class DefaultAuthConfigProvider : AuthConfigProvider {
         AuthScope.UserReadEmail,
         AuthScope.UserReadPrivate,
         AuthScope.UserTopRead,
+        AuthScope.UserReadCurrentlyPlaying,
         AuthScope.Streaming
     )
 
