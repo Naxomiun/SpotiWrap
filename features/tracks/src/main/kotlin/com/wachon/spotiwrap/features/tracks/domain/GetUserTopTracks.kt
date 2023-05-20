@@ -8,7 +8,6 @@ import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks.Companion.DE
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks.Companion.DEFAULT_OFFSET
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks.Companion.DEFAULT_TIME_RANGE
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 
 interface GetUserTopTracksUseCase {
