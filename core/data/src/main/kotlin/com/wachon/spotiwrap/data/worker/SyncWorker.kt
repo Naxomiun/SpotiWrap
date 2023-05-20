@@ -3,7 +3,6 @@ package com.wachon.spotiwrap.data.worker
 import android.content.Context
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
-import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
@@ -14,14 +13,11 @@ import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.data.repository.ArtistsRepository
 import com.wachon.spotiwrap.data.repository.TracksRepository
 import com.wachon.spotiwrap.data.repository.UserRepository
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import kotlin.reflect.KClass
 
 class SyncWorker(
     appContext: Context,

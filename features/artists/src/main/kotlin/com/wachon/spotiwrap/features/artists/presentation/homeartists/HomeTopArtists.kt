@@ -25,7 +25,6 @@ import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.features.artists.presentation.common.ArtistItem
 import com.wachon.spotiwrap.features.artists.presentation.model.ArtistUI
 import kotlinx.collections.immutable.ImmutableList
-import com.theapache64.rebugger.Rebugger
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable

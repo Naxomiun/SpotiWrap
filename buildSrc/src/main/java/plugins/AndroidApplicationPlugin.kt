@@ -1,10 +1,11 @@
 package plugins
 
+import Config
 import com.android.build.api.dsl.ApplicationExtension
+import extensions.configureKotlinAndroid
+import extensions.configureKtlint
 import extensions.implementation
 import extensions.libs
-import extensions.configureKtlint
-import extensions.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
