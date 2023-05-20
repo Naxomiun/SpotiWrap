@@ -1,5 +1,8 @@
 package com.wachon.spotiwrap.features.profile.presentation.profilebar
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,12 +27,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.design.R as DesignR
+import com.wachon.spotiwrap.core.design.components.LottieImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SmallTitle
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.design.theme.SubBody
 import com.wachon.spotiwrap.core.design.theme.Title
+import com.wachon.spotiwrap.features.profile.R
 import com.wachon.spotiwrap.features.profile.presentation.model.CurrentTrackUI
 import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 
@@ -70,11 +76,8 @@ fun ProfileGreetings(
             color = MaterialTheme.colorScheme.onBackground,
         )
 
-        if(user()?.currentTrackUI != null) {
-            Spacer(modifier = Modifier.height(8.dp))
-            ProfileCurrentSong(
-                currentTrackUI = user()?.currentTrackUI
-            )
+        if (user()?.currentTrackUI != null) {
+            ProfileCurrentSong(currentTrackUI = user()?.currentTrackUI)
         }
     }
 }
@@ -107,42 +110,60 @@ fun ProfileCurrentSong(
     currentTrackUI: CurrentTrackUI?
 ) {
 
-    assert(currentTrackUI != null)
+    AnimatedVisibility(
+        visible = true,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
 
-    Column {
-        TextNoPadding(
-            text = "Currenty playing",
-            style = Title
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Row(
-            modifier = modifier,
-            verticalAlignment = Alignment.CenterVertically
+        Spacer(modifier = Modifier.height(8.dp))
+        Column(
+            modifier = modifier
         ) {
-            AsyncImage(
-                model = currentTrackUI!!.image,
-                contentScale = ContentScale.Crop,
-                contentDescription = null,
-                modifier = modifier
-                    .size(30.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Column {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.Top
+            ) {
                 TextNoPadding(
-                    text = currentTrackUI.title,
-                    style = Body.copy(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.W600
-                    ),
-                    overflow = TextOverflow.Ellipsis,
+                    text = "Currenty playing",
+                    style = Title
                 )
-                TextNoPadding(
-                    text = currentTrackUI.artist,
-                    style = SubBody.copy(fontSize = 10.sp),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+                LottieImage(
+                    modifier = modifier
+                        .size(35.dp),
+                    animation = DesignR.raw.equalizer,
+                    tintColor = MaterialTheme.colorScheme.primary
                 )
+            }
+            Spacer(modifier = Modifier.height(4.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AsyncImage(
+                    model = currentTrackUI!!.image,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                    modifier = modifier
+                        .size(30.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column {
+                    TextNoPadding(
+                        text = currentTrackUI.title,
+                        style = Body.copy(
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.W600
+                        ),
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    TextNoPadding(
+                        text = currentTrackUI.artist,
+                        style = SubBody.copy(fontSize = 10.sp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+                    )
+                }
             }
         }
     }
