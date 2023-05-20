@@ -5,19 +5,18 @@ import com.wachon.spotiwrap.core.database.datasource.AppDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
-val DatabaseModule
-    get() = module {
-        single {
-            Room.databaseBuilder(
-                androidApplication(),
-                AppDatabase::class.java,
-                "app_database"
-            )
-                .fallbackToDestructiveMigration()
-                .build()
-        }
-
-        factory { get<AppDatabase>().profileDao() }
-        factory { get<AppDatabase>().trackDao() }
-        factory { get<AppDatabase>().artistDao() }
+val DatabaseModule = module {
+    single {
+        Room.databaseBuilder(
+            androidApplication(),
+            AppDatabase::class.java,
+            "app_database"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
+
+    single { get<AppDatabase>().profileDao() }
+    single { get<AppDatabase>().trackDao() }
+    single { get<AppDatabase>().artistDao() }
+}

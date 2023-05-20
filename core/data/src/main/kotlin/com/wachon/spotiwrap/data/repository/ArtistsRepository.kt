@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.data.repository
 
+import android.util.Log
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.ItemFame
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
@@ -35,8 +36,6 @@ class DefaultArtistsRepository(
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
 
-            apiItems
-
             val dbItems = artistDao.getArtistsNoFlow()
             artistDao.insertArtists(
                 mapTopItemsToArtistDB(apiItems.items ?: emptyList(), dbItems)
@@ -69,7 +68,11 @@ class DefaultArtistsRepository(
         offset: Int,
         timeRange: TopItemTimeRange
     ): Flow<List<ArtistModel>> {
-        return artistDao.getArtists().map { artistDBList -> artistDBList.map { it.toDomain() } }
+        return artistDao
+            .getArtists()
+            .map { artistDBList ->
+                artistDBList.map { it.toDomain() }
+            }
     }
 
 }

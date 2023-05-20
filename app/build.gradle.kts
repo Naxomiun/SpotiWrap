@@ -22,6 +22,8 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:navigation"))
     implementation(project(":core:design"))
+    implementation(project(":core:network"))
+    implementation(project(":core:database"))
 
     implementation(libs.androidx.workmanager)
 }

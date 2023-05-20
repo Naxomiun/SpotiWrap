@@ -5,16 +5,12 @@ import androidx.room.TypeConverter
 class ListStringConverter {
 
     @TypeConverter
-    fun List<String>?.toStringData(): String? {
-        if(this.isNullOrEmpty()) return null
-
+    fun List<String>.toStringData(): String {
         return this.joinToString(",")
     }
 
     @TypeConverter
-    fun String?.toList(): List<String>? {
-        if(this == null) return null
-
+    fun String.toList(): List<String> {
         return this.split(",")
     }
 }
