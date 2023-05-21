@@ -1,9 +1,9 @@
 package com.wachon.spotiwrap.navigation.auth
 
-import com.wachon.spotiwrap.core.navigation.AuthGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.wachon.spotiwrap.core.navigation.AuthGraph
 import com.wachon.spotiwrap.core.navigation.GRAPH
 import com.wachon.spotiwrap.features.login.presentation.LoginScreen
 import com.wachon.spotiwrap.features.splash.presentation.SplashScreen

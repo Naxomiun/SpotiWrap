@@ -36,7 +36,7 @@ class GetUserTopTracks(
                 offset = offset,
                 timeRange = timeRange
             )
-            .flowOn(dispatchers.background)
+            .flowOn(dispatchers.default)
     }
 
 }

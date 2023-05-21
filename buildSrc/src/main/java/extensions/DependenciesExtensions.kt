@@ -1,6 +1,5 @@
 package extensions
 
-import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
@@ -30,6 +29,18 @@ fun DependencyHandlerScope.implementation(project: Project) {
 
 fun DependencyHandlerScope.kapt(dependency: String) {
     add("kapt", dependency)
+}
+
+fun DependencyHandlerScope.kapt(dependency: Provider<MinimalExternalModuleDependency>) {
+    add("kapt", dependency)
+}
+
+fun DependencyHandlerScope.ksp(dependency: String) {
+    add("ksp", dependency)
+}
+
+fun DependencyHandlerScope.ksp(dependency: Provider<MinimalExternalModuleDependency>) {
+    add("ksp", dependency)
 }
 
 fun DependencyHandlerScope.testImplementation(dependency: String) {

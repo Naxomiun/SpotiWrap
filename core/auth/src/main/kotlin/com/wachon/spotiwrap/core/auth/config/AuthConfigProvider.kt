@@ -1,7 +1,7 @@
 package com.wachon.spotiwrap.core.auth.config
 
-import com.wachon.spotiwrap.core.auth.scopes.AuthScope
 import com.wachon.spotiwrap.core.auth.BuildConfig
+import com.wachon.spotiwrap.core.auth.scopes.AuthScope
 
 interface AuthConfigProvider {
     fun getScopes(): List<AuthScope>
@@ -26,6 +26,7 @@ class DefaultAuthConfigProvider : AuthConfigProvider {
         AuthScope.UserReadEmail,
         AuthScope.UserReadPrivate,
         AuthScope.UserTopRead,
+        AuthScope.UserReadCurrentlyPlaying,
         AuthScope.Streaming
     )
 

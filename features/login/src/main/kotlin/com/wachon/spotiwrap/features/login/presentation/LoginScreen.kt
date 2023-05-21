@@ -19,10 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.skydoves.landscapist.glide.GlideImage
 import com.spotify.sdk.android.auth.AuthorizationClient
@@ -30,10 +27,10 @@ import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.spotify.sdk.android.auth.LoginActivity
 import com.wachon.spotiwrap.core.auth.config.AuthConfig
-import com.wachon.spotiwrap.core.design.components.collectEvents
-import kotlinx.coroutines.flow.collectLatest
 import com.wachon.spotiwrap.core.design.components.BrandContainer
+import com.wachon.spotiwrap.core.design.components.collectEvents
 import com.wachon.spotiwrap.core.design.theme.LargeTitle
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

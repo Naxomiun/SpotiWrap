@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.core.network.datasource
 
+import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import com.wachon.spotiwrap.core.network.service.SpotifyService
@@ -7,6 +8,8 @@ import com.wachon.spotiwrap.core.network.service.SpotifyService
 interface NetworkSpotifyDatasource {
 
     suspend fun getUserInfo(): UserProfileApi
+
+    fun getCurrentTrack(): Flow<CurrentTrackApi?>
 
     suspend fun getTopItems(
         type: String,
@@ -25,6 +28,11 @@ class DefaultNetworkSpotifyDatasource(
     override suspend fun getUserInfo(): UserProfileApi {
         return spotifyService
             .getMe()
+    }
+
+    override fun getCurrentTrack(): Flow<CurrentTrackApi?> {
+        return spotifyService
+            .getCurrentTrack()
     }
 
     override suspend fun getTopItems(

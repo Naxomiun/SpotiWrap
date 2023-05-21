@@ -4,15 +4,15 @@ versionName = "1.0.0"
 compileSdk = "33"
 targetSdk = "33"
 minSdk = "24"
-kotlin = "1.8.10"
+kotlin = "1.8.21"
 gradle = "8.0.1"
 ktlint = "11.0.0"
 ktor = "2.2.2"
 logginInterceptor = "4.10.0"
-room = "2.5.0"
+room = "2.5.1"
 spotify = "2.0.2"
-composeCompiler = "1.4.4"
-composeBom = "2023.04.01"
+composeCompiler = "1.4.7"
+composeBom = "2023.05.01"
 composeLandscapist = "2.1.12"
 coilCompose = "2.3.0"
 junit = "4.+"
@@ -28,6 +28,7 @@ accompanist = "0.30.1"
 rebugger = "1.0.0-alpha02"
 kotlinImmutable = "0.3.5"
 workManager = "2.8.1"
+lottieCompose = "6.0.0"
 
 [libraries]
 
@@ -74,6 +75,7 @@ compose-landscapist-placeholder = { module = "com.github.skydoves:landscapist-pl
 compose-landscapist-palette = { module = "com.github.skydoves:landscapist-palette", version.ref = "composeLandscapist" }
 compose-landscapist-animation = { module = "com.github.skydoves:landscapist-animation", version.ref = "composeLandscapist" }
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }

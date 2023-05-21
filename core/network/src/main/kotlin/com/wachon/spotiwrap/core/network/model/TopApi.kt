@@ -52,6 +52,8 @@ data class TopItemApi(
     val isLocal: Boolean?,
     @SerialName("images")
     val images: List<ImageApi>?,
+    @SerialName("genres")
+    val genres: List<String>?
 )
 
 @Serializable
@@ -86,7 +88,8 @@ data class ArtistApi(
     val name: String?,
     val type: String?,
     val uri: String?,
-    val images: List<ImageApi>?
+    val images: List<ImageApi>?,
+    val genres: List<String>?
 )
 
 @Serializable

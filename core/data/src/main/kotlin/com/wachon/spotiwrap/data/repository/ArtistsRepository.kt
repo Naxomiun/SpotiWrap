@@ -30,7 +30,7 @@ class DefaultArtistsRepository(
         try {
             val apiItems = spotifyDatasource.getTopItems(
                 type = TopItemType.ARTISTS.name.lowercase(),
-                limit = 50,
+                limit = 10,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
@@ -67,7 +67,11 @@ class DefaultArtistsRepository(
         offset: Int,
         timeRange: TopItemTimeRange
     ): Flow<List<ArtistModel>> {
-        return artistDao.getArtists().map { artistDBList -> artistDBList.map { it.toDomain() } }
+        return artistDao
+            .getArtists()
+            .map { artistDBList ->
+                artistDBList.map { it.toDomain() }
+            }
     }
 
 }

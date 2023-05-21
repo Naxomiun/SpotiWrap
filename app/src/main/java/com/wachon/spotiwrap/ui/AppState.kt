@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.ui
 
-import com.wachon.spotiwrap.core.navigation.AuthGraph
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -10,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wachon.spotiwrap.core.design.components.BottomNavBarItem
+import com.wachon.spotiwrap.core.navigation.AuthGraph
 import com.wachon.spotiwrap.core.navigation.GRAPH
 import com.wachon.spotiwrap.core.navigation.MainGraph
 import com.wachon.spotiwrap.core.navigation.extensions.navigateAndPop

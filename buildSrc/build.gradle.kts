@@ -40,7 +40,7 @@ gradlePlugin {
 
         register("spotiwrap_room_library") {
             id = "spotiwrap_room_library"
-            implementationClass = "plugins.RoomPlugin"
+            implementationClass = "plugins.AndroidRoomPlugin"
         }
     }
 }
@@ -51,6 +51,8 @@ repositories {
     maven {
         url = uri("https://plugins.gradle.org/m2/")
     }
+    gradlePluginPortal()
+
 }
 
 dependencies {

@@ -7,7 +7,6 @@ import com.wachon.spotiwrap.data.di.DataModule
 import com.wachon.spotiwrap.data.worker.SyncWorker
 import com.wachon.spotiwrap.features.artists.di.ArtistsModule
 import com.wachon.spotiwrap.features.login.di.LoginModule
-import com.wachon.spotiwrap.features.menu.di.MenuModule
 import com.wachon.spotiwrap.features.profile.di.ProfileModule
 import com.wachon.spotiwrap.features.recommender.di.RecommenderModule
 import com.wachon.spotiwrap.features.splash.di.SplashModule
@@ -37,8 +36,10 @@ val CoreModules: Module
             listOf(
                 AuthModule,
                 DispatchersModule,
+                PersistenceModule,
                 DataModule,
-                PersistenceModule
+                NetworkModule,
+                DatabaseModule
             )
         )
     }

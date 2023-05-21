@@ -11,7 +11,8 @@ data class ArtistUI(
     val artistId: String,
     val artistFame: ItemFame,
     val artistName: String,
-    val artistImage: String
+    val artistImage: String,
+    val artistGenres: List<String> = emptyList(),
 )
 
 fun ArtistModel.toUI(): ArtistUI {
@@ -20,6 +21,7 @@ fun ArtistModel.toUI(): ArtistUI {
         artistFame = fame,
         artistName = name,
         artistImage = imageUrl,
+        artistGenres = genres
     )
 }
 

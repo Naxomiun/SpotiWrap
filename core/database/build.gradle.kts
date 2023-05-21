@@ -1,16 +1,8 @@
 plugins {
     spotiwrap_android_library
-    kotlin("kapt")
+    spotiwrap_room_library
 }
 
 android {
     namespace = Config.Core.Database
-}
-
-dependencies {
-    implementation(project(":core:auth"))
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
-    implementation(libs.gson)
 }

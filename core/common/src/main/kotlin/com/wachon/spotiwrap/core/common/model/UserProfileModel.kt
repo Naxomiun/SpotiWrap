@@ -4,6 +4,12 @@ data class UserProfileModel(
     val displayName: String,
     val country: String,
     val email: String,
-    val image: String
+    val image: String,
+    val currentSong: CurrentTrackModel?
 )
 
+data class CurrentTrackModel(
+    val title: String,
+    val artist: String,
+    val imageUrl: String
+)

@@ -9,17 +9,20 @@ import com.wachon.spotiwrap.core.navigation.GRAPH
 import com.wachon.spotiwrap.core.navigation.MainGraph.Home
 import com.wachon.spotiwrap.core.navigation.MainGraph.Profile
 import com.wachon.spotiwrap.core.navigation.MainGraph.Top
-import com.wachon.spotiwrap.features.menu.presentation.HomeScreen
-import com.wachon.spotiwrap.features.recommender.presentation.RecommenderScreen
+import com.wachon.spotiwrap.features.home.presentation.HomeScreen
 import com.wachon.spotiwrap.ui.AppState
 
 @Composable
 fun MainGraph(
-    appState: AppState, homeListState: LazyListState, recommenderListState: LazyListState
+    appState: AppState,
+    homeListState: LazyListState,
+    recommenderListState: LazyListState
 ) {
 
     NavHost(
-        navController = appState.mainNavController, route = GRAPH.Main, startDestination = Home.route
+        navController = appState.mainNavController,
+        route = GRAPH.Main,
+        startDestination = Home.route
     ) {
         composable(Home.route) {
             HomeScreen(

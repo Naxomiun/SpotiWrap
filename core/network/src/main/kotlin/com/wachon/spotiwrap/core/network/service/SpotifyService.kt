@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.core.network.service
 
-import com.wachon.spotiwrap.core.network.model.GenresApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import io.ktor.client.HttpClient
@@ -14,6 +13,15 @@ class SpotifyService(
 
     suspend fun getMe(): UserProfileApi {
         return httpClient.get("/v1/me").body()
+    }
+
+    fun getCurrentTrack(): Flow<CurrentTrackApi?> = flow {
+        Log.e("SpotifyService", "getCurrentTrack")
+        try {
+            emit(httpClient.get("v1/me/player/currently-playing").body())
+        } catch (e: Exception) {
+            emit(null)
+        }
     }
 
     suspend fun getTop(

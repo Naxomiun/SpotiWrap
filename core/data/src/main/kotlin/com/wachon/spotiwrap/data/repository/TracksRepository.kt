@@ -30,12 +30,13 @@ class DefaultTracksRepository(
         try {
             val apiItems = spotifyDatasource.getTopItems(
                 type = TopItemType.TRACKS.name.lowercase(),
-                limit = 50,
+                limit = 25,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
 
             val dbItems = trackDao.getTracksNoFlow()
+
             trackDao.insertTracks(
                 mapTopItemsToTrackDB(apiItems.items ?: emptyList(), dbItems)
             )
@@ -44,6 +45,16 @@ class DefaultTracksRepository(
         } catch (e: Exception) {
             return Result.failure(e)
         }
+    }
+
+    override fun getTopTracks(
+        limit: Int, offset: Int, timeRange: TopItemTimeRange
+    ): Flow<List<TrackModel>> {
+        return trackDao
+            .getTracks()
+            .map { trackDBList ->
+                trackDBList.map { it.toDomain() }
+            }
     }
 
     private fun mapTopItemsToTrackDB(items: List<TopItemApi>, tracksDB: List<TrackDB>): List<TrackDB> {
@@ -60,12 +71,6 @@ class DefaultTracksRepository(
                 }
             )
         }
-    }
-
-    override fun getTopTracks(
-        limit: Int, offset: Int, timeRange: TopItemTimeRange
-    ): Flow<List<TrackModel>> {
-        return trackDao.getTracks().map { trackDBList -> trackDBList.map { it.toDomain() } }
     }
 
 }

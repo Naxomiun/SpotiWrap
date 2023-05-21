@@ -6,6 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.wachon.spotiwrap.core.database.converter.ListStringConverter
 import com.wachon.spotiwrap.core.database.model.ArtistDB
 import com.wachon.spotiwrap.core.database.model.GenreDB
 import com.wachon.spotiwrap.core.database.model.TrackDB
@@ -19,8 +21,9 @@ import kotlinx.coroutines.flow.Flow
         ArtistDB::class,
         GenreDB::class,
     ],
-    version = 1
+    version = 2
 )
+@TypeConverters(ListStringConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun profileDao(): ProfileDao
     abstract fun trackDao(): TrackDao
@@ -37,7 +40,7 @@ interface ProfileDao {
     fun getProfileNoFLow(): UserProfileDB
 
     @Query("SELECT * FROM profile")
-    fun getProfile(): Flow<UserProfileDB>
+    fun getProfile(): Flow<UserProfileDB?>
 }
 
 @Dao
