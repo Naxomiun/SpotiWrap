@@ -187,7 +187,7 @@ fun CurrentTrackTitle(
         )
         LottieImage(
             modifier = Modifier
-                .size(35.dp),
+                .size(30.dp),
             animation = DesignR.raw.equalizer,
             tintColor = MaterialTheme.colorScheme.primary
         )
