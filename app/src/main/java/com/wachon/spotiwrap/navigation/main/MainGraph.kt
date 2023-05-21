@@ -10,6 +10,7 @@ import com.wachon.spotiwrap.core.navigation.MainGraph.Home
 import com.wachon.spotiwrap.core.navigation.MainGraph.Profile
 import com.wachon.spotiwrap.core.navigation.MainGraph.Top
 import com.wachon.spotiwrap.features.home.presentation.HomeScreen
+import com.wachon.spotiwrap.features.recommender.presentation.RecommenderScreen
 import com.wachon.spotiwrap.ui.AppState
 
 @Composable
