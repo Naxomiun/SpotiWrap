@@ -41,7 +41,6 @@ fun GenresContent(
     rowsPerColumn: Int,
     checkedList: SnapshotStateList<String>,
 ) {
-
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -105,7 +104,7 @@ fun GenresChildColumns(
         modifier = Modifier
             .width(IntrinsicSize.Max)
             .horizontalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
         genres.forEach {
             GenresChildRow(
