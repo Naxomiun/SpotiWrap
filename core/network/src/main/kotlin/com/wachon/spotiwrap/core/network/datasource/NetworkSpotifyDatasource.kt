@@ -3,7 +3,6 @@ package com.wachon.spotiwrap.core.network.datasource
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import com.wachon.spotiwrap.core.network.service.SpotifyService
-import kotlinx.coroutines.flow.Flow
 
 interface NetworkSpotifyDatasource {
 
@@ -16,6 +15,7 @@ interface NetworkSpotifyDatasource {
         timeRange: String
     ): TopApi
 
+    suspend fun getGenres(): List<String>
 }
 
 class DefaultNetworkSpotifyDatasource(
@@ -40,6 +40,10 @@ class DefaultNetworkSpotifyDatasource(
                 offset = offset,
                 timeRange = timeRange
             )
+    }
+
+    override suspend fun getGenres(): List<String> {
+        return spotifyService.getGenres().genres
     }
 
 }

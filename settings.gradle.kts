@@ -23,7 +23,8 @@ include(
     ":features:splash",
     ":features:tracks",
     ":features:artists",
-    ":features:profile"
+    ":features:profile",
+    ":features:recommender"
 )
 
 //Tests

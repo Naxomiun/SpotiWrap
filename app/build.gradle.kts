@@ -16,6 +16,7 @@ dependencies {
     implementation(project(":features:tracks"))
     implementation(project(":features:artists"))
     implementation(project(":features:profile"))
+    implementation(project(":features:recommender"))
     implementation(project(":core:common"))
     implementation(project(":core:auth"))
     implementation(project(":core:persistence"))

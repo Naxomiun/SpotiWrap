@@ -20,4 +20,5 @@ val DatabaseModule
         factory { get<AppDatabase>().profileDao() }
         factory { get<AppDatabase>().trackDao() }
         factory { get<AppDatabase>().artistDao() }
+        factory { get<AppDatabase>().genreDao() }
     }

@@ -4,8 +4,10 @@ import com.wachon.spotiwrap.core.database.di.DatabaseModule
 import com.wachon.spotiwrap.core.network.di.NetworkModule
 import com.wachon.spotiwrap.data.repository.ArtistsRepository
 import com.wachon.spotiwrap.data.repository.DefaultArtistsRepository
+import com.wachon.spotiwrap.data.repository.DefaultGenresRepository
 import com.wachon.spotiwrap.data.repository.DefaultTracksRepository
 import com.wachon.spotiwrap.data.repository.DefaultUserRepository
+import com.wachon.spotiwrap.data.repository.GenresRepository
 import com.wachon.spotiwrap.data.repository.TracksRepository
 import com.wachon.spotiwrap.data.repository.UserRepository
 import org.koin.core.module.Module
@@ -24,4 +26,5 @@ private val DataDataModule: Module
         single<UserRepository> { DefaultUserRepository(get(), get()) }
         single<TracksRepository> { DefaultTracksRepository(get(), get()) }
         single<ArtistsRepository> { DefaultArtistsRepository(get(), get()) }
+        single<GenresRepository> { DefaultGenresRepository(get()) }
     }
