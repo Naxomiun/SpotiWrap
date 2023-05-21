@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.data.repository
 
-import android.util.Log
 import com.wachon.spotiwrap.core.common.model.ItemFame
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.common.model.TopItemType
@@ -48,6 +47,16 @@ class DefaultTracksRepository(
         }
     }
 
+    override fun getTopTracks(
+        limit: Int, offset: Int, timeRange: TopItemTimeRange
+    ): Flow<List<TrackModel>> {
+        return trackDao
+            .getTracks()
+            .map { trackDBList ->
+                trackDBList.map { it.toDomain() }
+            }
+    }
+
     private fun mapTopItemsToTrackDB(items: List<TopItemApi>, tracksDB: List<TrackDB>): List<TrackDB> {
         return items.mapIndexed { index, topItem ->
             val trackDB = tracksDB.find { it.trackId == topItem.id }
@@ -62,16 +71,6 @@ class DefaultTracksRepository(
                 }
             )
         }
-    }
-
-    override fun getTopTracks(
-        limit: Int, offset: Int, timeRange: TopItemTimeRange
-    ): Flow<List<TrackModel>> {
-        return trackDao
-            .getTracks()
-            .map { trackDBList ->
-                trackDBList.map { it.toDomain() }
-            }
     }
 
 }

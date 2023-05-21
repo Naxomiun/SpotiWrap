@@ -8,8 +8,8 @@ import com.wachon.spotiwrap.core.persistence.di.PersistenceModule
 import com.wachon.spotiwrap.data.di.DataModule
 import com.wachon.spotiwrap.data.worker.SyncWorker
 import com.wachon.spotiwrap.features.artists.di.ArtistsModule
-import com.wachon.spotiwrap.features.login.di.LoginModule
 import com.wachon.spotiwrap.features.home.di.MenuModule
+import com.wachon.spotiwrap.features.login.di.LoginModule
 import com.wachon.spotiwrap.features.profile.di.ProfileModule
 import com.wachon.spotiwrap.features.splash.di.SplashModule
 import com.wachon.spotiwrap.features.tracks.di.TracksModule

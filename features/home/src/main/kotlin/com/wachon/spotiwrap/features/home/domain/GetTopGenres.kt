@@ -19,6 +19,7 @@ class GetTopGenresFromArtists(
 
     override fun invoke(artistsFlow: Flow<List<ArtistModel>>): Flow<List<TopGenreUI>> {
         return artistsFlow.flatMapLatest { artists ->
+
             flow {
                 val counts = artists
                     .flatMap { it.genres }

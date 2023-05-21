@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.features.home.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
@@ -14,10 +13,7 @@ import com.wachon.spotiwrap.features.tracks.presentation.model.toUI
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -55,8 +51,14 @@ class HomeViewModel(
         topArtists,
         topGenres
     ) { userProfile, topTracks, topArtists, topGenres ->
+
+        val isLoading =
+            userProfile == null ||
+            topTracks.isEmpty() ||
+            topArtists.isEmpty()
+
         HomeScreenState(
-            loading = false,
+            loading = isLoading,
             userProfile = userProfile,
             topTracks = topTracks,
             topArtists = topArtists.toUI(),

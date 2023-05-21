@@ -18,7 +18,6 @@ import com.wachon.spotiwrap.core.design.components.TextGradientFame
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SubBody
-import com.theapache64.rebugger.Rebugger
 import com.wachon.spotiwrap.features.tracks.presentation.model.TrackUI
 
 @Composable

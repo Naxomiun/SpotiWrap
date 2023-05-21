@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.data.repository
 
-import android.util.Log
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.ItemFame
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange

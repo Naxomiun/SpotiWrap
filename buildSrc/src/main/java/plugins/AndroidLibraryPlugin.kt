@@ -1,13 +1,15 @@
 package plugins
 
 import com.android.build.gradle.LibraryExtension
-import extensions.libs
 import extensions.configureKotlinAndroid
+import extensions.configureKtlint
+import extensions.implementation
+import extensions.libs
+import extensions.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import extensions.*
 
 class AndroidLibraryPlugin : Plugin<Project> {
 
