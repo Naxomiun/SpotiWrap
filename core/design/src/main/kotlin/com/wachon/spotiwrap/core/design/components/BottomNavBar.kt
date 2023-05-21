@@ -46,7 +46,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.core.design.R
-import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.navigation.MainGraph
 import kotlinx.coroutines.delay
@@ -143,12 +142,14 @@ fun BottomBarButton(
     onSelectedItem: (BottomNavBarItem) -> Unit,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val ripple = rememberRipple(bounded = false, color = BubblegumPink)
+    val primaryColor = MaterialTheme.colorScheme.primary
+
+    val ripple = rememberRipple(bounded = false, color = primaryColor)
 
     val transition = updateTransition(targetState = isSelected, label = null)
 
     val iconColor by transition.animateColor(label = "") {
-        if (it()) BubblegumPink else Color.White
+        if (it()) primaryColor else Color.White
     }
 
     val dothAlpha by transition.animateFloat(label = "") {
@@ -178,7 +179,7 @@ fun BottomBarButton(
                 modifier = Modifier
                     .drawBehind {
                         drawCircle(
-                            color = BubblegumPink,
+                            color = primaryColor,
                             alpha = dothAlpha,
                             radius = 2.3.dp.toPx(),
                             style = Fill,

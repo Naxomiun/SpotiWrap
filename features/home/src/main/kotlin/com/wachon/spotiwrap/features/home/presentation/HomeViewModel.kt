@@ -51,8 +51,14 @@ class HomeViewModel(
         topArtists,
         topGenres
     ) { userProfile, topTracks, topArtists, topGenres ->
+
+        val isLoading =
+            userProfile == null ||
+            topTracks.isEmpty() ||
+            topArtists.isEmpty()
+
         HomeScreenState(
-            loading = false,
+            loading = isLoading,
             userProfile = userProfile,
             topTracks = topTracks,
             topArtists = topArtists.toUI(),

@@ -88,7 +88,8 @@ data class ArtistApi(
     val name: String?,
     val type: String?,
     val uri: String?,
-    val images: List<ImageApi>?
+    val images: List<ImageApi>?,
+    val genres: List<String>?
 )
 
 @Serializable
