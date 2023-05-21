@@ -49,7 +49,6 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
@@ -66,6 +65,20 @@ fun HomeScreen(
             }
         }
     }
+
+    AnimatedHomeContent(
+        state = state,
+        listState = listState
+    )
+
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun AnimatedHomeContent(
+    state: HomeScreenState,
+    listState: LazyListState
+) {
 
     AnimatedContent(
         targetState = state.loading,
@@ -100,6 +113,7 @@ fun HomeContent(
         item { Spacer(modifier = Modifier.height(16.dp)) }
         HomeTopGenres(genres = state.topGenres)
     }
+
 }
 
 context(LazyListScope)

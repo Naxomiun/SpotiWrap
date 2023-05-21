@@ -47,13 +47,6 @@ fun ProfileTopBar(
     modifier: Modifier = Modifier
 ) {
 
-    Rebugger(
-        trackMap = mapOf(
-            "user" to user,
-            "modifier" to modifier,
-        ),
-    )
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -83,6 +76,7 @@ fun ProfileTopBar(
             )
         }
     }
+
 }
 
 @Composable
@@ -132,13 +126,6 @@ fun ProfileCurrentSong(
     currentTrackUI: CurrentTrackUI
 ) {
 
-    Rebugger(
-        trackMap = mapOf(
-            "modifier" to modifier,
-            "currentTrackUI" to currentTrackUI,
-        ),
-    )
-
     Spacer(modifier = Modifier.height(8.dp))
     AnimatedVisibility(
         modifier = modifier
@@ -171,6 +158,7 @@ fun ProfileCurrentSong(
 fun CurrentTrackTitle(
     modifier: Modifier = Modifier
 ) {
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -192,6 +180,7 @@ fun CurrentTrackTitle(
             tintColor = MaterialTheme.colorScheme.primary
         )
     }
+
 }
 
 @Composable
@@ -201,6 +190,7 @@ fun CurrentTrackInfo(
     trackTitle: String,
     trackArtist: String
 ) {
+
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
@@ -232,6 +222,7 @@ fun CurrentTrackInfo(
             )
         }
     }
+
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
