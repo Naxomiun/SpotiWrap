@@ -20,42 +20,63 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.recommender.presentation.components.GenresContent
 import com.wachon.spotiwrap.features.recommender.presentation.components.LimitContent
+import com.wachon.spotiwrap.features.recommender.presentation.components.SearchContent
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RecommenderScreen(
-    viewModel: RecommenderViewModel = koinViewModel(),
-    listState: LazyListState
+    viewModel: RecommenderViewModel = koinViewModel(), listState: LazyListState
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    RecommenderContent(state = state, listState = listState)
+    RecommenderContent(state = state, viewModel = viewModel, listState = listState)
 }
 
 @Composable
 fun RecommenderContent(
-    state: RecommenderScreenState,
-    listState: LazyListState
+    state: RecommenderScreenState, viewModel: RecommenderViewModel, listState: LazyListState
 ) {
     val checkedList = remember { mutableStateListOf<String>() }
-    val limit = remember { mutableStateOf(1f) }
+
+    val limit = remember { mutableStateOf(10f) }
 
     LazyColumn(
-        state = listState,
-        verticalArrangement = Arrangement.Top
+        state = listState, verticalArrangement = Arrangement.Top
     ) {
-        if (state.genres.isNotEmpty()) {
-            item { RecommenderTitle() }
-            item {
-                GenresContent(
-                    genres = state.genres,
-                    rowsPerColumn = 4,
-                    checkedList = checkedList,
-                )
-            }
-            item { Spacer(modifier = Modifier.height(16.dp)) }
-            item { LimitContent(limit = limit) }
+        item { RecommenderTitle() }
+        item {
+            GenresContent(
+                genres = state.genres,
+                rowsPerColumn = 4,
+                checkedList = checkedList,
+            )
         }
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+        item {
+            SearchContent(
+                query = state.artistsQuery,
+                suggestions = state.artistsSuggestions,
+                seeds = state.artistsSeeds,
+                onQueryChanged = { viewModel.updateQuery(it) },
+                onSeedAdded = { viewModel.addSeed(it) },
+                onSeedRemoved = { viewModel.removeSeed(it) },
+                onSuggestionClicked = { viewModel.clearSuggestions() }
+            )
+        }
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+        item {
+            SearchContent(
+                query = state.artistsQuery,
+                suggestions = state.artistsSuggestions,
+                seeds = state.artistsSeeds,
+                onQueryChanged = { viewModel.updateQuery(it) },
+                onSeedAdded = { viewModel.addSeed(it) },
+                onSeedRemoved = { viewModel.removeSeed(it) },
+                onSuggestionClicked = { viewModel.clearSuggestions() }
+            )
+        }
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+        item { LimitContent(limit = limit) }
     }
 }
 
@@ -69,15 +90,12 @@ fun RecommenderTitle() {
     )
 }
 
-
 @Composable
 fun SubmitButton(
-    checkedList: MutableList<String>,
-    onSubmit: (List<String>) -> Unit
+    checkedList: MutableList<String>, onSubmit: (List<String>) -> Unit
 ) {
     Button(
-        onClick = { onSubmit(checkedList) },
-        modifier = Modifier.padding(16.dp)
+        onClick = { onSubmit(checkedList) }, modifier = Modifier.padding(16.dp)
     ) {
         Text("Submit")
     }

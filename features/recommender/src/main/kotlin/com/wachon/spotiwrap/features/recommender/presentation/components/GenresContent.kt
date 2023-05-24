@@ -37,6 +37,7 @@ import com.wachon.spotiwrap.core.design.theme.SubBody
 @Composable
 fun GenresContent(
     modifier: Modifier = Modifier,
+    //TODO manipulate this list with invoke
     genres: List<String>,
     rowsPerColumn: Int,
     checkedList: SnapshotStateList<String>,
@@ -78,6 +79,7 @@ fun GenresTitle(
 fun GenresRow(genres: List<String>, rowsPerColumn: Int, checkedList: SnapshotStateList<String>) {
     val genresChildColumns = genres.chunked(rowsPerColumn)
 
+    //TODO Replace with lazy staggered grid
     LazyRow(
         state = rememberLazyListState(),
         contentPadding = PaddingValues(horizontal = 16.dp),

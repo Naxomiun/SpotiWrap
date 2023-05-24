@@ -44,7 +44,7 @@ fun LimitBar(
     limit: MutableState<Float>
 ) {
     val step = 5
-    val minValue = 1
+    val minValue = 10
     val maxValue = 50
 
     Column(modifier = modifier.padding(horizontal = 24.dp)) {

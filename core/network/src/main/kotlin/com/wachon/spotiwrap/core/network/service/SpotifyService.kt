@@ -1,8 +1,10 @@
 package com.wachon.spotiwrap.core.network.service
 
 import android.util.Log
+import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.GenresApi
+import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import io.ktor.client.HttpClient
@@ -46,4 +48,11 @@ class SpotifyService(
         return httpClient.get("/v1/recommendations/available-genre-seeds").body()
     }
 
+    suspend fun searchArtist(query: String): SearchedArtistApi {
+        return httpClient.get("/v1/search") {
+            parameter("q", query)
+            parameter("type", TopItemType.ARTIST.name.lowercase())
+            parameter("limit", "3")
+        }.body()
+    }
 }

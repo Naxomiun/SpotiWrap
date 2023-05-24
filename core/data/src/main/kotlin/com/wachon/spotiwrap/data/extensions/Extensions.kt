@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.data.extensions
 
+import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.ItemFame
 import com.wachon.spotiwrap.core.database.model.ArtistDB
 import com.wachon.spotiwrap.core.database.model.TrackDB
@@ -32,4 +33,12 @@ fun TopItemApi.toArtistDB(index: Int, fame: ItemFame) = ArtistDB(
     artistName = this.name ?: "",
     artistImage = this.images?.first()?.url ?: "",
     artistGenres = this.genres ?: emptyList()
+)
+
+fun TopItemApi.toArtistModel() = ArtistModel(
+    id = this.id ?: "",
+    fame = ItemFame.NONE,
+    name = this.name ?: "",
+    imageUrl = this.images?.first()?.url ?: "",
+    genres = this.genres ?: emptyList()
 )
