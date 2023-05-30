@@ -1,25 +1,30 @@
 package com.wachon.spotiwrap.features.recommender.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,27 +32,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.wachon.spotiwrap.core.common.extensions.capitalizeFirst
 import com.wachon.spotiwrap.core.common.model.ArtistModel
+import com.wachon.spotiwrap.core.common.model.TopItemType
+import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.core.design.components.TextWithLine
+import com.wachon.spotiwrap.core.design.theme.SubBody
 
 @Composable
-fun SearchContent(
+fun <T> SearchContent(
     modifier: Modifier = Modifier,
+    type: TopItemType,
     query: String,
-    seeds: List<ArtistModel>,
-    suggestions: List<ArtistModel>,
+    seeds: List<T>,
+    suggestions: List<T>,
     onQueryChanged: (String) -> Unit,
-    onSeedAdded: (ArtistModel) -> Unit,
-    onSeedRemoved: (ArtistModel) -> Unit,
+    onSeedAdded: (T) -> Unit,
+    onSeedRemoved: (T) -> Unit,
     onSuggestionClicked: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        SearchTitle()
+        SearchTitle(title = type.name.capitalizeFirst())
         Spacer(modifier = Modifier.height(8.dp))
         SearchInput(
+            type = type,
             query = query,
             seeds = seeds,
             suggestions = suggestions,
@@ -61,24 +72,26 @@ fun SearchContent(
 
 @Composable
 fun SearchTitle(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    title: String,
 ) {
     Row(
         modifier = modifier.padding(horizontal = 24.dp)
     ) {
-        TextWithLine(text = "Artists")
+        TextWithLine(text = title)
     }
 }
 
 @Composable
-fun SearchInput(
+fun <T> SearchInput(
     modifier: Modifier = Modifier,
+    type: TopItemType,
     query: String,
-    seeds: List<ArtistModel>,
-    suggestions: List<ArtistModel>,
+    seeds: List<T>,
+    suggestions: List<T>,
     onQueryChanged: (String) -> Unit,
-    onSeedAdded: (ArtistModel) -> Unit,
-    onSeedRemoved: (ArtistModel) -> Unit,
+    onSeedAdded: (T) -> Unit,
+    onSeedRemoved: (T) -> Unit,
     onSuggestionClicked: () -> Unit,
 ) {
     Row(
@@ -94,7 +107,7 @@ fun SearchInput(
                 .padding(end = 8.dp),
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Filled.Person,
+                    imageVector = if (type == TopItemType.ARTISTS) Filled.Person else Filled.PlayArrow,
                     contentDescription = "Search Icon"
                 )
             },
@@ -104,7 +117,7 @@ fun SearchInput(
                         onClick = { onQueryChanged.invoke("") }
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.Clear,
+                            imageVector = Filled.Clear,
                             contentDescription = "Clear Icon",
                             tint = Color.Gray
                         )
@@ -128,7 +141,7 @@ fun SearchInput(
 
     suggestions.forEach { suggestion ->
         SuggestionItem(
-            text = suggestion.name,
+            item = suggestion,
             onItemClick = {
                 onSeedAdded.invoke(suggestion)
                 onQueryChanged.invoke("")
@@ -137,18 +150,22 @@ fun SearchInput(
         )
     }
 
-    seeds.forEach { seed ->
-        Tag(
-            text = seed.name,
-            onRemove = { onSeedRemoved.invoke(seed) }
-        )
-    }
+    TagsList(
+        items = seeds,
+        onRemove = { seed -> onSeedRemoved.invoke(seed) }
+    )
 }
 
 @Composable
-fun SuggestionItem(text: String, onItemClick: () -> Unit) {
+fun <T> SuggestionItem(item: T, onItemClick: () -> Unit) {
+    val suggestionName: String = when (item) {
+        is ArtistModel -> item.name
+        is TrackModel -> item.title
+        else -> ""
+    }
+
     Text(
-        text = text,
+        text = suggestionName,
         modifier = Modifier
             .padding(start = 16.dp)
             .clickable { onItemClick() }
@@ -157,21 +174,44 @@ fun SuggestionItem(text: String, onItemClick: () -> Unit) {
 }
 
 @Composable
-fun Tag(text: String, onRemove: () -> Unit) {
+fun <T> TagsList(
+    items: List<T>,
+    onRemove: (T) -> Unit,
+) {
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+    ) {
+        items(items) { item ->
+            val tagName: String = when (item) {
+                is ArtistModel -> item.name
+                is TrackModel -> item.title
+                else -> ""
+            }
+            TagItem(tagName = tagName, onRemove = { onRemove(item) })
+        }
+    }
+}
+
+@Composable
+fun TagItem(tagName: String, onRemove: () -> Unit) {
     Surface(
         modifier = Modifier.padding(4.dp),
-        color = MaterialTheme.colorScheme.primary,
-        contentColor = contentColorFor(MaterialTheme.colorScheme.primary),
-        shape = MaterialTheme.shapes.small,
+        color = Color.Black,
+        shape = MaterialTheme.shapes.small.copy(CornerSize(45.dp)),
+        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+            modifier = Modifier.padding(start = 14.dp, end = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = text, modifier = Modifier.padding(end = 8.dp))
+            Text(
+                text = tagName,
+                style = SubBody,
+                modifier = Modifier.padding(end = 0.dp)
+            )
             IconButton(onClick = onRemove) {
-                Icon(Icons.Filled.Clear, contentDescription = "Clear Icon")
+                Icon(Filled.Clear, contentDescription = "Clear Icon")
             }
         }
     }

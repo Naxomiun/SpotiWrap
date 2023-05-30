@@ -4,6 +4,8 @@ import com.wachon.spotiwrap.features.recommender.domain.GetGenres
 import com.wachon.spotiwrap.features.recommender.domain.GetGenresUseCase
 import com.wachon.spotiwrap.features.recommender.domain.SearchArtist
 import com.wachon.spotiwrap.features.recommender.domain.SearchArtistUseCase
+import com.wachon.spotiwrap.features.recommender.domain.SearchTrack
+import com.wachon.spotiwrap.features.recommender.domain.SearchTrackUseCase
 import com.wachon.spotiwrap.features.recommender.presentation.RecommenderViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
@@ -26,6 +28,7 @@ private val RecommenderDomainModule: Module
     get() = module {
         factory<GetGenresUseCase> { GetGenres(get(), get()) }
         factory<SearchArtistUseCase> { SearchArtist(get(), get()) }
+        factory<SearchTrackUseCase> { SearchTrack(get(), get()) }
     }
 
 private val RecommenderPresentationModule: Module

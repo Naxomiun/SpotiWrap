@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wachon.spotiwrap.core.common.model.TopItemType.ARTISTS
+import com.wachon.spotiwrap.core.common.model.TopItemType.TRACKS
 import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.recommender.presentation.components.GenresContent
 import com.wachon.spotiwrap.features.recommender.presentation.components.LimitContent
@@ -25,7 +27,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RecommenderScreen(
-    viewModel: RecommenderViewModel = koinViewModel(), listState: LazyListState
+    viewModel: RecommenderViewModel = koinViewModel(), listState: LazyListState,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -34,7 +36,7 @@ fun RecommenderScreen(
 
 @Composable
 fun RecommenderContent(
-    state: RecommenderScreenState, viewModel: RecommenderViewModel, listState: LazyListState
+    state: RecommenderScreenState, viewModel: RecommenderViewModel, listState: LazyListState,
 ) {
     val checkedList = remember { mutableStateListOf<String>() }
 
@@ -44,6 +46,8 @@ fun RecommenderContent(
         state = listState, verticalArrangement = Arrangement.Top
     ) {
         item { RecommenderTitle() }
+        //TODO Adds playlist name input
+        item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
             GenresContent(
                 genres = state.genres,
@@ -54,25 +58,27 @@ fun RecommenderContent(
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
             SearchContent(
+                type = ARTISTS,
                 query = state.artistsQuery,
                 suggestions = state.artistsSuggestions,
                 seeds = state.artistsSeeds,
-                onQueryChanged = { viewModel.updateQuery(it) },
-                onSeedAdded = { viewModel.addSeed(it) },
-                onSeedRemoved = { viewModel.removeSeed(it) },
-                onSuggestionClicked = { viewModel.clearSuggestions() }
+                onQueryChanged = { viewModel.updateArtistQuery(it) },
+                onSeedAdded = { viewModel.addArtistSeed(it) },
+                onSeedRemoved = { viewModel.removeArtistSeed(it) },
+                onSuggestionClicked = { viewModel.clearArtistsSuggestions() }
             )
         }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
             SearchContent(
-                query = state.artistsQuery,
-                suggestions = state.artistsSuggestions,
-                seeds = state.artistsSeeds,
-                onQueryChanged = { viewModel.updateQuery(it) },
-                onSeedAdded = { viewModel.addSeed(it) },
-                onSeedRemoved = { viewModel.removeSeed(it) },
-                onSuggestionClicked = { viewModel.clearSuggestions() }
+                type = TRACKS,
+                query = state.tracksQuery,
+                suggestions = state.tracksSuggestions,
+                seeds = state.tracksSeeds,
+                onQueryChanged = { viewModel.updateTrackQuery(it) },
+                onSeedAdded = { viewModel.addTrackSeed(it) },
+                onSeedRemoved = { viewModel.removeTrackSeed(it) },
+                onSuggestionClicked = { viewModel.clearTracksSuggestions() }
             )
         }
         item { Spacer(modifier = Modifier.height(16.dp)) }
@@ -92,7 +98,7 @@ fun RecommenderTitle() {
 
 @Composable
 fun SubmitButton(
-    checkedList: MutableList<String>, onSubmit: (List<String>) -> Unit
+    checkedList: MutableList<String>, onSubmit: (List<String>) -> Unit,
 ) {
     Button(
         onClick = { onSubmit(checkedList) }, modifier = Modifier.padding(16.dp)

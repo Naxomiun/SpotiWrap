@@ -2,6 +2,7 @@ package com.wachon.spotiwrap.core.network.datasource
 
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
+import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import com.wachon.spotiwrap.core.network.service.SpotifyService
@@ -17,16 +18,18 @@ interface NetworkSpotifyDatasource {
         type: String,
         limit: Int,
         offset: Int,
-        timeRange: String
+        timeRange: String,
     ): TopApi
 
     suspend fun getGenres(): List<String>
 
     suspend fun searchArtist(query: String): SearchedArtistApi
+
+    suspend fun searchTrack(query: String): SearchedTrackApi
 }
 
 class DefaultNetworkSpotifyDatasource(
-    private val spotifyService: SpotifyService
+    private val spotifyService: SpotifyService,
 ) : NetworkSpotifyDatasource {
 
     override suspend fun getUserInfo(): UserProfileApi {
@@ -43,7 +46,7 @@ class DefaultNetworkSpotifyDatasource(
         type: String,
         limit: Int,
         offset: Int,
-        timeRange: String
+        timeRange: String,
     ): TopApi {
         return spotifyService
             .getTop(
@@ -60,6 +63,10 @@ class DefaultNetworkSpotifyDatasource(
 
     override suspend fun searchArtist(query: String): SearchedArtistApi {
         return spotifyService.searchArtist(query = query)
+    }
+
+    override suspend fun searchTrack(query: String): SearchedTrackApi {
+        return spotifyService.searchTrack(query = query)
     }
 
 }
