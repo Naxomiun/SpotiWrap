@@ -6,6 +6,7 @@ import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.features.recommender.domain.GetGenresUseCase
+import com.wachon.spotiwrap.features.recommender.domain.GetRecommendationsUseCase
 import com.wachon.spotiwrap.features.recommender.domain.SearchArtistUseCase
 import com.wachon.spotiwrap.features.recommender.domain.SearchTrackUseCase
 import kotlinx.coroutines.Job
@@ -22,6 +23,7 @@ class RecommenderViewModel(
     private val getGenres: GetGenresUseCase,
     private val searchArtistUseCase: SearchArtistUseCase,
     private val searchTrackUseCase: SearchTrackUseCase,
+    private val getRecommendationsUseCase: GetRecommendationsUseCase,
 ) : ViewModel() {
 
     private var searchArtistJob: Job? = null
@@ -40,10 +42,32 @@ class RecommenderViewModel(
         }
     }
 
+    fun updateName(name: String) = _uiState.update { it.copy(name = name) }
+
     private suspend fun initGenres() {
         getGenres().collect { genreList ->
             _uiState.value = _uiState.value.copy(genres = genreList)
         }
+    }
+
+    fun updateGenres(hasToSave: Boolean, genre: String) {
+        if (hasToSave) {
+            addGenre(genre)
+        } else {
+            removeGenre(genre)
+        }
+    }
+
+    private fun addGenre(genre: String) {
+        _uiState.value = _uiState.value.copy(genresChecked = _uiState.value.genresChecked.toMutableList().apply {
+            add(genre)
+        })
+    }
+
+    private fun removeGenre(genre: String) {
+        _uiState.value = _uiState.value.copy(genresChecked = _uiState.value.genresChecked.toMutableList().apply {
+            remove(genre)
+        })
     }
 
     fun updateArtistQuery(query: String) {
@@ -116,6 +140,18 @@ class RecommenderViewModel(
 
     fun clearTracksSuggestions() {
         _uiState.value = _uiState.value.copy(tracksSuggestions = emptyList())
+    }
+
+    fun getRecommendations() {
+        val artists = _uiState.value.artistsSeeds.joinToString(",") { it.id }
+        val tracks = _uiState.value.tracksSeeds.joinToString(",") { it.id }
+        val genres = _uiState.value.genresChecked.joinToString(",") { it }
+
+        viewModelScope.launch {
+            getRecommendationsUseCase(artists, tracks, genres).collect { recommendations ->
+                _uiState.value = _uiState.value.copy(recommendations = recommendations)
+            }
+        }
     }
 
     sealed interface Event

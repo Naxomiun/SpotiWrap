@@ -2,6 +2,8 @@ package com.wachon.spotiwrap.features.recommender.di
 
 import com.wachon.spotiwrap.features.recommender.domain.GetGenres
 import com.wachon.spotiwrap.features.recommender.domain.GetGenresUseCase
+import com.wachon.spotiwrap.features.recommender.domain.GetRecommendations
+import com.wachon.spotiwrap.features.recommender.domain.GetRecommendationsUseCase
 import com.wachon.spotiwrap.features.recommender.domain.SearchArtist
 import com.wachon.spotiwrap.features.recommender.domain.SearchArtistUseCase
 import com.wachon.spotiwrap.features.recommender.domain.SearchTrack
@@ -29,6 +31,7 @@ private val RecommenderDomainModule: Module
         factory<GetGenresUseCase> { GetGenres(get(), get()) }
         factory<SearchArtistUseCase> { SearchArtist(get(), get()) }
         factory<SearchTrackUseCase> { SearchTrack(get(), get()) }
+        factory<GetRecommendationsUseCase> { GetRecommendations(get(), get()) }
     }
 
 private val RecommenderPresentationModule: Module

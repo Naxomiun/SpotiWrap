@@ -4,6 +4,7 @@ import android.util.Log
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.GenresApi
+import com.wachon.spotiwrap.core.network.model.RecommendationsApi
 import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
 import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
@@ -42,6 +43,14 @@ class SpotifyService(
             parameter("limit", limit)
             parameter("offset", offset)
             parameter("time_range", timeRange)
+        }.body()
+    }
+
+    suspend fun getRecommendations(artists: String, tracks: String, genres: String): RecommendationsApi {
+        return httpClient.get("/v1/recommendations") {
+            parameter("seed_artists", artists)
+            parameter("seed_tracks", tracks)
+            parameter("seed_genres", genres)
         }.body()
     }
 

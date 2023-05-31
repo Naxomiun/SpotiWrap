@@ -23,7 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -37,10 +36,10 @@ import com.wachon.spotiwrap.core.design.theme.SubBody
 @Composable
 fun GenresContent(
     modifier: Modifier = Modifier,
-    //TODO manipulate this list with invoke
-    genres: List<String>,
     rowsPerColumn: Int,
-    checkedList: SnapshotStateList<String>,
+    genres: List<String>,
+    genresChecked: List<String>,
+    onGenreClicked: (Boolean, String) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -48,13 +47,18 @@ fun GenresContent(
         Spacer(modifier = Modifier.height(16.dp))
         GenresTitle()
         Spacer(modifier = Modifier.height(8.dp))
-        GenresRow(genres = genres, rowsPerColumn = rowsPerColumn, checkedList = checkedList)
+        GenresRow(
+            rowsPerColumn = rowsPerColumn,
+            genres = genres,
+            checkedList = genresChecked,
+            onGenreClicked = onGenreClicked
+        )
     }
 }
 
 @Composable
 fun GenresTitle(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.padding(horizontal = 24.dp)
@@ -76,7 +80,12 @@ fun GenresTitle(
 }
 
 @Composable
-fun GenresRow(genres: List<String>, rowsPerColumn: Int, checkedList: SnapshotStateList<String>) {
+fun GenresRow(
+    rowsPerColumn: Int,
+    genres: List<String>,
+    checkedList: List<String>,
+    onGenreClicked: (Boolean, String) -> Unit,
+) {
     val genresChildColumns = genres.chunked(rowsPerColumn)
 
     //TODO Replace with lazy staggered grid
@@ -91,7 +100,8 @@ fun GenresRow(genres: List<String>, rowsPerColumn: Int, checkedList: SnapshotSta
         ) { column ->
             GenresChildColumns(
                 genres = column,
-                checkedList = checkedList
+                checkedList = checkedList,
+                onGenreClicked = onGenreClicked
             )
         }
     }
@@ -100,7 +110,8 @@ fun GenresRow(genres: List<String>, rowsPerColumn: Int, checkedList: SnapshotSta
 @Composable
 fun GenresChildColumns(
     genres: List<String>,
-    checkedList: SnapshotStateList<String>
+    checkedList: List<String>,
+    onGenreClicked: (Boolean, String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -114,9 +125,9 @@ fun GenresChildColumns(
                 isChecked = checkedList.contains(it),
                 onCheckedChange = { isChecked ->
                     if (isChecked) {
-                        checkedList.add(it)
+                        onGenreClicked.invoke(true, it)
                     } else {
-                        checkedList.remove(it)
+                        onGenreClicked.invoke(false, it)
                     }
                 }
             )
@@ -128,7 +139,7 @@ fun GenresChildColumns(
 fun GenresChildRow(
     name: String,
     isChecked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+    onCheckedChange: (Boolean) -> Unit,
 ) {
     val primaryColor = MaterialTheme.colorScheme.primary
     val animatedProgress = remember { Animatable(if (isChecked) 1f else 0f) }

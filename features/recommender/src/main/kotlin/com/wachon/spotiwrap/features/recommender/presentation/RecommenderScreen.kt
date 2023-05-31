@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -22,6 +21,7 @@ import com.wachon.spotiwrap.core.common.model.TopItemType.TRACKS
 import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.recommender.presentation.components.GenresContent
 import com.wachon.spotiwrap.features.recommender.presentation.components.LimitContent
+import com.wachon.spotiwrap.features.recommender.presentation.components.PlaylistNameContent
 import com.wachon.spotiwrap.features.recommender.presentation.components.SearchContent
 import org.koin.androidx.compose.koinViewModel
 
@@ -38,21 +38,20 @@ fun RecommenderScreen(
 fun RecommenderContent(
     state: RecommenderScreenState, viewModel: RecommenderViewModel, listState: LazyListState,
 ) {
-    val checkedList = remember { mutableStateListOf<String>() }
-
     val limit = remember { mutableStateOf(10f) }
 
     LazyColumn(
         state = listState, verticalArrangement = Arrangement.Top
     ) {
         item { RecommenderTitle() }
-        //TODO Adds playlist name input
+        item { PlaylistNameContent(title = "Playlist Name", name = state.name) { viewModel.updateName(it) } }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
             GenresContent(
                 genres = state.genres,
                 rowsPerColumn = 4,
-                checkedList = checkedList,
+                genresChecked = state.genresChecked,
+                onGenreClicked = { hasToSave, genre -> viewModel.updateGenres(hasToSave = hasToSave, genre = genre) }
             )
         }
         item { Spacer(modifier = Modifier.height(16.dp)) }
@@ -83,6 +82,8 @@ fun RecommenderContent(
         }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item { LimitContent(limit = limit) }
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+        item { SubmitButton(onSubmit = { viewModel.getRecommendations() }) }
     }
 }
 
@@ -98,10 +99,11 @@ fun RecommenderTitle() {
 
 @Composable
 fun SubmitButton(
-    checkedList: MutableList<String>, onSubmit: (List<String>) -> Unit,
+    onSubmit: () -> Unit,
 ) {
     Button(
-        onClick = { onSubmit(checkedList) }, modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
+        onClick = { onSubmit.invoke() },
     ) {
         Text("Submit")
     }
