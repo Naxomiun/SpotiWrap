@@ -47,7 +47,6 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.androidx.lifecycle.viewmodel)
         implementation(libs.androidx.lifecycle.compose)
         implementation(libs.androidx.compose.ui.tooling.preview)
-        implementation(libs.compose.landscapist.glide)
         implementation(libs.compose.coil)
         implementation(libs.accompanist.uiController)
         implementation(libs.koin.compose)
