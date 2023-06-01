@@ -4,32 +4,52 @@ import android.app.Activity
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.skydoves.landscapist.glide.GlideImage
+import coil.compose.AsyncImage
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.spotify.sdk.android.auth.LoginActivity
 import com.wachon.spotiwrap.core.auth.config.AuthConfig
+import com.wachon.spotiwrap.core.design.R
 import com.wachon.spotiwrap.core.design.components.BrandContainer
+import com.wachon.spotiwrap.core.design.components.SpotifyButton
 import com.wachon.spotiwrap.core.design.components.collectEvents
+import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.LargeTitle
+import com.wachon.spotiwrap.core.design.theme.SmallTitle
+import com.wachon.spotiwrap.core.design.theme.Title
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -78,33 +98,61 @@ fun LoginContent(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        GlideImage(
-            modifier = Modifier.fillMaxSize(),
-            //TODO Find a more appropriate gif
-            imageModel = { "https://media.giphy.com/media/Y0zTJ7VrKo9P2/giphy.gif" }
+        AsyncImage(
+            model = R.drawable.login_background,
+            contentScale = ContentScale.Crop,
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         )
 
-        Row(
+        Box(
             modifier = Modifier
-                .width(180.dp)
-                .height(150.dp)
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 100.dp)
-                .clickable { onLoginClicked() },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.6F))
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            BrandContainer(
-                modifier = Modifier.fillMaxSize(),
-                backgroundColor = Color.White,
-            ) {
-                Text(
-                    modifier = Modifier.fillMaxSize(),
-                    text = "Login",
-                    style = LargeTitle
-                )
-            }
+            Spacer(modifier = Modifier.weight(1F))
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                text = "Discover your top songs, artists and more!",
+                style = Title.copy(fontSize = 29.sp),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                text = "Create and enjoy new playlists based on your taste.",
+                style = Body.copy(fontSize = 18.sp),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6F)
+            )
+
+            SpotifyButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+                    .padding(bottom = 24.dp)
+                    .systemBarsPadding()
+                    .height(60.dp),
+                text = "Login with ",
+                onClick = { onLoginClicked() },
+            )
         }
+
     }
 }
 
