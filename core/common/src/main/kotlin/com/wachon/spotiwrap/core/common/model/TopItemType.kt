@@ -1,7 +1,10 @@
 package com.wachon.spotiwrap.core.common.model
 
 enum class TopItemType {
-    TRACKS, ARTISTS
+    TRACK,
+    TRACKS,
+    ARTIST,
+    ARTISTS,
 }
 
 enum class TopItemTimeRange {

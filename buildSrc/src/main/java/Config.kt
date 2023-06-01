@@ -8,6 +8,7 @@ object Config  {
         const val Tracks = "$baseApplicationId.features.tracks"
         const val Artists = "$baseApplicationId.features.artists"
         const val Profile = "$baseApplicationId.features.profile"
+        const val Recommender = "$baseApplicationId.features.recommender"
     }
 
     object Core {

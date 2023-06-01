@@ -19,4 +19,5 @@ val DatabaseModule = module {
     single { get<AppDatabase>().profileDao() }
     single { get<AppDatabase>().trackDao() }
     single { get<AppDatabase>().artistDao() }
+    single { get<AppDatabase>().genreDao() }
 }

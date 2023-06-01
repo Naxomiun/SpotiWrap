@@ -1,7 +1,12 @@
 package com.wachon.spotiwrap.core.network.service
 
 import android.util.Log
+import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
+import com.wachon.spotiwrap.core.network.model.GenresApi
+import com.wachon.spotiwrap.core.network.model.RecommendationsApi
+import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
+import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import io.ktor.client.HttpClient
@@ -12,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class SpotifyService(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
 ) {
 
     suspend fun getMe(): UserProfileApi {
@@ -32,7 +37,7 @@ class SpotifyService(
         type: String,
         limit: Int? = 10,
         offset: Int? = 0,
-        timeRange: String
+        timeRange: String,
     ): TopApi {
         return httpClient.get("/v1/me/top/$type") {
             parameter("limit", limit)
@@ -41,4 +46,31 @@ class SpotifyService(
         }.body()
     }
 
+    suspend fun getRecommendations(artists: String, tracks: String, genres: String): RecommendationsApi {
+        return httpClient.get("/v1/recommendations") {
+            parameter("seed_artists", artists)
+            parameter("seed_tracks", tracks)
+            parameter("seed_genres", genres)
+        }.body()
+    }
+
+    suspend fun getGenres(): GenresApi {
+        return httpClient.get("/v1/recommendations/available-genre-seeds").body()
+    }
+
+    suspend fun searchArtist(query: String): SearchedArtistApi {
+        return httpClient.get("/v1/search") {
+            parameter("q", query)
+            parameter("type", TopItemType.ARTIST.name.lowercase())
+            parameter("limit", "3")
+        }.body()
+    }
+
+    suspend fun searchTrack(query: String): SearchedTrackApi {
+        return httpClient.get("/v1/search") {
+            parameter("q", query)
+            parameter("type", TopItemType.TRACK.name.lowercase())
+            parameter("limit", "3")
+        }.body()
+    }
 }
