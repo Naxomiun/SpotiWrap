@@ -5,6 +5,7 @@ data class UserProfileModel(
     val country: String,
     val email: String,
     val image: String,
+    val followers: Int,
     val currentSong: CurrentTrackModel?
 )
 

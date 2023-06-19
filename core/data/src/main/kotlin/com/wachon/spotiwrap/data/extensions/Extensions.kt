@@ -11,7 +11,8 @@ fun UserProfileApi.toTrackDB() = UserProfileDB(
     displayName = this.displayName,
     country = this.country,
     email = this.email,
-    image = this.images.first().url
+    image = this.images.first().url,
+    followers = this.followers.total
 )
 
 fun TopItemApi.toTrackDB(index: Int, fame: ItemFame): TrackDB {

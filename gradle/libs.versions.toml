@@ -12,7 +12,7 @@ logginInterceptor = "4.10.0"
 room = "2.5.1"
 spotify = "2.0.2"
 composeCompiler = "1.4.7"
-composeBom = "2023.05.01"
+composeBom = "2023.06.00"
 coilCompose = "2.3.0"
 junit = "4.+"
 testJunit = "1.1.5"
@@ -32,7 +32,7 @@ lottieCompose = "6.0.0"
 [libraries]
 
 androidx-compose-activity = "androidx.activity:activity-compose:1.7.2"
-androidx-compose-navigation = "androidx.navigation:navigation-compose:2.7.0-alpha01"
+androidx-compose-navigation = "androidx.navigation:navigation-compose:2.7.0-beta01"
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }

@@ -10,7 +10,6 @@ import com.wachon.spotiwrap.core.design.components.isScrollingUp
 import com.wachon.spotiwrap.ui.AppState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     appState: AppState
