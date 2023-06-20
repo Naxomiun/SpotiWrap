@@ -2,7 +2,11 @@ package com.wachon.spotiwrap.features.profile.di
 
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfile
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
+import com.wachon.spotiwrap.features.profile.presentation.profilescreen.ProfileViewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val ProfileModule = module {
@@ -20,10 +24,10 @@ private val ProfileDataModule: Module
 
 private val ProfileDomainModule: Module
     get() = module {
-        factory<GetUserProfileUseCase> { GetUserProfile(get(), get()) }
+        factoryOf(::GetUserProfile) bind GetUserProfileUseCase::class
     }
 
 private val ProfilePresentationModule: Module
     get() = module {
-
+        viewModelOf(::ProfileViewModel)
     }

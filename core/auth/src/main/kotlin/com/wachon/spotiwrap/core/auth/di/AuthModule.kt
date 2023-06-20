@@ -19,19 +19,24 @@ import com.wachon.spotiwrap.core.auth.token.GetAndPersistAccessToken
 import com.wachon.spotiwrap.core.auth.token.GetAndPersistAccessTokenUseCase
 import com.wachon.spotiwrap.core.auth.token.GetToken
 import com.wachon.spotiwrap.core.auth.token.GetTokenUseCase
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val AuthModule
     get() = module {
         single { TokenService(get(named("AuthClient"))) }
-        single<TokenDatasource> { DefaultTokenDatasource(get()) }
-        single<AuthConfigProvider> { DefaultAuthConfigProvider() }
-        single<TokenRepository> { DefaultTokenRepository(get(), get()) }
-        factory<GetTokenUseCase> { GetToken(get()) }
-        factory<GetAuthConfigUseCase> { GetAuthConfig(get()) }
-        factory<SaveAuthScopesUseCase> { SaveAuthScopes(get(), get()) }
-        factory<GetAuthScopesUseCase> { GetAuthScopes(get()) }
-        factory<CheckScopesAreValidUseCase> { CheckScopesAreValid(get(), get()) }
-        factory<GetAndPersistAccessTokenUseCase> { GetAndPersistAccessToken(get(), get()) }
+
+        singleOf(::DefaultTokenDatasource) bind TokenDatasource::class
+        singleOf(::DefaultAuthConfigProvider) bind AuthConfigProvider::class
+        singleOf(::DefaultTokenRepository) bind TokenRepository::class
+
+        factoryOf(::GetToken) bind GetTokenUseCase::class
+        factoryOf(::GetAuthConfig) bind GetAuthConfigUseCase::class
+        factoryOf(::SaveAuthScopes) bind SaveAuthScopesUseCase::class
+        factoryOf(::GetAuthScopes) bind GetAuthScopesUseCase::class
+        factoryOf(::CheckScopesAreValid) bind CheckScopesAreValidUseCase::class
+        factoryOf(::GetAndPersistAccessToken) bind GetAndPersistAccessTokenUseCase::class
     }

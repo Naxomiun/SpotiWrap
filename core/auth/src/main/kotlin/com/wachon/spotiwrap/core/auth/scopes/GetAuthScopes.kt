@@ -12,7 +12,7 @@ class GetAuthScopes(
 ) : GetAuthScopesUseCase {
 
     override fun invoke(): List<AuthScope>? {
-        return dataProvider.getObject<List<AuthScope>>(SharedPreferencesItem.AUTH_SCOPES)
+        return dataProvider.getObject(SharedPreferencesItem.AUTH_SCOPES)
     }
 
 }

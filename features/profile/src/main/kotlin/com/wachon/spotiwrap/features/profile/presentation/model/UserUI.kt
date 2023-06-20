@@ -10,7 +10,8 @@ data class UserUI(
     val country: String,
     val email: String,
     val image: String,
-    val currentTrackUI: CurrentTrackUI?
+    val currentTrackUI: CurrentTrackUI?,
+    val followers: Int,
 ) {
     fun isCurrentSongPlaying(): Boolean {
         return currentTrackUI != null
@@ -30,6 +31,7 @@ fun UserProfileModel.toUI(): UserUI {
         country = this.country,
         email = this.email,
         image = this.image,
+        followers = this.followers,
         currentTrackUI = currentSong.toUI()
     )
 }
