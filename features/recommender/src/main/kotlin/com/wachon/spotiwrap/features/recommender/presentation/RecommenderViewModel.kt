@@ -3,156 +3,115 @@ package com.wachon.spotiwrap.features.recommender.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
-import com.wachon.spotiwrap.core.common.model.ArtistModel
+import com.wachon.spotiwrap.core.common.model.PlaylistModel
 import com.wachon.spotiwrap.core.common.model.TrackModel
-import com.wachon.spotiwrap.features.recommender.domain.GetGenresUseCase
+import com.wachon.spotiwrap.features.recommender.domain.AddTracksToPlaylistUseCase
+import com.wachon.spotiwrap.features.recommender.domain.GetPlaylistItemsUseCase
 import com.wachon.spotiwrap.features.recommender.domain.GetRecommendationsUseCase
-import com.wachon.spotiwrap.features.recommender.domain.SearchArtistUseCase
-import com.wachon.spotiwrap.features.recommender.domain.SearchTrackUseCase
+import com.wachon.spotiwrap.features.recommender.domain.GetUserPlaylistsUseCase
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class RecommenderViewModel(
     dispatcherProvider: DispatcherProvider,
-    private val getGenres: GetGenresUseCase,
-    private val searchArtistUseCase: SearchArtistUseCase,
-    private val searchTrackUseCase: SearchTrackUseCase,
+    private val getUserPlaylists: GetUserPlaylistsUseCase,
+    private val getPlaylistItems: GetPlaylistItemsUseCase,
     private val getRecommendationsUseCase: GetRecommendationsUseCase,
+    private val addTracksToPlaylistUseCase: AddTracksToPlaylistUseCase,
 ) : ViewModel() {
 
-    private var searchArtistJob: Job? = null
-    private var searchTrackJob: Job? = null
-
-    //TODO Unify flows
     private val _uiState = MutableStateFlow(RecommenderScreenState())
     val uiState: StateFlow<RecommenderScreenState> = _uiState
 
-    private val _event = Channel<Event>()
-    val event = _event.receiveAsFlow()
+    private var searchRecommendationJob: Job? = null
 
     init {
         viewModelScope.launch(dispatcherProvider.background) {
-            initGenres()
+            initUserPlaylists()
         }
     }
 
-    fun updateName(name: String) = _uiState.update { it.copy(name = name) }
-
-    private suspend fun initGenres() {
-        getGenres().collect { genreList ->
-            _uiState.value = _uiState.value.copy(genres = genreList)
+    private suspend fun initUserPlaylists() =
+        getUserPlaylists().collect { playlists ->
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                playlists = playlists
+            )
         }
-    }
 
-    fun updateGenres(hasToSave: Boolean, genre: String) {
+    fun updatePlaylistAndSongs(hasToSave: Boolean, playlist: PlaylistModel) =
         if (hasToSave) {
-            addGenre(genre)
+            selectPlaylist(playlist)
+            searchRecommendedSongs(playlist = playlist)
         } else {
-            removeGenre(genre)
+            removePlaylist()
+            removeRecommendations()
         }
+
+    private fun selectPlaylist(playlist: PlaylistModel) =
+        _uiState.update { it.copy(playlistSelected = playlist) }
+
+    private fun removePlaylist() =
+        _uiState.update { it.copy(playlistSelected = null) }
+
+    private fun removeRecommendations() {
+        searchRecommendationJob?.cancel()
+        _uiState.update { it.copy(recommendations = mutableListOf()) }
     }
 
-    private fun addGenre(genre: String) {
-        _uiState.value = _uiState.value.copy(genresChecked = _uiState.value.genresChecked.toMutableList().apply {
-            add(genre)
-        })
-    }
-
-    private fun removeGenre(genre: String) {
-        _uiState.value = _uiState.value.copy(genresChecked = _uiState.value.genresChecked.toMutableList().apply {
-            remove(genre)
-        })
-    }
-
-    fun updateArtistQuery(query: String) {
-        _uiState.update { it.copy(artistsQuery = query) }
-        if (query.isNotEmpty()) {
-            searchArtist(query)
-        }
-    }
-
-    fun updateTrackQuery(query: String) {
-        _uiState.update { it.copy(tracksQuery = query) }
-        if (query.isNotEmpty()) {
-            searchTrack(query)
-        }
-    }
-
-    private fun searchArtist(query: String) {
-        searchArtistJob?.cancel()
-        searchArtistJob = viewModelScope.launch {
-            searchArtistUseCase(query)
-                .debounce(1000)
-                .collect { artists ->
-                    _uiState.value = _uiState.value.copy(artistsSuggestions = artists)
+    private fun searchRecommendedSongs(deletePrevious: Boolean = true, playlist: PlaylistModel) {
+        _uiState.update { it.copy(isLoadingRecommendations = true) }
+        searchRecommendationJob = viewModelScope.launch {
+            getPlaylistItems(id = playlist.id).collect { trackList ->
+                getRecommendationsUseCase(
+                    tracks = trackList.shuffled().take(5).joinToString(",") { it.id }
+                ).collect { recommendations ->
+                    _uiState.update {
+                        it.copy(
+                            isLoadingRecommendations = false,
+                            recommendations =
+                            if (deletePrevious) {
+                                recommendations.toMutableList()
+                            } else {
+                                (it.recommendations + recommendations).toMutableList()
+                            }
+                        )
+                    }
                 }
+            }
+
         }
     }
 
-    private fun searchTrack(query: String) {
-        searchTrackJob?.cancel()
-        searchTrackJob = viewModelScope.launch {
-            searchTrackUseCase(query)
-                .debounce(1000)
-                .collect { tracks ->
-                    _uiState.value = _uiState.value.copy(tracksSuggestions = tracks)
-                }
-        }
-    }
-
-    fun addArtistSeed(artist: ArtistModel) {
-        _uiState.value = _uiState.value.copy(artistsSeeds = _uiState.value.artistsSeeds.toMutableList().apply {
-            if (!this.contains(artist)) {
-                add(artist)
-            }
-        })
-    }
-
-    fun addTrackSeed(track: TrackModel) {
-        _uiState.value = _uiState.value.copy(tracksSeeds = _uiState.value.tracksSeeds.toMutableList().apply {
-            if (!this.contains(track)) {
-                add(track)
-            }
-        })
-    }
-
-    fun removeArtistSeed(artist: ArtistModel) {
-        _uiState.value = _uiState.value.copy(artistsSeeds = _uiState.value.artistsSeeds.toMutableList().apply {
-            remove(artist)
-        })
-    }
-
-    fun removeTrackSeed(track: TrackModel) {
-        _uiState.value = _uiState.value.copy(tracksSeeds = _uiState.value.tracksSeeds.toMutableList().apply {
-            remove(track)
-        })
-    }
-
-    fun clearArtistsSuggestions() {
-        _uiState.value = _uiState.value.copy(artistsSuggestions = emptyList())
-    }
-
-    fun clearTracksSuggestions() {
-        _uiState.value = _uiState.value.copy(tracksSuggestions = emptyList())
-    }
-
-    fun getRecommendations() {
-        val artists = _uiState.value.artistsSeeds.joinToString(",") { it.id }
-        val tracks = _uiState.value.tracksSeeds.joinToString(",") { it.id }
-        val genres = _uiState.value.genresChecked.joinToString(",") { it }
-
+    fun addTrackToCurrentPlaylist(track: TrackModel) =
         viewModelScope.launch {
-            getRecommendationsUseCase(artists, tracks, genres).collect { recommendations ->
-                _uiState.value = _uiState.value.copy(recommendations = recommendations)
+            addTracksToPlaylistUseCase(
+                playlistId = _uiState.value.playlistSelected?.id ?: "",
+                tracksUri = mutableListOf(track.uri)
+            ).collect {
+                _uiState.update {
+                    it.copy(recommendations = it.recommendations.toMutableList().apply {
+                        remove(track)
+                    })
+                }
+                hasToFillRecommendations()
             }
+        }
+
+    private fun hasToFillRecommendations() {
+        if (_uiState.value.recommendations.size == 10) {
+            refreshRecommendations(deletePrevious = false)
         }
     }
 
-    sealed interface Event
+    fun refreshRecommendations(deletePrevious: Boolean = true) =
+        _uiState.value.playlistSelected?.let {
+            searchRecommendedSongs(
+                deletePrevious = deletePrevious,
+                playlist = it
+            )
+        }
 }

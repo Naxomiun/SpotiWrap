@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RecommendationsApi(
-    @SerialName("tracks")
-    val tracks: List<TopItemApi>,
+data class PlaylistItemApi(
+    @SerialName("track")
+    val track: TopItemApi
 )

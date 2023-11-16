@@ -27,7 +27,9 @@ class DefaultAuthConfigProvider : AuthConfigProvider {
         AuthScope.UserReadPrivate,
         AuthScope.UserTopRead,
         AuthScope.UserReadCurrentlyPlaying,
-        AuthScope.Streaming
+        AuthScope.Streaming,
+        AuthScope.PlaylistModifyPrivate,
+        AuthScope.PlaylistModifyPublic
     )
 
     override fun getScopes(): List<AuthScope> {

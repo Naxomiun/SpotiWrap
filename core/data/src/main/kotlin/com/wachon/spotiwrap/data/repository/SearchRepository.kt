@@ -12,7 +12,11 @@ import kotlinx.coroutines.flow.flow
 interface SearchRepository : Syncable {
     suspend fun searchArtist(query: String): Flow<List<ArtistModel>>
     suspend fun searchTrack(query: String): Flow<List<TrackModel>>
-    suspend fun getRecommendations(artists: String, tracks: String, genres: String): Flow<List<TrackModel>>
+    suspend fun getRecommendations(
+        artists: String,
+        tracks: String,
+        genres: String
+    ): Flow<List<TrackModel>>
 }
 
 class DefaultSearchRepository(
@@ -24,14 +28,21 @@ class DefaultSearchRepository(
     }
 
     override suspend fun searchArtist(query: String): Flow<List<ArtistModel>> = flow {
-        emit(spotifyDatasource.searchArtist(query = query).artists.items?.map { it.toArtistModel() } ?: emptyList())
+        emit(spotifyDatasource.searchArtist(query = query).artists.items?.map { it.toArtistModel() }
+            ?: emptyList())
     }
 
     override suspend fun searchTrack(query: String): Flow<List<TrackModel>> = flow {
-        emit(spotifyDatasource.searchTrack(query = query).tracks.items?.map { it.toTrackModel() } ?: emptyList())
+        emit(spotifyDatasource.searchTrack(query = query).tracks.items?.map { it.toTrackModel() }
+            ?: emptyList())
     }
 
-    override suspend fun getRecommendations(artists: String, tracks: String, genres: String): Flow<List<TrackModel>> = flow {
-        emit(spotifyDatasource.getRecommendations(artists, tracks, genres).map { it.toTrackModel() })
+    override suspend fun getRecommendations(
+        artists: String,
+        tracks: String,
+        genres: String
+    ): Flow<List<TrackModel>> = flow {
+        emit(
+            spotifyDatasource.getRecommendations(artists, tracks, genres).map { it.toTrackModel() })
     }
 }
