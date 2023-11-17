@@ -3,10 +3,10 @@ package com.wachon.spotiwrap.sharedtests.fake
 import com.wachon.spotiwrap.core.network.datasource.NetworkSpotifyDatasource
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.PlaylistApi
+import com.wachon.spotiwrap.core.network.model.RecommendationsApi
 import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
 import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
-import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
@@ -42,7 +42,7 @@ class FakeNetworkDatasource : NetworkSpotifyDatasource {
         artists: String,
         tracks: String,
         genres: String
-    ): List<TopItemApi> {
+    ): Flow<RecommendationsApi> {
         return throw Exception("FakeNetworkDatasource.getRecommendations() failed")
     }
 
@@ -54,15 +54,15 @@ class FakeNetworkDatasource : NetworkSpotifyDatasource {
         return throw Exception("FakeNetworkDatasource.searchArtist() failed")
     }
 
-    override suspend fun searchTrack(query: String): SearchedTrackApi {
+    override suspend fun searchTrack(query: String): Flow<SearchedTrackApi> {
         return throw Exception("FakeNetworkDatasource.searchTrack() failed")
     }
 
-    override suspend fun getUserPlaylists(): TopPlaylistApi {
+    override suspend fun getUserPlaylists(): Flow<TopPlaylistApi> {
         return throw Exception("FakeNetworkDatasource.getUserPlaylists() failed")
     }
 
-    override suspend fun getPlaylistItems(id: String): TopPlaylistItemApi {
+    override suspend fun getPlaylistItems(id: String): Flow<TopPlaylistItemApi> {
         return throw Exception("FakeNetworkDatasource.getPlaylistItems() failed")
     }
 

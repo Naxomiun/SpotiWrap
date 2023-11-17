@@ -37,10 +37,12 @@ class RecommenderViewModel(
     private fun initUserPlaylists() =
         viewModelScope.launch {
             getUserPlaylists().collect { playlists ->
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    playlists = playlists
-                )
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        playlists = playlists
+                    )
+                }
             }
         }
 
