@@ -122,7 +122,7 @@ fun RecentlyPlayedItem(
 
         Column(
             modifier = Modifier
-                .weight(0.1f)
+                .weight(0.15f)
                 .fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
