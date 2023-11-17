@@ -2,7 +2,7 @@ package com.wachon.spotiwrap.features.recommender.domain
 
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.core.common.model.TrackModel
-import com.wachon.spotiwrap.data.repository.SearchRepository
+import com.wachon.spotiwrap.data.repository.PlaylistRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -15,7 +15,7 @@ interface GetRecommendationsUseCase {
 }
 
 class GetRecommendations(
-    private val searchRepository: SearchRepository,
+    private val playlistRepository: PlaylistRepository,
     private val dispatchers: DispatcherProvider,
 ) : GetRecommendationsUseCase {
     override suspend fun invoke(
@@ -23,7 +23,7 @@ class GetRecommendations(
         tracks: String,
         genres: String
     ): Flow<List<TrackModel>> {
-        return searchRepository.getRecommendations(artists, tracks, genres)
+        return playlistRepository.getRecommendations(artists, tracks, genres)
             .flowOn(dispatchers.background)
     }
 }
