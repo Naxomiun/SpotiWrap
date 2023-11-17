@@ -38,6 +38,10 @@ class FakeNetworkDatasource : NetworkSpotifyDatasource {
         return throw Exception("FakeNetworkDatasource.getTopItems() failed")
     }
 
+    override fun getRecentlyPlayed(): Flow<TopPlaylistItemApi> {
+        return throw Exception("FakeNetworkDatasource.getRecentlyPlayed() failed")
+    }
+
     override suspend fun getRecommendations(
         artists: String,
         tracks: String,
