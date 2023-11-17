@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.wachon.spotiwrap.core.database.converter.ListStringConverter
 import com.wachon.spotiwrap.core.database.model.ArtistDB
+import com.wachon.spotiwrap.core.database.model.GenreDB
 import com.wachon.spotiwrap.core.database.model.TrackDB
 import com.wachon.spotiwrap.core.database.model.UserProfileDB
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,8 @@ import kotlinx.coroutines.flow.Flow
     entities = [
         UserProfileDB::class,
         TrackDB::class,
-        ArtistDB::class
+        ArtistDB::class,
+        GenreDB::class,
     ],
     version = 2
 )
@@ -26,6 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun profileDao(): ProfileDao
     abstract fun trackDao(): TrackDao
     abstract fun artistDao(): ArtistDao
+    abstract fun genreDao(): GenreDao
 }
 
 @Dao
@@ -62,4 +65,13 @@ interface ArtistDao {
 
     @Query("SELECT * FROM artists")
     fun getArtists(): Flow<List<ArtistDB>>
+}
+
+@Dao
+interface GenreDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGenres(genres: GenreDB)
+
+    @Query("SELECT * FROM genres")
+    fun getGenres(): Flow<List<GenreDB>>
 }

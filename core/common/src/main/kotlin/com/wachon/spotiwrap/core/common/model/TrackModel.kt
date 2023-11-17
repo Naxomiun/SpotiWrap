@@ -5,5 +5,6 @@ data class TrackModel(
     val fame: ItemFame,
     val imageUrl: String,
     val title: String,
-    val artists: String
+    val artists: String,
+    val uri: String,
 )

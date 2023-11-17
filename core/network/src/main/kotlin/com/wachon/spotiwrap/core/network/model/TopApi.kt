@@ -15,6 +15,28 @@ data class TopApi(
 )
 
 @Serializable
+data class TopPlaylistApi(
+    val href: String?,
+    val limit: Long?,
+    val next: String?,
+    val offset: Long?,
+    //val previous: Top? = null,
+    val total: Long?,
+    val items: List<PlaylistApi>?
+)
+
+@Serializable
+data class TopPlaylistItemApi(
+    val href: String?,
+    val limit: Long?,
+    val next: String?,
+    val offset: Long?,
+    //val previous: Top? = null,
+    val total: Long?,
+    val items: List<PlaylistItemApi>?
+)
+
+@Serializable
 data class TopItemApi(
     @SerialName("album")
     val album: AlbumApi?,

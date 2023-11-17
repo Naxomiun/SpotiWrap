@@ -20,7 +20,7 @@ data class UserProfileApi(
     @SerialName("href")
     val href: String?,
     @SerialName("id")
-    val id: String?,
+    val id: String,
     @SerialName("images")
     val images: List<ImageApi>,
     @SerialName("product")
