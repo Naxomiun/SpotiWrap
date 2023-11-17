@@ -95,7 +95,8 @@ fun PlaylistItem(
                     },
                 text = playlist.name,
                 style = Body.copy(fontSize = 16.sp),
-                overflow = TextOverflow.Visible,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onBackground,
             )
             LaunchedEffect(isChecked) {
