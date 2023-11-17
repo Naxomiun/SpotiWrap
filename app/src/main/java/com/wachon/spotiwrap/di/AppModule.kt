@@ -11,6 +11,7 @@ import com.wachon.spotiwrap.features.artists.di.ArtistsModule
 import com.wachon.spotiwrap.features.home.di.MenuModule
 import com.wachon.spotiwrap.features.login.di.LoginModule
 import com.wachon.spotiwrap.features.profile.di.ProfileModule
+import com.wachon.spotiwrap.features.recently.di.RecentlyModule
 import com.wachon.spotiwrap.features.recommender.di.RecommenderModule
 import com.wachon.spotiwrap.features.splash.di.SplashModule
 import com.wachon.spotiwrap.features.tracks.di.TracksModule
@@ -23,12 +24,13 @@ val FeaturesModule: Module
         includes(
             listOf(
                 LoginModule,
-                MenuModule,
+                MenuModule,RecommenderModule,
                 RecommenderModule,
                 SplashModule,
                 TracksModule,
                 ArtistsModule,
-                ProfileModule
+                ProfileModule,
+                RecentlyModule,
             )
         )
     }

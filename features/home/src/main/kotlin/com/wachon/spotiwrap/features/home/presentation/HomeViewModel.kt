@@ -8,6 +8,7 @@ import com.wachon.spotiwrap.features.artists.presentation.model.toUI
 import com.wachon.spotiwrap.features.home.domain.GetUserTopGenresFromArtistsUseCase
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
 import com.wachon.spotiwrap.features.profile.presentation.model.toUI
+import com.wachon.spotiwrap.features.recently.domain.GetRecentlyPlayedUseCase
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracksUseCase
 import com.wachon.spotiwrap.features.tracks.presentation.model.toUI
 import kotlinx.collections.immutable.toImmutableList
@@ -25,7 +26,8 @@ class HomeViewModel(
     getUserProfile: GetUserProfileUseCase,
     getUserTopArtists: GetUserTopArtistsUseCase,
     getUserTopTracks: GetUserTopTracksUseCase,
-    getUserTopGenres: GetUserTopGenresFromArtistsUseCase
+    getUserTopGenres: GetUserTopGenresFromArtistsUseCase,
+    getRecentlyPlayed: GetRecentlyPlayedUseCase,
 ) : ViewModel() {
 
     private val _event = Channel<Event>()
@@ -41,6 +43,8 @@ class HomeViewModel(
 
     private val topGenres = getUserTopGenres(topArtists)
 
+    private val recentlyPlayed = getRecentlyPlayed()
+
     init {
         launchSyncWorker()
     }
@@ -49,20 +53,23 @@ class HomeViewModel(
         userProfile,
         topTracks,
         topArtists,
-        topGenres
-    ) { userProfile, topTracks, topArtists, topGenres ->
+        topGenres,
+        recentlyPlayed,
+    ) { userProfile, topTracks, topArtists, topGenres, recentlyPlayed ->
 
         val isLoading =
             userProfile == null ||
-            topTracks.isEmpty() ||
-            topArtists.isEmpty()
+                    topTracks.isEmpty() ||
+                    topArtists.isEmpty() ||
+                    recentlyPlayed.isEmpty()
 
         HomeScreenState(
             loading = isLoading,
             userProfile = userProfile,
             topTracks = topTracks,
             topArtists = topArtists.toUI(),
-            topGenres = topGenres.toImmutableList()
+            topGenres = topGenres.toImmutableList(),
+            recentlyPlayed = recentlyPlayed.toImmutableList()
         )
     }
         .flowOn(dispatcherProvider.background)

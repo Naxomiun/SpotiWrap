@@ -28,6 +28,9 @@ rebugger = "1.0.0-alpha02"
 kotlinImmutable = "0.3.5"
 workManager = "2.8.1"
 lottieCompose = "6.0.0"
+core-ktx = "1.9.0"
+appcompat = "1.6.1"
+material = "1.10.0"
 
 [libraries]
 
@@ -88,6 +91,9 @@ plugin-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serializat
 spotify = { module = "com.spotify.android:auth", version.ref = "spotify" }
 
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [bundles]
 

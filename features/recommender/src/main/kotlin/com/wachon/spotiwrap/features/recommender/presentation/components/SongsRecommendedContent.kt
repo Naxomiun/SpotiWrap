@@ -206,7 +206,8 @@ fun SongRecommendedItemPreview() {
             imageUrl = "",
             title = "Kemba Walker",
             artists = "Eladio Carrion, Bad Bunny",
-            uri = "asdasda"
+            uri = "asdasda",
+            album = ""
         ),
         onTrackClicked = { trackModel -> }
     )

@@ -6,5 +6,7 @@ data class TrackModel(
     val imageUrl: String,
     val title: String,
     val artists: String,
+    val album: String,
+    val playedAt: String = "",
     val uri: String,
 )

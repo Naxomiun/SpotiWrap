@@ -43,6 +43,10 @@ class SpotifyService(
         }
     }
 
+    fun getRecentlyPlayed(): Flow<TopPlaylistItemApi> = flow {
+        emit(httpClient.get("v1/me/player/recently-played").body())
+    }
+
     suspend fun getTop(
         type: String,
         limit: Int? = 10,

@@ -30,6 +30,7 @@ fun TopItemApi.toTrackDB(index: Int, fame: ItemFame): TrackDB {
         trackFame = fame,
         trackTitle = this.name ?: "",
         trackArtist = this.artists?.joinToString(", ") { it.name ?: "" } ?: "",
+        trackAlbum = this.album?.name ?: "",
         trackImage = this.album?.images?.first()?.url ?: "",
         trackUri = this.uri ?: ""
     )
@@ -50,6 +51,18 @@ fun TopItemApi.toTrackModel() = TrackModel(
     imageUrl = this.album?.images?.first()?.url ?: "",
     title = this.name ?: "",
     artists = this.artists?.joinToString(", ") { it.name ?: "" } ?: "",
+    album = this.album?.name ?: "",
+    uri = this.uri ?: ""
+)
+
+fun TopItemApi.toTrackModel(playedAt: String) = TrackModel(
+    id = this.id ?: "",
+    fame = ItemFame.NONE,
+    imageUrl = this.album?.images?.first()?.url ?: "",
+    title = this.name ?: "",
+    artists = this.artists?.joinToString(", ") { it.name ?: "" } ?: "",
+    album = this.album?.name ?: "",
+    playedAt = playedAt,
     uri = this.uri ?: ""
 )
 
@@ -61,7 +74,8 @@ fun TopItemApi.toArtistModel() = ArtistModel(
     genres = this.genres ?: emptyList()
 )
 
-fun TopPlaylistItemApi.toDomain() = this.items?.map { it.track.toTrackModel() } ?: emptyList()
+fun TopPlaylistItemApi.toDomain() =
+    this.items?.map { it.track.toTrackModel(it.playedAt) } ?: emptyList()
 
 fun TopPlaylistApi.toDomain() = this.items?.map { it.toDomain() } ?: emptyList()
 

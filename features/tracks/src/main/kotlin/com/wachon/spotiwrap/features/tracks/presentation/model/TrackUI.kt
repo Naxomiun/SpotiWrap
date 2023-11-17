@@ -12,6 +12,7 @@ data class TrackUI(
     val trackFame: ItemFame,
     val trackTitle: String,
     val trackArtist: String,
+    val trackAlbum: String,
     val trackImage: String
 )
 
@@ -21,7 +22,8 @@ fun TrackModel.toUI(): TrackUI {
         trackFame = fame,
         trackTitle = title,
         trackImage = imageUrl,
-        trackArtist = artists
+        trackArtist = artists,
+        trackAlbum = album,
     )
 }
 

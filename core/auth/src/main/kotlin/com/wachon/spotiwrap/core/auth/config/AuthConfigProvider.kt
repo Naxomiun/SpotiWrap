@@ -27,6 +27,7 @@ class DefaultAuthConfigProvider : AuthConfigProvider {
         AuthScope.UserReadPrivate,
         AuthScope.UserTopRead,
         AuthScope.UserReadCurrentlyPlaying,
+        AuthScope.UserReadRecentlyPlayed,
         AuthScope.Streaming,
         AuthScope.PlaylistModifyPrivate,
         AuthScope.PlaylistModifyPublic

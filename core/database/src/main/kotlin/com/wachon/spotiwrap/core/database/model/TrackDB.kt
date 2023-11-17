@@ -12,6 +12,7 @@ data class TrackDB(
     val trackFame: ItemFame = ItemFame.NONE,
     val trackTitle: String,
     val trackArtist: String,
+    val trackAlbum: String,
     val trackImage: String,
     val trackUri: String,
 ) {
@@ -21,6 +22,7 @@ data class TrackDB(
         imageUrl = this.trackImage,
         title = this.trackTitle,
         artists = this.trackArtist,
+        album = this.trackAlbum,
         uri = this.trackUri
     )
 }

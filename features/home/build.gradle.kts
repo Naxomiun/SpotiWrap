@@ -19,4 +19,5 @@ dependencies {
     implementation(project(":features:profile"))
     implementation(project(":features:tracks"))
     implementation(project(":features:artists"))
+    implementation(project(":features:recently"))
 }
