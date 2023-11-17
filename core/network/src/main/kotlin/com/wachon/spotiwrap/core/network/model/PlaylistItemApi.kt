@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PlaylistItemApi(
-    @SerialName("track")
-    val track: TopItemApi
+    @SerialName("track") val track: TopItemApi,
+    @SerialName("played_at") val playedAt: String
 )

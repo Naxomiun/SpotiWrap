@@ -8,9 +8,11 @@ import com.wachon.spotiwrap.core.database.datasource.TrackDao
 import com.wachon.spotiwrap.core.database.model.TrackDB
 import com.wachon.spotiwrap.core.network.datasource.NetworkSpotifyDatasource
 import com.wachon.spotiwrap.core.network.model.TopItemApi
+import com.wachon.spotiwrap.data.extensions.toDomain
 import com.wachon.spotiwrap.data.extensions.toTrackDB
 import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 
 interface TracksRepository : Syncable {
@@ -19,6 +21,8 @@ interface TracksRepository : Syncable {
         offset: Int,
         timeRange: TopItemTimeRange
     ): Flow<List<TrackModel>>
+
+    fun getRecentlyPlayed(): Flow<List<TrackModel>>
 }
 
 class DefaultTracksRepository(
@@ -57,7 +61,10 @@ class DefaultTracksRepository(
             }
     }
 
-    private fun mapTopItemsToTrackDB(items: List<TopItemApi>, tracksDB: List<TrackDB>): List<TrackDB> {
+    private fun mapTopItemsToTrackDB(
+        items: List<TopItemApi>,
+        tracksDB: List<TrackDB>
+    ): List<TrackDB> {
         return items.mapIndexed { index, topItem ->
             val trackDB = tracksDB.find { it.trackId == topItem.id }
             topItem.toTrackDB(
@@ -73,4 +80,8 @@ class DefaultTracksRepository(
         }
     }
 
+    override fun getRecentlyPlayed(): Flow<List<TrackModel>> =
+        combine(spotifyDatasource.getRecentlyPlayed()) { recentlyPlayedApi ->
+            recentlyPlayedApi.first().toDomain()
+        }
 }

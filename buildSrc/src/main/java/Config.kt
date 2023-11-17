@@ -1,4 +1,4 @@
-object Config  {
+object Config {
     const val baseApplicationId = "com.wachon.spotiwrap"
 
     object Feature {
@@ -9,6 +9,7 @@ object Config  {
         const val Artists = "$baseApplicationId.features.artists"
         const val Profile = "$baseApplicationId.features.profile"
         const val Recommender = "$baseApplicationId.features.recommender"
+        const val Recently = "$baseApplicationId.features.recently"
     }
 
     object Core {
