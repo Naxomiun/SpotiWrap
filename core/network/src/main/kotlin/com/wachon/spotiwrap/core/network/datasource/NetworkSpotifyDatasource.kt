@@ -2,10 +2,10 @@ package com.wachon.spotiwrap.core.network.datasource
 
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.PlaylistApi
+import com.wachon.spotiwrap.core.network.model.RecommendationsApi
 import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
 import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
-import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
@@ -29,17 +29,17 @@ interface NetworkSpotifyDatasource {
         artists: String,
         tracks: String,
         genres: String
-    ): List<TopItemApi>
+    ): Flow<RecommendationsApi>
 
     suspend fun getGenres(): List<String>
 
     suspend fun searchArtist(query: String): SearchedArtistApi
 
-    suspend fun searchTrack(query: String): SearchedTrackApi
+    suspend fun searchTrack(query: String): Flow<SearchedTrackApi>
 
-    suspend fun getUserPlaylists(): TopPlaylistApi
+    suspend fun getUserPlaylists(): Flow<TopPlaylistApi>
 
-    suspend fun getPlaylistItems(id: String): TopPlaylistItemApi
+    suspend fun getPlaylistItems(id: String): Flow<TopPlaylistItemApi>
 
     suspend fun createPlaylist(
         spotifyId: String,
@@ -86,8 +86,8 @@ class DefaultNetworkSpotifyDatasource(
         artists: String,
         tracks: String,
         genres: String
-    ): List<TopItemApi> {
-        return spotifyService.getRecommendations(artists, tracks, genres).tracks
+    ): Flow<RecommendationsApi> {
+        return spotifyService.getRecommendations(artists, tracks, genres)
     }
 
     override suspend fun getGenres(): List<String> {
@@ -98,15 +98,15 @@ class DefaultNetworkSpotifyDatasource(
         return spotifyService.searchArtist(query = query)
     }
 
-    override suspend fun searchTrack(query: String): SearchedTrackApi {
+    override suspend fun searchTrack(query: String): Flow<SearchedTrackApi> {
         return spotifyService.searchTrack(query = query)
     }
 
-    override suspend fun getUserPlaylists(): TopPlaylistApi {
+    override suspend fun getUserPlaylists(): Flow<TopPlaylistApi> {
         return spotifyService.getUserPlaylists()
     }
 
-    override suspend fun getPlaylistItems(id: String): TopPlaylistItemApi {
+    override suspend fun getPlaylistItems(id: String): Flow<TopPlaylistItemApi> {
         return spotifyService.getPlaylistItems(id = id)
     }
 

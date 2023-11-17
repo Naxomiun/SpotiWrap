@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.recommender.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,9 +9,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,12 +38,16 @@ fun PlaylistsContent(
     playlists: List<PlaylistModel>,
     playlistSelected: String,
     onPlaylistClicked: (Boolean, PlaylistModel) -> Unit,
+    onRefreshClicked: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        PlaylistsTitle(title = title)
+        PlaylistsTitle(
+            title = title,
+            onRefreshClicked = onRefreshClicked
+        )
         Spacer(modifier = Modifier.height(16.dp))
         PlaylistsList(
             playlists = playlists,
@@ -49,10 +60,14 @@ fun PlaylistsContent(
 @Composable
 fun PlaylistsTitle(
     modifier: Modifier = Modifier,
-    title: String
+    title: String,
+    onRefreshClicked: () -> Unit
 ) {
     Row(
-        modifier = modifier.padding(horizontal = 24.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             modifier = Modifier
@@ -66,6 +81,15 @@ fun PlaylistsTitle(
                 },
             text = title,
             style = Body.copy(fontWeight = FontWeight.W700)
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Icon(
+            imageVector = Icons.Filled.Refresh,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .size(25.dp)
+                .clickable { onRefreshClicked.invoke() }
         )
     }
 }
@@ -124,6 +148,7 @@ fun PlaylistContentPreview() {
             )
         ),
         playlistSelected = "",
-        onPlaylistClicked = { hasTo, name -> }
+        onPlaylistClicked = { hasTo, name -> },
+        onRefreshClicked = {}
     )
 }

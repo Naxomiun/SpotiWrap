@@ -34,13 +34,17 @@ class RecommenderViewModel(
         }
     }
 
-    private suspend fun initUserPlaylists() =
-        getUserPlaylists().collect { playlists ->
-            _uiState.value = _uiState.value.copy(
-                isLoading = false,
-                playlists = playlists
-            )
+    private fun initUserPlaylists() =
+        viewModelScope.launch {
+            getUserPlaylists().collect { playlists ->
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    playlists = playlists
+                )
+            }
         }
+
+    fun refreshPlaylists() = initUserPlaylists()
 
     fun updatePlaylistAndSongs(hasToSave: Boolean, playlist: PlaylistModel) =
         if (hasToSave) {
@@ -53,14 +57,6 @@ class RecommenderViewModel(
 
     private fun selectPlaylist(playlist: PlaylistModel) =
         _uiState.update { it.copy(playlistSelected = playlist) }
-
-    private fun removePlaylist() =
-        _uiState.update { it.copy(playlistSelected = null) }
-
-    private fun removeRecommendations() {
-        searchRecommendationJob?.cancel()
-        _uiState.update { it.copy(recommendations = mutableListOf()) }
-    }
 
     private fun searchRecommendedSongs(deletePrevious: Boolean = true, playlist: PlaylistModel) {
         _uiState.update { it.copy(isLoadingRecommendations = true) }
@@ -83,6 +79,19 @@ class RecommenderViewModel(
                 }
             }
 
+        }
+    }
+
+    private fun removePlaylist() =
+        _uiState.update { it.copy(playlistSelected = null) }
+
+    private fun removeRecommendations() {
+        searchRecommendationJob?.cancel()
+        _uiState.update {
+            it.copy(
+                isLoadingRecommendations = false,
+                recommendations = mutableListOf()
+            )
         }
     }
 

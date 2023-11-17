@@ -57,19 +57,20 @@ class DefaultPlaylistRepository(
             ).toDomain()
         }
 
-    override suspend fun getUserPlaylists(): Flow<List<PlaylistModel>> {
-        return combine(profileDao.getProfile()) { profile ->
-            spotifyDatasource.getUserPlaylists().toDomain().filter {
-                it.owner.id == (profile.first()?.spotifyId ?: "")
+    override suspend fun getUserPlaylists(): Flow<List<PlaylistModel>> =
+        combine(
+            profileDao.getProfile(),
+            spotifyDatasource.getUserPlaylists()
+        ) { profile, userPlaylists ->
+            userPlaylists.toDomain().filter {
+                it.owner.id == (profile?.spotifyId ?: "")
             }
         }
-    }
 
-    override suspend fun getPlaylistItems(id: String): Flow<List<TrackModel>> = flow {
-        emit(
-            spotifyDatasource.getPlaylistItems(id = id).toDomain()
-        )
-    }
+    override suspend fun getPlaylistItems(id: String): Flow<List<TrackModel>> =
+        combine(spotifyDatasource.getPlaylistItems(id = id)) { playlistApi ->
+            playlistApi.first().toDomain()
+        }
 
     override suspend fun addTrackToPlaylist(
         playlistId: String,
@@ -83,17 +84,20 @@ class DefaultPlaylistRepository(
         )
     }
 
-    override suspend fun searchTrack(query: String): Flow<List<TrackModel>> = flow {
-        emit(spotifyDatasource.searchTrack(query = query).tracks.items?.map { it.toTrackModel() }
-            ?: emptyList())
-    }
+    override suspend fun searchTrack(query: String): Flow<List<TrackModel>> =
+        combine(spotifyDatasource.searchTrack(query = query)) { searchedTrackApi ->
+            searchedTrackApi.first().tracks.items?.map { it.toTrackModel() }
+                ?: emptyList()
+        }
 
     override suspend fun getRecommendations(
         artists: String,
         tracks: String,
         genres: String
-    ): Flow<List<TrackModel>> = flow {
-        emit(
-            spotifyDatasource.getRecommendations(artists, tracks, genres).map { it.toTrackModel() })
-    }
+    ): Flow<List<TrackModel>> =
+        combine(
+            spotifyDatasource.getRecommendations(artists, tracks, genres)
+        ) { recommendations ->
+            recommendations.first().tracks.map { it.toTrackModel() }
+        }
 }

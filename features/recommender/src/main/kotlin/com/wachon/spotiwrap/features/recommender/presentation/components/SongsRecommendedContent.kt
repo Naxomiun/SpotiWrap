@@ -96,14 +96,13 @@ fun SongsRecommendedTitle(
             text = title,
             style = Body.copy(fontWeight = FontWeight.W700)
         )
-
         Spacer(modifier = Modifier.width(16.dp))
         Icon(
             imageVector = Icons.Filled.Refresh,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier
-                .size(32.dp)
+                .size(25.dp)
                 .clickable { onRefreshClicked.invoke() }
                 .alpha(if (shouldShowIcon) 1f else 0f),
         )

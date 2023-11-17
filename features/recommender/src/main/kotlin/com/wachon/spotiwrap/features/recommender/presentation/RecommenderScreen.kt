@@ -58,7 +58,8 @@ fun RecommenderContent(
                         hasToSave = hasToSave,
                         playlist = playlist
                     )
-                }
+                },
+                onRefreshClicked = { viewModel.refreshPlaylists() }
             )
         }
         item { Spacer(modifier = Modifier.height(16.dp)) }

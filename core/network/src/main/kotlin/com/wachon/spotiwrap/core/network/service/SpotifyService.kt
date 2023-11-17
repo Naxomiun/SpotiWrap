@@ -60,12 +60,16 @@ class SpotifyService(
         artists: String,
         tracks: String,
         genres: String
-    ): RecommendationsApi {
-        return httpClient.get("/v1/recommendations") {
-            if (artists.isNotBlank()) parameter("seed_artists", artists)
-            if (tracks.isNotBlank()) parameter("seed_tracks", tracks)
-            if (genres.isNotBlank()) parameter("seed_genres", genres)
-        }.body()
+    ): Flow<RecommendationsApi> = flow {
+        try {
+            emit(httpClient.get("/v1/recommendations") {
+                if (artists.isNotBlank()) parameter("seed_artists", artists)
+                if (tracks.isNotBlank()) parameter("seed_tracks", tracks)
+                if (genres.isNotBlank()) parameter("seed_genres", genres)
+            }.body())
+        } catch (e: Exception) {
+            emit(RecommendationsApi(tracks = mutableListOf()))
+        }
     }
 
     suspend fun getGenres(): GenresApi {
@@ -80,20 +84,20 @@ class SpotifyService(
         }.body()
     }
 
-    suspend fun searchTrack(query: String): SearchedTrackApi {
-        return httpClient.get("/v1/search") {
+    suspend fun searchTrack(query: String): Flow<SearchedTrackApi> = flow {
+        emit(httpClient.get("/v1/search") {
             parameter("q", query)
             parameter("type", TopItemType.TRACK.name.lowercase())
             parameter("limit", "3")
-        }.body()
+        }.body())
     }
 
-    suspend fun getUserPlaylists(): TopPlaylistApi {
-        return httpClient.get("/v1/me/playlists").body()
+    suspend fun getUserPlaylists(): Flow<TopPlaylistApi> = flow {
+        emit(httpClient.get("/v1/me/playlists").body())
     }
 
-    suspend fun getPlaylistItems(id: String): TopPlaylistItemApi {
-        return httpClient.get("/v1/playlists/$id/tracks").body()
+    suspend fun getPlaylistItems(id: String): Flow<TopPlaylistItemApi> = flow {
+        emit(httpClient.get("/v1/playlists/$id/tracks").body())
     }
 
     suspend fun createPlaylist(
