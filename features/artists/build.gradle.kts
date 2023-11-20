@@ -1,6 +1,6 @@
 plugins {
-    spotiwrap_android_library
-    spotiwrap_compose_library
+    alias(libs.plugins.spotiwrap.android.library)
+    alias(libs.plugins.spotiwrap.android.compose.library)
 }
 
 android {
@@ -13,6 +13,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
-    testImplementation(project(":core:network"))
+    implementation(projects.core.data)
+    testImplementation(projects.core.network)
 }

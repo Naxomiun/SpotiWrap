@@ -20,7 +20,7 @@ class ComposePlugin : Plugin<Project> {
     }
 }
 
-fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
+fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *, *>) {
     commonExtension.apply {
         buildFeatures {
             compose = true

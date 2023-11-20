@@ -1,6 +1,6 @@
 plugins {
-    spotiwrap_android_library
-    spotiwrap_room_library
+    alias(libs.plugins.spotiwrap.android.library)
+    alias(libs.plugins.spotiwrap.android.room.library)
 }
 
 android {
