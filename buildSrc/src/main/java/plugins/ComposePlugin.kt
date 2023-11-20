@@ -52,6 +52,7 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *>) {
         implementation(libs.koin.compose)
         implementation(libs.compose.rebugger)
         implementation(libs.compose.lottie)
+        implementation(libs.androidx.glance)
 
         implementation(libs.ktor.core)
         implementation(libs.ktor.logging)

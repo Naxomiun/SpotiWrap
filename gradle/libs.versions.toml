@@ -12,7 +12,7 @@ logginInterceptor = "4.10.0"
 room = "2.5.1"
 spotify = "2.0.2"
 composeCompiler = "1.4.7"
-composeBom = "2023.05.01"
+composeBom = "2023.06.00"
 coilCompose = "2.3.0"
 junit = "4.+"
 testJunit = "1.1.5"
@@ -28,11 +28,12 @@ rebugger = "1.0.0-alpha02"
 kotlinImmutable = "0.3.5"
 workManager = "2.8.1"
 lottieCompose = "6.0.0"
+glance = "1.0.0-beta01"
 
 [libraries]
 
 androidx-compose-activity = "androidx.activity:activity-compose:1.7.2"
-androidx-compose-navigation = "androidx.navigation:navigation-compose:2.7.0-alpha01"
+androidx-compose-navigation = "androidx.navigation:navigation-compose:2.7.0-beta01"
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
@@ -44,6 +45,7 @@ androidx-compose-ui-tooling-debug = { group = "androidx.compose.ui", name = "ui-
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 
+
 kotlin-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinImmutable" }
 
 compose-rebugger = { module = "com.github.theapache64:rebugger", version.ref = "rebugger" }
@@ -53,6 +55,7 @@ accompanist-uiController = { module = "com.google.accompanist:accompanist-system
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx-workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
+androidx-glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
