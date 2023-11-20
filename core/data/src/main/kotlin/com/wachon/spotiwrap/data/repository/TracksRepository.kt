@@ -10,6 +10,7 @@ import com.wachon.spotiwrap.core.network.datasource.NetworkSpotifyDatasource
 import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.data.extensions.toDomain
 import com.wachon.spotiwrap.data.extensions.toTrackDB
+import com.wachon.spotiwrap.data.extensions.toTrackModel
 import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -19,6 +20,11 @@ interface TracksRepository : Syncable {
     fun getTopTracks(
         limit: Int,
         offset: Int,
+        timeRange: TopItemTimeRange
+    ): Flow<List<TrackModel>>
+
+    fun getTopTracksFlow(
+        limit: Int,
         timeRange: TopItemTimeRange
     ): Flow<List<TrackModel>>
 
@@ -34,7 +40,7 @@ class DefaultTracksRepository(
         try {
             val apiItems = spotifyDatasource.getTopItems(
                 type = TopItemType.TRACKS.name.lowercase(),
-                limit = 25,
+                limit = 50,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
@@ -60,6 +66,22 @@ class DefaultTracksRepository(
                 trackDBList.map { it.toDomain() }
             }
     }
+
+    override fun getTopTracksFlow(
+        limit: Int,
+        timeRange: TopItemTimeRange
+    ): Flow<List<TrackModel>> =
+        combine(
+            spotifyDatasource.getTopItemsFlow(
+                type = TopItemType.TRACKS.name.lowercase(),
+                limit = limit,
+                offset = 0,
+                timeRange = timeRange.name.lowercase()
+            )
+        ) { topApi ->
+            topApi.first().items?.map { it.toTrackModel() } ?: emptyList()
+        }
+
 
     private fun mapTopItemsToTrackDB(
         items: List<TopItemApi>,

@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/core/persistence" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/artists" />
+            <option value="$PROJECT_DIR$/features/collage" />
             <option value="$PROJECT_DIR$/features/home" />
             <option value="$PROJECT_DIR$/features/login" />
             <option value="$PROJECT_DIR$/features/profile" />

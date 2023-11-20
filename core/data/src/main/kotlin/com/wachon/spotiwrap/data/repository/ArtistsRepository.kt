@@ -12,6 +12,7 @@ import com.wachon.spotiwrap.data.extensions.toArtistDB
 import com.wachon.spotiwrap.data.extensions.toArtistModel
 import com.wachon.spotiwrap.data.worker.Syncable
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
@@ -19,6 +20,11 @@ interface ArtistsRepository : Syncable {
     fun getTopArtists(
         limit: Int,
         offset: Int,
+        timeRange: TopItemTimeRange
+    ): Flow<List<ArtistModel>>
+
+    fun getTopArtistsFlow(
+        limit: Int,
         timeRange: TopItemTimeRange
     ): Flow<List<ArtistModel>>
 
@@ -34,7 +40,7 @@ class DefaultArtistsRepository(
         try {
             val apiItems = spotifyDatasource.getTopItems(
                 type = TopItemType.ARTISTS.name.lowercase(),
-                limit = 10,
+                limit = 50,
                 offset = 0,
                 timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
             )
@@ -80,6 +86,22 @@ class DefaultArtistsRepository(
                 artistDBList.map { it.toDomain() }
             }
     }
+
+    override fun getTopArtistsFlow(
+        limit: Int,
+        timeRange: TopItemTimeRange
+    ): Flow<List<ArtistModel>> =
+        combine(
+            spotifyDatasource.getTopItemsFlow(
+                type = TopItemType.ARTISTS.name.lowercase(),
+                limit = 50,
+                offset = 0,
+                timeRange = timeRange.name.lowercase()
+            )
+        ) { topApi ->
+            topApi.first().items?.map { it.toArtistModel() } ?: emptyList()
+        }
+
 
     override suspend fun searchArtist(query: String): Flow<List<ArtistModel>> = flow {
         emit(spotifyDatasource.searchArtist(query = query).artists.items?.map { it.toArtistModel() }

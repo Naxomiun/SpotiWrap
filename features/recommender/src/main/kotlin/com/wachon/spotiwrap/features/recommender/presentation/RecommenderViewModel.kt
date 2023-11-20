@@ -29,9 +29,7 @@ class RecommenderViewModel(
     private var searchRecommendationJob: Job? = null
 
     init {
-        viewModelScope.launch(dispatcherProvider.background) {
-            initUserPlaylists()
-        }
+        initUserPlaylists()
     }
 
     private fun initUserPlaylists() =

@@ -18,6 +18,7 @@ fun MainScreen(
 
     val homeListState = rememberLazyListState()
     val recommenderListState = rememberLazyListState()
+    val collageListState = rememberLazyListState()
 
     val shouldShowBottomBar =
         homeListState.isScrollingUp() //TODO Controlar también con el recommender
@@ -37,7 +38,8 @@ fun MainScreen(
         MainGraph(
             appState = appState,
             homeListState = homeListState,
-            recommenderListState = recommenderListState
+            recommenderListState = recommenderListState,
+            collageListState = collageListState
         )
     }
 }

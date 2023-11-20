@@ -1,7 +1,6 @@
 package com.wachon.spotiwrap.features.home.presentation
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -74,7 +73,6 @@ fun HomeScreen(
 
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedHomeContent(
     state: HomeScreenState,

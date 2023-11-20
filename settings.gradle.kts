@@ -25,7 +25,8 @@ include(
     ":features:artists",
     ":features:recently",
     ":features:profile",
-    ":features:recommender"
+    ":features:recommender",
+    ":features:collage",
 )
 
 //Tests
