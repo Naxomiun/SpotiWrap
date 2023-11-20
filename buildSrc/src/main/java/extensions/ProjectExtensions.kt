@@ -16,7 +16,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 val Project.libs get() = the<LibrariesForLibs>()
 
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *>,
 ) {
     commonExtension.apply {
         compileOptions {
