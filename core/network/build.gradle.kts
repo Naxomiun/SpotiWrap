@@ -7,7 +7,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:auth"))
+    implementation(projects.core.auth)
+
     implementation(libs.ktor.core)
     implementation(libs.ktor.logging)
     implementation(libs.ktor.negotiation)

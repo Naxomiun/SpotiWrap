@@ -7,7 +7,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:network"))
-    implementation(project(":core:database"))
+    implementation(projects.core.network)
+    implementation(projects.core.database)
     implementation(libs.androidx.workmanager)
 }

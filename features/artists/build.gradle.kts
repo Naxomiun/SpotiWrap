@@ -13,6 +13,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
-    testImplementation(project(":core:network"))
+    implementation(projects.core.data)
+    testImplementation(projects.core.network)
 }

@@ -13,7 +13,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:persistence"))
+    implementation(projects.core.persistence)
+
     implementation(libs.ktor.core)
     implementation(libs.ktor.logging)
     implementation(libs.ktor.negotiation)
