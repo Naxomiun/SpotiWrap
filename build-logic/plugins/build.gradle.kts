@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.plugin.gradle)
     implementation(libs.plugin.ktlint)
     implementation(libs.plugin.kotlin.serialization)
+    implementation(libs.plugin.kotlin.ksp)
 }

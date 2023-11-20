@@ -14,8 +14,10 @@ import org.gradle.kotlin.dsl.dependencies
 class AndroidApplicationPlugin : Plugin<Project> {
 
     override fun apply(target: Project): Unit = with(target) {
-        plugins.apply("com.android.application")
-        plugins.apply("kotlin-android")
+        pluginManager.apply {
+            apply("com.android.application")
+            apply("kotlin-android")
+        }
 
         extensions.configure<ApplicationExtension> {
             namespace = Config.baseApplicationId
