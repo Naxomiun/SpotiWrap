@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -30,6 +31,7 @@ import com.wachon.spotiwrap.core.common.model.OwnerModel
 import com.wachon.spotiwrap.core.common.model.PlaylistModel
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
+import kotlinx.coroutines.launch
 
 @Composable
 fun PlaylistsContent(
@@ -101,22 +103,27 @@ fun PlaylistsList(
     playlistSelected: String,
     onPlaylistClicked: (Boolean, PlaylistModel) -> Unit,
 ) {
+    val rowState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
     LazyRow(
-        state = rememberLazyListState(),
+        state = rowState,
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        items(
+        itemsIndexed(
             items = playlists,
-            key = { it.id }
-        ) { playlist ->
+            key = { _: Int, playlist: PlaylistModel -> playlist.id }
+        ) { index, playlist ->
             PlaylistItem(
                 modifier = Modifier
                     .fillMaxWidth(),
                 isChecked = playlistSelected == playlist.id,
                 playlist = playlist,
                 onPlaylistClicked = { isChecked ->
+                    coroutineScope.launch {
+                        rowState.animateScrollToItem(index = index)
+                    }
                     if (isChecked) {
                         onPlaylistClicked.invoke(true, playlist)
                     } else {

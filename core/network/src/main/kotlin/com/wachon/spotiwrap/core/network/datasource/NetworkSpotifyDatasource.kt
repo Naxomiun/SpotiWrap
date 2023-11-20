@@ -8,6 +8,7 @@ import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
+import com.wachon.spotiwrap.core.network.model.TopRecentlyItemApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import com.wachon.spotiwrap.core.network.service.SpotifyService
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +26,7 @@ interface NetworkSpotifyDatasource {
         timeRange: String,
     ): TopApi
 
-    fun getRecentlyPlayed(): Flow<TopPlaylistItemApi>
+    fun getRecentlyPlayed(): Flow<TopRecentlyItemApi>
 
     suspend fun getRecommendations(
         artists: String,
@@ -84,7 +85,7 @@ class DefaultNetworkSpotifyDatasource(
             )
     }
 
-    override fun getRecentlyPlayed(): Flow<TopPlaylistItemApi> {
+    override fun getRecentlyPlayed(): Flow<TopRecentlyItemApi> {
         return spotifyService.getRecentlyPlayed()
     }
 

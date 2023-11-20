@@ -13,6 +13,7 @@ import com.wachon.spotiwrap.core.network.model.PlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
+import com.wachon.spotiwrap.core.network.model.TopRecentlyItemApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 
 fun UserProfileApi.toTrackDB() = UserProfileDB(
@@ -55,7 +56,7 @@ fun TopItemApi.toTrackModel() = TrackModel(
     uri = this.uri ?: ""
 )
 
-fun TopItemApi.toTrackModel(playedAt: String) = TrackModel(
+fun TopItemApi.toTrackModel(playedAt: String = "") = TrackModel(
     id = this.id ?: "",
     fame = ItemFame.NONE,
     imageUrl = this.album?.images?.first()?.url ?: "",
@@ -75,6 +76,9 @@ fun TopItemApi.toArtistModel() = ArtistModel(
 )
 
 fun TopPlaylistItemApi.toDomain() =
+    this.items?.map { it.track.toTrackModel() } ?: emptyList()
+
+fun TopRecentlyItemApi.toDomain() =
     this.items?.map { it.track.toTrackModel(it.playedAt) } ?: emptyList()
 
 fun TopPlaylistApi.toDomain() = this.items?.map { it.toDomain() } ?: emptyList()
