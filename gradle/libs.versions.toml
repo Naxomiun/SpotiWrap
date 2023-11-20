@@ -95,6 +95,14 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
+[plugins]
+spotiwrap-android-application = { id = "spotiwrap.android.application", version = "unspecified" }
+spotiwrap-android-library = { id = "spotiwrap.android.library", version = "unspecified" }
+spotiwrap-android-compose-library = { id = "spotiwrap.compose.library", version = "unspecified" }
+spotiwrap-android-room-library = { id = "spotiwrap.room.library", version = "unspecified" }
+spotiwrap-android-auth = { id = "spotiwrap.spotify.auth", version = "unspecified" }
+
+
 [bundles]
 
 unitTest = ["junit", "junit-junit", "coroutines-test"]

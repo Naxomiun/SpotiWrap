@@ -1,5 +1,5 @@
 plugins {
-    spotiwrap_android_application
+    alias(libs.plugins.spotiwrap.android.application)
 }
 
 android {
@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+
     implementation(project(":features:login"))
     implementation(project(":features:home"))
     implementation(project(":features:splash"))

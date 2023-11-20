@@ -1,45 +1,47 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+group = "com.wachon.spotiwrap.buildlogic"
+
 plugins {
     `kotlin-dsl`
     `kotlin-dsl-precompiled-script-plugins`
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
 gradlePlugin {
     plugins {
-        register("spotiwrap_android_application") {
-            id = "spotiwrap_android_application"
+        register("spotiwrapAndroidApplication") {
+            id = "spotiwrap.android.application"
             implementationClass = "plugins.AndroidApplicationPlugin"
         }
 
-        register("spotiwrap_spotify_auth") {
-            id = "spotiwrap_spotify_auth"
+        register("spotiwrapSpotifyAuth") {
+            id = "spotiwrap.spotify.auth"
             implementationClass = "plugins.SpotifyPlugin"
         }
 
-        register("spotiwrap_android_library") {
-            id = "spotiwrap_android_library"
+        register("spotiwrapAndroidLibrary") {
+            id = "spotiwrap.android.library"
             implementationClass = "plugins.AndroidLibraryPlugin"
         }
 
-        register("spotiwrap_compose_library") {
-            id = "spotiwrap_compose_library"
+        register("spotiwrapComposeLibrary") {
+            id = "spotiwrap.compose.library"
             implementationClass = "plugins.ComposePlugin"
         }
 
-        register("spotiwrap_room_library") {
-            id = "spotiwrap_room_library"
+        register("spotiwrapRoomLibrary") {
+            id = "spotiwrap.room.library"
             implementationClass = "plugins.AndroidRoomPlugin"
         }
     }
