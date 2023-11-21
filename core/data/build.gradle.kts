@@ -1,5 +1,5 @@
 plugins {
-    spotiwrap_android_library
+    alias(libs.plugins.spotiwrap.android.library)
 }
 
 android {
@@ -7,7 +7,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:network"))
-    implementation(project(":core:database"))
+    implementation(projects.core.network)
+    implementation(projects.core.database)
     implementation(libs.androidx.workmanager)
 }
