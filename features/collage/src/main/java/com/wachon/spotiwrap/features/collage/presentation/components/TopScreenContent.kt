@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.collage.presentation.components
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,6 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,20 +34,31 @@ import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.core.design.components.TextWithLine
 import com.wachon.spotiwrap.core.design.theme.LargeTitle
 import com.wachon.spotiwrap.core.design.theme.SubBody
+import com.wachon.spotiwrap.features.collage.presentation.utils.BitmapUtil
 
 @Composable
 fun TopScreenContent(
     time: String,
     artists: List<ArtistModel>,
     albums: List<TrackModel>,
-
-    ) {
+    onBitmapCreated: (Bitmap) -> Unit
+) {
+    val view = LocalView.current
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .height(400.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .onGloballyPositioned {
+                BitmapUtil.createBitmapFromCompose(
+                    context = context,
+                    view = view,
+                    layoutCoordinates = it,
+                    onBitmapCreated = onBitmapCreated
+                )
+            },
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TimeTitle(time = time)
 
@@ -68,9 +83,9 @@ private fun TimeTitle(time: String) {
             .padding(horizontal = 24.dp),
         horizontalArrangement = Arrangement.End
     ) {
-        TextWithLine(
+        Text(
             text = getTimeStringForTitle(time),
-            textStyle = LargeTitle
+            style = LargeTitle
         )
     }
 }

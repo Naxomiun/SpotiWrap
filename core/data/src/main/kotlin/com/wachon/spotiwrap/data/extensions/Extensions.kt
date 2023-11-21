@@ -14,6 +14,10 @@ import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 fun UserProfileApi.toTrackDB() = UserProfileDB(
     displayName = this.displayName,
@@ -62,9 +66,31 @@ fun TopItemApi.toTrackModel(playedAt: String) = TrackModel(
     title = this.name ?: "",
     artists = this.artists?.joinToString(", ") { it.name ?: "" } ?: "",
     album = this.album?.name ?: "",
-    playedAt = playedAt,
+    playedAt = calculateTime(playedAt),
     uri = this.uri ?: ""
 )
+
+private fun calculateTime(timestamp: String): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    try {
+        val date = dateFormat.parse(timestamp)
+        val now = Date()
+
+        val millisDiff = now.time - date.time
+        val minutes = (millisDiff / (1000 * 60)).toInt()
+        val hours = minutes / 60
+
+        return if (minutes < 60) {
+            "$minutes m"
+        } else {
+            "$hours h"
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return "Error calculating time"
+    }
+}
 
 fun TopItemApi.toArtistModel() = ArtistModel(
     id = this.id ?: "",

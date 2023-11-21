@@ -1,9 +1,8 @@
 package com.wachon.spotiwrap.features.collage.presentation
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Environment
-import android.view.View
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.view.drawToBitmap
+import androidx.core.content.FileProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
@@ -42,10 +41,8 @@ import com.wachon.spotiwrap.features.collage.presentation.components.TopScreenCo
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
 import java.io.FileOutputStream
-import java.io.OutputStream
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.io.IOException
+
 
 @Composable
 fun PreviewScreen(
@@ -71,7 +68,9 @@ fun PreviewContent(
         verticalArrangement = Arrangement.Top
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        PreviewTitle()
+        PreviewTitle {
+            shareImage(context = context, bitmap = viewModel.getPreviewBitmap())
+        }
         Spacer(modifier = Modifier.height(32.dp))
         TopPreview(
             timeIndex = state.timeIndex,
@@ -83,7 +82,9 @@ fun PreviewContent(
             optionIndex = state.optionIndex,
             typeIndex = state.typeIndex,
             sizeIndex = state.sizeIndex
-        )
+        ) {
+            viewModel.storePreviewBitmap(it)
+        }
         Spacer(modifier = Modifier.height(64.dp))
         CollageOptions(
             timeIndex = state.timeIndex,
@@ -114,14 +115,15 @@ fun TopPreview(
     optionIndex: Int,
     typeIndex: Int,
     sizeIndex: Int,
-
-    ) {
+    onBitmapCreated: (Bitmap) -> Unit
+) {
     when (optionIndex) {
         TOP.ordinal -> {
             TopScreen(
                 time = time[timeIndex].name,
                 artists = artists,
                 albums = albums,
+                onBitmapCreated = onBitmapCreated
             )
         }
 
@@ -130,7 +132,8 @@ fun TopPreview(
                 artistsCovers = artistsCovers,
                 albumsCovers = albumsCovers,
                 typeIndex = typeIndex,
-                sizeIndex = sizeIndex
+                sizeIndex = sizeIndex,
+                onBitmapCreated = onBitmapCreated
             )
         }
     }
@@ -141,8 +144,14 @@ fun TopScreen(
     time: String,
     artists: List<ArtistModel>,
     albums: List<TrackModel>,
+    onBitmapCreated: (Bitmap) -> Unit
 ) {
-    TopScreenContent(time = time, artists = artists, albums = albums)
+    TopScreenContent(
+        time = time,
+        artists = artists,
+        albums = albums,
+        onBitmapCreated = onBitmapCreated
+    )
 }
 
 @Composable
@@ -151,6 +160,7 @@ fun CollageScreen(
     albumsCovers: List<String>,
     typeIndex: Int,
     sizeIndex: Int,
+    onBitmapCreated: (Bitmap) -> Unit
 ) {
     val selectedCovers = if (typeIndex == CollageTypesEnum.ARTISTS.ordinal) {
         artistsCovers
@@ -160,19 +170,23 @@ fun CollageScreen(
     when (sizeIndex) {
         CollageSizesEnum.SMALL.ordinal -> {
             ThreeColumnCollage(
-                covers = selectedCovers
+                covers = selectedCovers,
+                onBitmapCreated = onBitmapCreated
             )
         }
 
         CollageSizesEnum.MEDIUM.ordinal -> {
             FourColumnCollage(
-                covers = selectedCovers
+                covers = selectedCovers,
+                onBitmapCreated = onBitmapCreated
+
             )
         }
 
         CollageSizesEnum.BIG.ordinal -> {
             FiveColumnCollage(
-                covers = selectedCovers
+                covers = selectedCovers,
+                onBitmapCreated = onBitmapCreated
             )
         }
     }
@@ -210,7 +224,9 @@ fun CollageOptions(
 }
 
 @Composable
-fun PreviewTitle() {
+fun PreviewTitle(
+    onShareClicked: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -230,30 +246,33 @@ fun PreviewTitle() {
             modifier = Modifier
                 .size(25.dp)
                 .clickable {
-                    //TODO Implements savable image
+                    onShareClicked.invoke()
                 }
         )
     }
 }
 
-private fun saveBitmapToFile(context: Context, view: View, onFileSaved: (File) -> Unit) {
-    val bitmap = view.drawToBitmap()
+private fun shareImage(context: Context, bitmap: Bitmap) {
+    try {
+        val cachePath = File(context.cacheDir, "images")
+        cachePath.mkdirs()
+        val stream = FileOutputStream("$cachePath/image.png")
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        stream.close()
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
 
-    val file = createTempImageFile(context)
-    val outputStream: OutputStream = FileOutputStream(file)
+    val imagePath = File(context.cacheDir, "images")
+    val newFile = File(imagePath, "image.png")
+    val contentUri = FileProvider.getUriForFile(context, "com.wachon.spotiwrap.provider", newFile)
 
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-    outputStream.close()
-
-    onFileSaved.invoke(file)
-}
-
-private fun createTempImageFile(context: Context): File {
-    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-    val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-    return File.createTempFile(
-        "JPEG_${timeStamp}_", /* prefix */
-        ".jpg", /* suffix */
-        storageDir /* directory */
-    )
+    if (contentUri != null) {
+        val shareIntent = Intent()
+        shareIntent.action = Intent.ACTION_SEND
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        shareIntent.setDataAndType(contentUri, context.contentResolver.getType(contentUri))
+        shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
+        context.startActivity(Intent.createChooser(shareIntent, "Choose an app"))
+    }
 }

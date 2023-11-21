@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.collage.presentation
 
+import android.graphics.Bitmap
 import androidx.compose.runtime.Immutable
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
@@ -19,6 +20,8 @@ import com.wachon.spotiwrap.features.collage.presentation.CollageTypesEnum.TRACK
 data class PreviewScreenState(
     val isLoading: Boolean = true,
 
+    val previewBitmap: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
+
     val timeIndex: Int = 0,
     val time: List<TopItemTimeRange> = listOf(SHORT_TERM, MEDIUM_TERM, LONG_TERM),
     val optionIndex: Int = 0,
@@ -32,4 +35,5 @@ data class PreviewScreenState(
     val artistsCovers: List<String> = listOf(),
     val albums: List<TrackModel> = listOf(),
     val albumsCovers: List<String> = listOf(),
-)
+
+    )

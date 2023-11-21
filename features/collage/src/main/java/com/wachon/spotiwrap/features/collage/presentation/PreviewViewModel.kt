@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.collage.presentation
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
@@ -83,5 +84,14 @@ class PreviewViewModel(
         }
     }
 
+    fun getPreviewBitmap() = _uiState.value.previewBitmap
+
+    fun storePreviewBitmap(bitmap: Bitmap) {
+        if (!getPreviewBitmap().sameAs(bitmap)) {
+            _uiState.update {
+                it.copy(previewBitmap = bitmap)
+            }
+        }
+    }
 
 }
