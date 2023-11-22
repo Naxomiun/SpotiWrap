@@ -12,6 +12,7 @@ import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
+import com.wachon.spotiwrap.core.network.model.TopRecentlyItemApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -43,7 +44,7 @@ class SpotifyService(
         }
     }
 
-    fun getRecentlyPlayed(): Flow<TopPlaylistItemApi> = flow {
+    fun getRecentlyPlayed(): Flow<TopRecentlyItemApi> = flow {
         emit(httpClient.get("v1/me/player/recently-played").body())
     }
 

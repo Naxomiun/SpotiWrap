@@ -63,17 +63,15 @@ fun RecommenderContent(
             )
         }
         item { Spacer(modifier = Modifier.height(16.dp)) }
-        item {
-            SongsRecommendedContent(
-                isLoadingRecommendations = state.isLoadingRecommendations,
-                title = "Our recommendations",
-                tracks = state.recommendations.take(10),
-                onTrackClicked = { track ->
-                    viewModel.addTrackToCurrentPlaylist(track)
-                }
-            ) {
-                viewModel.refreshRecommendations()
+        SongsRecommendedContent(
+            isLoadingRecommendations = state.isLoadingRecommendations,
+            title = "Our recommendations",
+            tracks = state.recommendations.take(10),
+            onTrackClicked = { track ->
+                viewModel.addTrackToCurrentPlaylist(track)
             }
+        ) {
+            viewModel.refreshRecommendations()
         }
     }
 }

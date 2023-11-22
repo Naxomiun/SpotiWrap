@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Refresh
@@ -38,25 +40,24 @@ import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.SubBody
 
-@Composable
+context(LazyListScope)
 fun SongsRecommendedContent(
-    modifier: Modifier = Modifier,
     isLoadingRecommendations: Boolean,
     title: String,
     tracks: List<TrackModel>,
     onTrackClicked: (TrackModel) -> Unit,
     onRefreshClicked: () -> Unit,
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
+    item { Spacer(modifier = Modifier.height(16.dp)) }
+    item {
         SongsRecommendedTitle(
             shouldShowIcon = tracks.isNotEmpty(),
             title = title,
             onRefreshClicked = onRefreshClicked
         )
-        Spacer(modifier = Modifier.height(16.dp))
+    }
+    item { Spacer(modifier = Modifier.height(16.dp)) }
+    item {
         if (isLoadingRecommendations) {
             LoadingView()
         } else if (tracks.isEmpty()) {
@@ -109,21 +110,16 @@ fun SongsRecommendedTitle(
     }
 }
 
-@Composable
+context(LazyListScope)
 fun SongRecommendedList(
-    modifier: Modifier = Modifier,
     tracks: List<TrackModel>,
     onTrackClicked: (TrackModel) -> Unit
 ) {
-    Column(
-        modifier = modifier,
-    ) {
-        tracks.forEach { track ->
-            SongRecommendedItem(
-                item = track,
-                onTrackClicked = onTrackClicked,
-            )
-        }
+    items(tracks) { track ->
+        SongRecommendedItem(
+            item = track,
+            onTrackClicked = onTrackClicked,
+        )
     }
 }
 
