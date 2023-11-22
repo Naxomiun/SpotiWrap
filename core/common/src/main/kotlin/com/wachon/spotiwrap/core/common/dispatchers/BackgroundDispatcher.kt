@@ -28,7 +28,7 @@ object BackgroundDispatcher : CoroutineDispatcher() {
         TimeUnit.SECONDS,
         SynchronousQueue(),
         threadFactory
-    );
+    )
 
     private val dispatcher = threadPool.asCoroutineDispatcher()
 

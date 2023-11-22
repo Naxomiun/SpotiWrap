@@ -21,6 +21,7 @@ fun UserProfileApi.toTrackDB() = UserProfileDB(
     country = this.country,
     email = this.email,
     image = this.images.first().url,
+    followers = this.followers.total,
     spotifyId = this.id
 )
 

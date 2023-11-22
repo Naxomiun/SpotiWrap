@@ -39,6 +39,7 @@ import com.wachon.spotiwrap.core.design.theme.SubBody
 import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.profile.presentation.model.CurrentTrackUI
 import com.theapache64.rebugger.Rebugger
+import com.wachon.spotiwrap.core.design.components.ProfileUserImage
 import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 
 @Composable
@@ -59,14 +60,10 @@ fun ProfileTopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
-            ProfileUserName(
-                modifier = Modifier.weight(1F),
-                userDisplayName = user?.displayName ?: ""
-            )
-
+            Spacer(modifier = Modifier.weight(1F))
             ProfileUserImage(
-                imageUrl = user?.image ?: ""
+                imageUrl = user?.image ?: "",
+                size = 40.dp
             )
         }
 
@@ -79,46 +76,6 @@ fun ProfileTopBar(
 
 }
 
-@Composable
-fun ProfileUserName(
-    modifier: Modifier = Modifier,
-    userDisplayName: String
-) {
-
-    TextNoPadding(
-        modifier = modifier,
-        text = userDisplayName,
-        style = SmallTitle,
-        color = MaterialTheme.colorScheme.onBackground,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
-
-}
-
-@Composable
-fun ProfileUserImage(
-    modifier: Modifier = Modifier,
-    imageUrl: String,
-) {
-
-    AsyncImage(
-        model = imageUrl,
-        contentScale = ContentScale.Crop,
-        contentDescription = null,
-        modifier = modifier
-            .padding(start = 8.dp)
-            .size(65.dp)
-            .border(
-                width = 2.dp,
-                color = MaterialTheme.colorScheme.surface,
-                shape = CircleShape
-            )
-            .padding(6.dp)
-            .clip(CircleShape),
-    )
-
-}
 
 @Composable
 fun ProfileCurrentSong(
@@ -239,7 +196,8 @@ fun PreviewProfileTopBar() {
                     title = "The Less I Know The Better",
                     image = "https://i.scdn.co/image/ab67616d0000b273d0b0b5e2a5a0a0b0c0a0b0b0",
                     artist = "Tame Impala"
-                )
+                ),
+                followers = 0
             )
         )
     }

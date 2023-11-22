@@ -3,6 +3,8 @@ package com.wachon.spotiwrap.features.artists.di
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtists
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtistsUseCase
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val ArtistsModule = module {
@@ -20,7 +22,7 @@ private val ArtistsDataModule: Module
 
 private val ArtistsDomainModule: Module
     get() = module {
-        factory<GetUserTopArtistsUseCase> { GetUserTopArtists(get(), get()) }
+        factoryOf(::GetUserTopArtists) bind GetUserTopArtistsUseCase::class
     }
 
 private val ArtistsPresentationModule: Module

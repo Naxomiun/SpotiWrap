@@ -5,6 +5,8 @@ import com.wachon.spotiwrap.features.home.domain.GetUserTopGenresFromArtistsUseC
 import com.wachon.spotiwrap.features.home.presentation.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val MenuModule = module {
@@ -22,7 +24,7 @@ private val MenuDataModule: Module
 
 private val MenuDomainModule: Module
     get() = module {
-        factory<GetUserTopGenresFromArtistsUseCase>{ GetTopGenresFromArtists(get()) }
+        factoryOf(::GetTopGenresFromArtists) bind GetUserTopGenresFromArtistsUseCase::class
     }
 
 private val MenuPresentationModule: Module

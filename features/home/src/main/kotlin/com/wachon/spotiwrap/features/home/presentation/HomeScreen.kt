@@ -74,7 +74,6 @@ fun HomeScreen(
 
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedHomeContent(
     state: HomeScreenState,

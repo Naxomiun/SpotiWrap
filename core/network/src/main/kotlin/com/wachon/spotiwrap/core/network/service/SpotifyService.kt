@@ -36,7 +36,6 @@ class SpotifyService(
     }
 
     fun getCurrentTrack(): Flow<CurrentTrackApi?> = flow {
-        Log.e("SpotifyService", "getCurrentTrack")
         try {
             emit(httpClient.get("v1/me/player/currently-playing").body())
         } catch (e: Exception) {
