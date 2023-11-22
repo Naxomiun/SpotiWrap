@@ -1,8 +1,8 @@
 [versions]
 versionCode = "1"
 versionName = "1.0.0"
-compileSdk = "33"
-targetSdk = "33"
+compileSdk = "34"
+targetSdk = "34"
 minSdk = "24"
 kotlin = "1.9.20"
 gradle = "8.1.4"

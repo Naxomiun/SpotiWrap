@@ -2,6 +2,7 @@ package com.wachon.spotiwrap.features.collage.presentation
 
 import android.content.Context
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,38 +11,47 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
+import com.wachon.spotiwrap.core.design.components.ButtonIcon
 import com.wachon.spotiwrap.core.design.components.LoadingView
+import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.collage.presentation.components.CollageHeader
 import com.wachon.spotiwrap.features.collage.presentation.components.TopPreview
 import com.wachon.spotiwrap.features.collage.presentation.utils.BitmapUtil.shareImage
 import org.koin.androidx.compose.koinViewModel
 
-
 @Composable
 fun PreviewScreen(
-    viewModel: PreviewViewModel = koinViewModel(), listState: LazyListState
+    viewModel: PreviewViewModel = koinViewModel(),
+    navigateUp: () -> Unit
 ) {
     val context = LocalContext.current
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     if (state.isLoading) {
         LoadingView()
     } else {
-        PreviewContent(context = context, state = state, viewModel = viewModel)
+        PreviewContent(
+            context = context,
+            state = state,
+            viewModel = viewModel,
+            navigateUp = navigateUp
+        )
     }
 }
 
@@ -49,16 +59,15 @@ fun PreviewScreen(
 fun PreviewContent(
     context: Context,
     state: PreviewScreenState,
-    viewModel: PreviewViewModel
+    viewModel: PreviewViewModel,
+    navigateUp: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxHeight(),
         verticalArrangement = Arrangement.Top
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        PreviewTitle {
-            shareImage(context = context, bitmap = viewModel.getPreviewBitmap())
-        }
+        PreviewTitle(navigateUp = navigateUp)
         Spacer(modifier = Modifier.height(32.dp))
         TopPreview(
             timeIndex = state.timeIndex,
@@ -88,7 +97,16 @@ fun PreviewContent(
             onTypeSelect = { viewModel.changeTypeIndex(it) },
             onSizeSelect = { viewModel.changeSizeIndex(it) },
         )
-
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            ButtonIcon(text = "Share", icon = Icons.Filled.Share) {
+                shareImage(context = context, bitmap = viewModel.getPreviewBitmap())
+            }
+        }
     }
 }
 
@@ -124,30 +142,29 @@ fun CollageOptions(
 }
 
 @Composable
-fun PreviewTitle(
-    onShareClicked: () -> Unit
-) {
+fun PreviewTitle(navigateUp: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 24.dp, start = 24.dp, end = 24.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(top = 24.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) { navigateUp.invoke() },
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
+        Icon(
+            modifier = Modifier
+                .width(50.dp),
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+            tint = BubblegumPink,
+            contentDescription = null,
+        )
         Text(
             text = "Top Preview",
             style = Title,
             color = MaterialTheme.colorScheme.onBackground,
-        )
-
-        Icon(
-            imageVector = Icons.Filled.Share,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .size(24.dp)
-                .clickable {
-                    onShareClicked.invoke()
-                }
         )
     }
 }

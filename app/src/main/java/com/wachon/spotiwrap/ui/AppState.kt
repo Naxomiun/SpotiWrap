@@ -30,10 +30,14 @@ class AppState(
     val mainNavController: NavHostController,
     private val context: Context
 ) {
-    
+
     val currentRoute: String
         @Composable get() = mainNavController.currentBackStackEntryAsState().value?.destination?.route
             ?: ""
+
+    fun navigateUp() {
+        mainNavController.navigateUp()
+    }
 
     fun navigateToLogin() {
         authNavController.navigate(AuthGraph.Login.route)
@@ -62,6 +66,10 @@ class AppState(
 
     private fun navigateToProfile() {
         mainNavController.navigatePoppingUpToStartDestination(MainGraph.Profile.route)
+    }
+
+    fun navigateToPreview() {
+        mainNavController.navigatePoppingUpToStartDestination(MainGraph.Preview.route)
     }
 
 }

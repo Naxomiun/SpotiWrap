@@ -18,8 +18,7 @@ dependencies {
     implementation(projects.features.profile)
     implementation(projects.features.recommender)
     implementation(projects.features.recently)
-    //TODO
-    implementation(project(":features:collage"))
+    implementation(projects.features.collage)
     implementation(projects.core.common)
     implementation(projects.core.auth)
     implementation(projects.core.persistence)

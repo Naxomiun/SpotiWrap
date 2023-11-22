@@ -31,7 +31,7 @@ fun GridCollage(
             AsyncImage(
                 model = cover,
                 contentDescription = null,
-                contentScale = ContentScale.Inside,
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .aspectRatio(1f)
                     .clip(RectangleShape)

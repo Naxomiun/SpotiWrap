@@ -6,6 +6,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import com.wachon.spotiwrap.core.design.components.BottomNavBar
 import com.wachon.spotiwrap.core.design.components.isScrollingUp
+import com.wachon.spotiwrap.core.navigation.MainGraph.*
 import com.wachon.spotiwrap.ui.AppState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -16,13 +17,13 @@ fun MainScreen(
     val currentRoute = appState.currentRoute
     val homeListState = rememberLazyListState()
     val recommenderListState = rememberLazyListState()
-    val collageListState = rememberLazyListState()
-    val shouldShowBottomBar = homeListState.isScrollingUp() //TODO Controlar también con el recommender
+    val isHomeScrolling = homeListState.isScrollingUp()
+    val isRecommenderScrolling = recommenderListState.isScrollingUp()
 
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                shouldShow = { shouldShowBottomBar },
+                shouldShow = { (isHomeScrolling || isRecommenderScrolling) && (currentRoute == Preview.route).not() },
                 currentRoute = { currentRoute },
                 onSelectedItem = {
                     if (currentRoute != it.getScreenRoute()) {
@@ -35,8 +36,7 @@ fun MainScreen(
         MainGraph(
             appState = appState,
             homeListState = homeListState,
-            recommenderListState = recommenderListState,
-            collageListState = collageListState
+            recommenderListState = recommenderListState
         )
     }
 }
