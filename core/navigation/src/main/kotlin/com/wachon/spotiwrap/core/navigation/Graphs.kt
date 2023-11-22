@@ -12,7 +12,8 @@ enum class AuthGraph(val route: String) {
 }
 
 enum class MainGraph(val route: String) {
-   Home("home"),
-   Profile("profile"),
-   Top("top")
+    Home("home"),
+    Recommender("recommender"),
+    Top("top"),
+    Profile("profile"),
 }

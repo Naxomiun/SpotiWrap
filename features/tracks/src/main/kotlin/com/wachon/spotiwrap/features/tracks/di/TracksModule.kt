@@ -3,6 +3,8 @@ package com.wachon.spotiwrap.features.tracks.di
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracks
 import com.wachon.spotiwrap.features.tracks.domain.GetUserTopTracksUseCase
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val TracksModule = module {
@@ -20,7 +22,7 @@ private val TracksDataModule: Module
 
 private val TracksDomainModule: Module
     get() = module {
-        factory<GetUserTopTracksUseCase> { GetUserTopTracks(get(), get()) }
+        factoryOf(::GetUserTopTracks) bind GetUserTopTracksUseCase::class
     }
 
 private val TracksPresentationModule: Module

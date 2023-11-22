@@ -7,16 +7,20 @@ import com.wachon.spotiwrap.core.network.interceptor.NetworkInterceptor
 import com.wachon.spotiwrap.core.network.interceptor.ThreadInterceptor
 import com.wachon.spotiwrap.core.network.interceptor.TokenInterceptor
 import com.wachon.spotiwrap.core.network.service.SpotifyService
+import okhttp3.Interceptor
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 private const val TOKEN_URL: String = "https://accounts.spotify.com"
 private const val BASE_URL: String = "https://api.spotify.com"
 
 val NetworkModule = module {
-    factory { ThreadInterceptor() }
-    factory { NetworkInterceptor(get()) }
-    factory { TokenInterceptor(get()) }
+    factoryOf(::ThreadInterceptor) bind Interceptor::class
+    factoryOf(::NetworkInterceptor) bind Interceptor::class
+    factoryOf(::TokenInterceptor) bind Interceptor::class
 
     single(named("UserClient")) {
         HttpClient.getClient(
@@ -39,5 +43,5 @@ val NetworkModule = module {
     }
 
     single { SpotifyService(get(named("UserClient"))) }
-    single<NetworkSpotifyDatasource> { DefaultNetworkSpotifyDatasource(get()) }
+    singleOf(::DefaultNetworkSpotifyDatasource) bind NetworkSpotifyDatasource::class
 }

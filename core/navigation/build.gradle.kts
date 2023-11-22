@@ -1,5 +1,5 @@
 plugins {
-    spotiwrap_android_library
+    alias(libs.plugins.spotiwrap.android.library)
 }
 
 android {

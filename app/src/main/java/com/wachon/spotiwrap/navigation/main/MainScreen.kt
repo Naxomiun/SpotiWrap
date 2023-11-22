@@ -13,15 +13,12 @@ import com.wachon.spotiwrap.ui.AppState
 fun MainScreen(
     appState: AppState
 ) {
-
     val currentRoute = appState.currentRoute
-
     val homeListState = rememberLazyListState()
     val recommenderListState = rememberLazyListState()
     val collageListState = rememberLazyListState()
+    val shouldShowBottomBar = homeListState.isScrollingUp() //TODO Controlar también con el recommender
 
-    val shouldShowBottomBar =
-        homeListState.isScrollingUp() //TODO Controlar también con el recommender
     Scaffold(
         bottomBar = {
             BottomNavBar(

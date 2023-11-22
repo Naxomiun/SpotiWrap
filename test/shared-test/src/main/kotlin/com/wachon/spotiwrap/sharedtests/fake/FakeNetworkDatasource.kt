@@ -9,6 +9,7 @@ import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
+import com.wachon.spotiwrap.core.network.model.TopRecentlyItemApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import com.wachon.spotiwrap.sharedtests.fabricator.ProfileFabricator
 import kotlinx.coroutines.flow.Flow
@@ -38,7 +39,7 @@ class FakeNetworkDatasource : NetworkSpotifyDatasource {
         return throw Exception("FakeNetworkDatasource.getTopItems() failed")
     }
 
-    override fun getRecentlyPlayed(): Flow<TopPlaylistItemApi> {
+    override fun getRecentlyPlayed(): Flow<TopRecentlyItemApi> {
         return throw Exception("FakeNetworkDatasource.getRecentlyPlayed() failed")
     }
 

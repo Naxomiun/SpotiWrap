@@ -10,12 +10,14 @@ import com.wachon.spotiwrap.data.repository.GenresRepository
 import com.wachon.spotiwrap.data.repository.PlaylistRepository
 import com.wachon.spotiwrap.data.repository.TracksRepository
 import com.wachon.spotiwrap.data.repository.UserRepository
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val DataModule = module {
-    single<UserRepository> { DefaultUserRepository(get(), get()) }
-    single<TracksRepository> { DefaultTracksRepository(get(), get()) }
-    single<ArtistsRepository> { DefaultArtistsRepository(get(), get()) }
-    single<GenresRepository> { DefaultGenresRepository(get()) }
-    single<PlaylistRepository> { DefaultPlaylistRepository(get(), get()) }
+    singleOf(::DefaultUserRepository) bind UserRepository::class
+    singleOf(::DefaultTracksRepository) bind TracksRepository::class
+    singleOf(::DefaultArtistsRepository) bind ArtistsRepository::class
+    singleOf(::DefaultGenresRepository) bind GenresRepository::class
+    singleOf(::DefaultPlaylistRepository) bind PlaylistRepository::class
 }

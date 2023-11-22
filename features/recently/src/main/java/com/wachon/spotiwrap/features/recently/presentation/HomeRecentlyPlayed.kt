@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,19 +30,18 @@ import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SubBody
 import kotlinx.collections.immutable.ImmutableList
 
-@Composable
+context(LazyListScope)
 fun HomeRecentlyPlayed(
-    modifier: Modifier = Modifier,
     tracks: ImmutableList<TrackModel>,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        HeaderRecentlyPlayed()
-        Spacer(modifier = Modifier.height(8.dp))
-        RecentlyPlayedList(tracks = tracks)
+    item { Spacer(modifier = Modifier.height(16.dp)) }
+    item { HeaderRecentlyPlayed() }
+    item { Spacer(modifier = Modifier.height(8.dp)) }
+    item { Spacer(modifier = Modifier.height(16.dp)) }
+    items(tracks) { track ->
+        RecentlyPlayedItem(
+            track = track
+        )
     }
 }
 
@@ -55,22 +56,6 @@ fun HeaderRecentlyPlayed(
         TextWithLine(
             text = "Recently Played"
         )
-    }
-}
-
-@Composable
-fun RecentlyPlayedList(
-    modifier: Modifier = Modifier,
-    tracks: List<TrackModel>
-) {
-    Column(
-        modifier = modifier,
-    ) {
-        tracks.forEach { track ->
-            RecentlyPlayedItem(
-                track = track
-            )
-        }
     }
 }
 

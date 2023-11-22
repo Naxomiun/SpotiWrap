@@ -6,6 +6,7 @@ data class UserProfileModel(
     val email: String,
     val image: String,
     val spotifyId: String,
+    val followers: Int,
     val currentSong: CurrentTrackModel?
 )
 

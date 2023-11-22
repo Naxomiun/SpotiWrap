@@ -1,7 +1,7 @@
 plugins {
-    spotiwrap_android_library
-    spotiwrap_compose_library
-    spotiwrap_spotify_auth
+    alias(libs.plugins.spotiwrap.android.library)
+    alias(libs.plugins.spotiwrap.android.compose.library)
+    alias(libs.plugins.spotiwrap.android.auth)
 }
 
 android {
@@ -15,9 +15,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
-    implementation(project(":features:profile"))
-    implementation(project(":features:tracks"))
-    implementation(project(":features:artists"))
-    implementation(project(":features:recently"))
+    implementation(projects.core.data)
+    implementation(projects.features.profile)
+    implementation(projects.features.tracks)
+    implementation(projects.features.artists)
+    implementation(projects.features.recently)
 }
