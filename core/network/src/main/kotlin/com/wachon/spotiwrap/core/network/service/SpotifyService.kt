@@ -60,6 +60,19 @@ class SpotifyService(
         }.body()
     }
 
+    fun getTopFlow(
+        type: String,
+        limit: Int? = 10,
+        offset: Int? = 0,
+        timeRange: String,
+    ): Flow<TopApi> = flow {
+        emit(httpClient.get("/v1/me/top/$type") {
+            parameter("limit", limit)
+            parameter("offset", offset)
+            parameter("time_range", timeRange)
+        }.body())
+    }
+
     suspend fun getRecommendations(
         artists: String,
         tracks: String,

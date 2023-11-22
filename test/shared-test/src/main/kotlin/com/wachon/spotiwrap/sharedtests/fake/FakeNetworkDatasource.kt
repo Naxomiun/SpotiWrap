@@ -39,6 +39,15 @@ class FakeNetworkDatasource : NetworkSpotifyDatasource {
         return throw Exception("FakeNetworkDatasource.getTopItems() failed")
     }
 
+    override fun getTopItemsFlow(
+        type: String,
+        limit: Int,
+        offset: Int,
+        timeRange: String
+    ): Flow<TopApi> {
+        return throw Exception("FakeNetworkDatasource.getTopItemsFlow() failed")
+    }
+
     override fun getRecentlyPlayed(): Flow<TopRecentlyItemApi> {
         return throw Exception("FakeNetworkDatasource.getRecentlyPlayed() failed")
     }

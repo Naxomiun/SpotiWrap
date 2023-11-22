@@ -1,15 +1,15 @@
 package com.wachon.spotiwrap.navigation.main
 
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.wachon.spotiwrap.core.navigation.GRAPH
 import com.wachon.spotiwrap.core.navigation.MainGraph.Home
+import com.wachon.spotiwrap.core.navigation.MainGraph.Preview
 import com.wachon.spotiwrap.core.navigation.MainGraph.Profile
-import com.wachon.spotiwrap.core.navigation.MainGraph.Recommender
 import com.wachon.spotiwrap.core.navigation.MainGraph.Top
+import com.wachon.spotiwrap.features.collage.presentation.PreviewScreen
 import com.wachon.spotiwrap.features.home.presentation.HomeScreen
 import com.wachon.spotiwrap.features.profile.presentation.profilescreen.ProfileScreen
 import com.wachon.spotiwrap.features.recommender.presentation.RecommenderScreen
@@ -19,7 +19,7 @@ import com.wachon.spotiwrap.ui.AppState
 fun MainGraph(
     appState: AppState,
     homeListState: LazyListState,
-    recommenderListState: LazyListState
+    recommenderListState: LazyListState,
 ) {
 
     NavHost(
@@ -44,15 +44,19 @@ fun MainGraph(
         }
 
         composable(
-            route = Recommender.route
+            route = Preview.route
         ) {
-            Text("Recommender")
+            PreviewScreen {
+                appState.navigateUp()
+            }
         }
 
         composable(
             route = Profile.route
         ) {
-            ProfileScreen()
+            ProfileScreen {
+                appState.navigateToPreview()
+            }
         }
     }
 

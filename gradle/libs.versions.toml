@@ -32,6 +32,7 @@ core-ktx = "1.12.0"
 appcompat = "1.6.1"
 material = "1.10.0"
 ksp = "1.9.20-1.0.14"
+material3 = "1.2.0-alpha11"
 
 [libraries]
 
@@ -39,7 +40,7 @@ androidx-compose-activity = "androidx.activity:activity-compose:1.8.1"
 androidx-compose-navigation = "androidx.navigation:navigation-compose:2.7.5"
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
@@ -98,12 +99,12 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
+
 spotiwrap-android-application = { id = "spotiwrap.android.application", version = "unspecified" }
 spotiwrap-android-library = { id = "spotiwrap.android.library", version = "unspecified" }
 spotiwrap-android-compose-library = { id = "spotiwrap.compose.library", version = "unspecified" }
 spotiwrap-android-room-library = { id = "spotiwrap.room.library", version = "unspecified" }
 spotiwrap-android-auth = { id = "spotiwrap.spotify.auth", version = "unspecified" }
-
 
 [bundles]
 

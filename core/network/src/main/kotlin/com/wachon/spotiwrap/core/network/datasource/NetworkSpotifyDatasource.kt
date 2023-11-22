@@ -26,6 +26,13 @@ interface NetworkSpotifyDatasource {
         timeRange: String,
     ): TopApi
 
+    fun getTopItemsFlow(
+        type: String,
+        limit: Int,
+        offset: Int,
+        timeRange: String,
+    ): Flow<TopApi>
+
     fun getRecentlyPlayed(): Flow<TopRecentlyItemApi>
 
     suspend fun getRecommendations(
@@ -78,6 +85,21 @@ class DefaultNetworkSpotifyDatasource(
     ): TopApi {
         return spotifyService
             .getTop(
+                type = type,
+                limit = limit,
+                offset = offset,
+                timeRange = timeRange
+            )
+    }
+
+    override fun getTopItemsFlow(
+        type: String,
+        limit: Int,
+        offset: Int,
+        timeRange: String,
+    ): Flow<TopApi> {
+        return spotifyService
+            .getTopFlow(
                 type = type,
                 limit = limit,
                 offset = offset,

@@ -29,10 +29,6 @@ import com.wachon.spotiwrap.core.design.components.TextWithLine
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.SubBody
 import kotlinx.collections.immutable.ImmutableList
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 context(LazyListScope)
 fun HomeRecentlyPlayed(
@@ -113,35 +109,12 @@ fun RecentlyPlayedItem(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = calculateTime(track.playedAt),
+                text = track.playedAt,
                 style = SubBody.copy(fontSize = 12.sp),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         }
-    }
-}
-
-private fun calculateTime(timestamp: String): String {
-    val formato = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
-    formato.timeZone = TimeZone.getTimeZone("UTC")
-
-    try {
-        val date = formato.parse(timestamp)
-        val now = Date()
-
-        val millisDiff = now.time - date.time
-        val minutes = (millisDiff / (1000 * 60)).toInt()
-        val hours = minutes / 60
-
-        return if (minutes < 60) {
-            "$minutes m"
-        } else {
-            "$hours h"
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        return "Error calculating time"
     }
 }
 

@@ -10,7 +10,6 @@ android {
 }
 
 dependencies {
-
     implementation(projects.features.login)
     implementation(projects.features.home)
     implementation(projects.features.splash)
@@ -19,6 +18,7 @@ dependencies {
     implementation(projects.features.profile)
     implementation(projects.features.recommender)
     implementation(projects.features.recently)
+    implementation(projects.features.collage)
     implementation(projects.core.common)
     implementation(projects.core.auth)
     implementation(projects.core.persistence)

@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.recommender.presentation
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,16 +27,39 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RecommenderScreen(
-    viewModel: RecommenderViewModel = koinViewModel(), listState: LazyListState,
+    viewModel: RecommenderViewModel = koinViewModel(),
+    listState: LazyListState,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    if (state.isLoading) {
-        LoadingView()
-    } else if (state.playlists.isEmpty()) {
-        RecommenderEmpty()
-    } else {
-        RecommenderContent(state = state, viewModel = viewModel, listState = listState)
+
+    AnimatedRecommenderContent(
+        viewModel = viewModel,
+        state = state,
+        listState = listState
+    )
+}
+
+@Composable
+fun AnimatedRecommenderContent(
+    viewModel: RecommenderViewModel,
+    state: RecommenderScreenState,
+    listState: LazyListState
+) {
+
+    AnimatedContent(
+        targetState = state.isLoading,
+        label = ""
+    ) {
+        when (it) {
+            true -> LoadingView()
+            false -> if (state.playlists.isEmpty()) {
+                RecommenderEmpty()
+            } else {
+                RecommenderContent(state = state, viewModel = viewModel, listState = listState)
+            }
+        }
     }
+
 }
 
 @Composable
