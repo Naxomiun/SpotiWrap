@@ -14,7 +14,7 @@ import org.gradle.kotlin.dsl.dependencies
 class AndroidLibraryPlugin : Plugin<Project> {
 
     override fun apply(target: Project): Unit = with(target) {
-        plugins.apply {
+        pluginManager.apply {
             apply("com.android.library")
             apply("kotlin-android")
             apply("kotlinx-serialization")
