@@ -11,13 +11,15 @@ data class UserProfileDB(
     val displayName: String,
     val country: String,
     val image: String,
-    val followers: Int
+    val followers: Int,
+    val spotifyId: String,
 ) {
     fun toDomain(currentSong: CurrentTrackModel?): UserProfileModel = UserProfileModel(
         displayName = this.displayName,
         country = this.country,
         email = this.email,
         image = this.image,
+        spotifyId = this.spotifyId,
         currentSong = currentSong,
         followers = this.followers
     )

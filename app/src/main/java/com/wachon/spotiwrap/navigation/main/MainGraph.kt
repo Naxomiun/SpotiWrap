@@ -1,12 +1,6 @@
 package com.wachon.spotiwrap.navigation.main
 
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,13 +9,14 @@ import com.wachon.spotiwrap.core.navigation.MainGraph.Home
 import com.wachon.spotiwrap.core.navigation.MainGraph.Profile
 import com.wachon.spotiwrap.core.navigation.MainGraph.Top
 import com.wachon.spotiwrap.features.home.presentation.HomeScreen
-import com.wachon.spotiwrap.features.profile.presentation.profilescreen.ProfileScreen
+import com.wachon.spotiwrap.features.recommender.presentation.RecommenderScreen
 import com.wachon.spotiwrap.ui.AppState
 
 @Composable
 fun MainGraph(
     appState: AppState,
-    homeListState: LazyListState
+    homeListState: LazyListState,
+    recommenderListState: LazyListState
 ) {
 
     NavHost(
@@ -40,7 +35,9 @@ fun MainGraph(
         composable(
             route = Top.route
         ) {
-            Text("TOP")
+            RecommenderScreen(
+                listState = recommenderListState
+            )
         }
 
         composable(
@@ -48,7 +45,6 @@ fun MainGraph(
         ) {
             ProfileScreen()
         }
-
     }
 
 }

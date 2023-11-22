@@ -1,5 +1,5 @@
 plugins {
-    spotiwrap_android_library
+    alias(libs.plugins.spotiwrap.android.library)
 }
 
 android {
@@ -7,7 +7,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:auth"))
+    implementation(projects.core.auth)
+
     implementation(libs.ktor.core)
     implementation(libs.ktor.logging)
     implementation(libs.ktor.negotiation)

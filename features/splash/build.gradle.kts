@@ -1,7 +1,7 @@
 plugins {
-    spotiwrap_android_library
-    spotiwrap_compose_library
-    spotiwrap_spotify_auth
+    alias(libs.plugins.spotiwrap.android.library)
+    alias(libs.plugins.spotiwrap.android.compose.library)
+    alias(libs.plugins.spotiwrap.android.auth)
 }
 
 android {
@@ -9,5 +9,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:auth"))
+    implementation(projects.core.auth)
 }

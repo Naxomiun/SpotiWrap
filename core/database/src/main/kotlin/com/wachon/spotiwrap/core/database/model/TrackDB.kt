@@ -12,13 +12,17 @@ data class TrackDB(
     val trackFame: ItemFame = ItemFame.NONE,
     val trackTitle: String,
     val trackArtist: String,
-    val trackImage: String
+    val trackAlbum: String,
+    val trackImage: String,
+    val trackUri: String,
 ) {
     fun toDomain(): TrackModel = TrackModel(
         id = this.trackId,
         fame = this.trackFame,
         imageUrl = this.trackImage,
         title = this.trackTitle,
-        artists = this.trackArtist
+        artists = this.trackArtist,
+        album = this.trackAlbum,
+        uri = this.trackUri
     )
 }

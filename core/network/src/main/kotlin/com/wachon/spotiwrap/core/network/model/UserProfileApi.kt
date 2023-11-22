@@ -12,7 +12,7 @@ data class UserProfileApi(
     @SerialName("external_urls") val externalUrls: ExternalUrlsApi?,
     @SerialName("followers") val followers: FollowersApi,
     @SerialName("href") val href: String?,
-    @SerialName("id") val id: String?,
+    @SerialName("id") val id: String,
     @SerialName("images") val images: List<ImageApi>,
     @SerialName("product") val product: String,
     @SerialName("type") val type: String,

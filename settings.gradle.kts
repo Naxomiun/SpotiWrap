@@ -1,5 +1,15 @@
 rootProject.name = "SpotiWrap"
 
+pluginManagement {
+    includeBuild("build-logic")
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
     ":app",
 )
@@ -23,7 +33,9 @@ include(
     ":features:splash",
     ":features:tracks",
     ":features:artists",
-    ":features:profile"
+    ":features:recently",
+    ":features:profile",
+    ":features:recommender"
 )
 
 //Tests
