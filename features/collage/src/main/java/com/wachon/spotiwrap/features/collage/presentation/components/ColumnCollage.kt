@@ -12,7 +12,8 @@ import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.features.collage.presentation.utils.BitmapUtil
 
 @Composable
-fun ThreeColumnCollage(
+fun ColumnCollage(
+    columns: Int,
     covers: List<String>,
     onBitmapCreated: (Bitmap) -> Unit
 ) {
@@ -30,52 +31,6 @@ fun ThreeColumnCollage(
                 )
             },
     ) {
-        GridCollage(cells = 3, covers = covers.take(9))
-    }
-}
-
-@Composable
-fun FourColumnCollage(
-    covers: List<String>,
-    onBitmapCreated: (Bitmap) -> Unit
-) {
-    val view = LocalView.current
-    val context = LocalContext.current
-    Column(
-        modifier = Modifier
-            .height(400.dp)
-            .onGloballyPositioned {
-                BitmapUtil.createBitmapFromCompose(
-                    context = context,
-                    view = view,
-                    layoutCoordinates = it,
-                    onBitmapCreated = onBitmapCreated
-                )
-            },
-    ) {
-        GridCollage(cells = 4, covers = covers.take(16))
-    }
-}
-
-@Composable
-fun FiveColumnCollage(
-    covers: List<String>,
-    onBitmapCreated: (Bitmap) -> Unit
-) {
-    val view = LocalView.current
-    val context = LocalContext.current
-    Column(
-        modifier = Modifier
-            .height(400.dp)
-            .onGloballyPositioned {
-                BitmapUtil.createBitmapFromCompose(
-                    context = context,
-                    view = view,
-                    layoutCoordinates = it,
-                    onBitmapCreated = onBitmapCreated
-                )
-            },
-    ) {
-        GridCollage(cells = 5, covers = covers.take(25))
+        GridCollage(cells = columns, covers = covers)
     }
 }

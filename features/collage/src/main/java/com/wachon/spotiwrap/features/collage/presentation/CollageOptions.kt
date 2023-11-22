@@ -8,6 +8,6 @@ enum class CollageTypesEnum {
     ARTISTS, TRACKS
 }
 
-enum class CollageSizesEnum {
-    SMALL, MEDIUM, BIG
+enum class CollageSizesEnum(val value: Int) {
+    SMALL(3), MEDIUM(4), BIG(5)
 }
