@@ -25,7 +25,7 @@ val FeaturesModule: Module
         includes(
             listOf(
                 LoginModule,
-                MenuModule, RecommenderModule,
+                MenuModule,
                 RecommenderModule,
                 SplashModule,
                 TracksModule,

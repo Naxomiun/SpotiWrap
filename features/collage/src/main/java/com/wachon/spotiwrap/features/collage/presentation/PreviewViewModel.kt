@@ -3,7 +3,6 @@ package com.wachon.spotiwrap.features.collage.presentation
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.features.collage.domain.GetAlbumsCoversUseCase
 import com.wachon.spotiwrap.features.collage.domain.GetAlbumsUseCase
 import com.wachon.spotiwrap.features.collage.domain.GetArtistsCoversUseCase
@@ -14,7 +13,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PreviewViewModel(
-    private val dispatcherProvider: DispatcherProvider,
     private val getArtists: GetArtistsUseCase,
     private val getAlbums: GetAlbumsUseCase,
     private val getArtistsCovers: GetArtistsCoversUseCase,
@@ -25,7 +23,6 @@ class PreviewViewModel(
     val uiState: StateFlow<PreviewScreenState> = _uiState
 
     init {
-        //TODO Combine
         getArtistsList()
         getAlbumList()
     }
@@ -93,5 +90,4 @@ class PreviewViewModel(
             }
         }
     }
-
 }

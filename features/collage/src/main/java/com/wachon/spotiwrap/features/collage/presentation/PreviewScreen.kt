@@ -1,8 +1,6 @@
 package com.wachon.spotiwrap.features.collage.presentation
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,24 +22,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.content.FileProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
-import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.theme.Title
-import com.wachon.spotiwrap.features.collage.presentation.CollageOptionsEnum.COLLAGE
-import com.wachon.spotiwrap.features.collage.presentation.CollageOptionsEnum.TOP
 import com.wachon.spotiwrap.features.collage.presentation.components.CollageHeader
-import com.wachon.spotiwrap.features.collage.presentation.components.FiveColumnCollage
-import com.wachon.spotiwrap.features.collage.presentation.components.FourColumnCollage
-import com.wachon.spotiwrap.features.collage.presentation.components.ThreeColumnCollage
-import com.wachon.spotiwrap.features.collage.presentation.components.TopScreenContent
+import com.wachon.spotiwrap.features.collage.presentation.components.TopPreview
+import com.wachon.spotiwrap.features.collage.presentation.utils.BitmapUtil.shareImage
 import org.koin.androidx.compose.koinViewModel
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 
 @Composable
@@ -105,94 +93,6 @@ fun PreviewContent(
 }
 
 @Composable
-fun TopPreview(
-    timeIndex: Int,
-    time: List<TopItemTimeRange>,
-    artists: List<ArtistModel>,
-    artistsCovers: List<String>,
-    albums: List<TrackModel>,
-    albumsCovers: List<String>,
-    optionIndex: Int,
-    typeIndex: Int,
-    sizeIndex: Int,
-    onBitmapCreated: (Bitmap) -> Unit
-) {
-    when (optionIndex) {
-        TOP.ordinal -> {
-            TopScreen(
-                time = time[timeIndex].name,
-                artists = artists,
-                albums = albums,
-                onBitmapCreated = onBitmapCreated
-            )
-        }
-
-        COLLAGE.ordinal -> {
-            CollageScreen(
-                artistsCovers = artistsCovers,
-                albumsCovers = albumsCovers,
-                typeIndex = typeIndex,
-                sizeIndex = sizeIndex,
-                onBitmapCreated = onBitmapCreated
-            )
-        }
-    }
-}
-
-@Composable
-fun TopScreen(
-    time: String,
-    artists: List<ArtistModel>,
-    albums: List<TrackModel>,
-    onBitmapCreated: (Bitmap) -> Unit
-) {
-    TopScreenContent(
-        time = time,
-        artists = artists,
-        albums = albums,
-        onBitmapCreated = onBitmapCreated
-    )
-}
-
-@Composable
-fun CollageScreen(
-    artistsCovers: List<String>,
-    albumsCovers: List<String>,
-    typeIndex: Int,
-    sizeIndex: Int,
-    onBitmapCreated: (Bitmap) -> Unit
-) {
-    val selectedCovers = if (typeIndex == CollageTypesEnum.ARTISTS.ordinal) {
-        artistsCovers
-    } else {
-        albumsCovers
-    }
-    when (sizeIndex) {
-        CollageSizesEnum.SMALL.ordinal -> {
-            ThreeColumnCollage(
-                covers = selectedCovers,
-                onBitmapCreated = onBitmapCreated
-            )
-        }
-
-        CollageSizesEnum.MEDIUM.ordinal -> {
-            FourColumnCollage(
-                covers = selectedCovers,
-                onBitmapCreated = onBitmapCreated
-
-            )
-        }
-
-        CollageSizesEnum.BIG.ordinal -> {
-            FiveColumnCollage(
-                covers = selectedCovers,
-                onBitmapCreated = onBitmapCreated
-            )
-        }
-    }
-}
-
-@Composable
 fun CollageOptions(
     timeIndex: Int,
     time: List<TopItemTimeRange>,
@@ -230,7 +130,7 @@ fun PreviewTitle(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+            .padding(top = 24.dp, start = 24.dp, end = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
@@ -244,35 +144,10 @@ fun PreviewTitle(
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier
-                .size(25.dp)
+                .size(24.dp)
                 .clickable {
                     onShareClicked.invoke()
                 }
         )
-    }
-}
-
-private fun shareImage(context: Context, bitmap: Bitmap) {
-    try {
-        val cachePath = File(context.cacheDir, "images")
-        cachePath.mkdirs()
-        val stream = FileOutputStream("$cachePath/image.png")
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        stream.close()
-    } catch (e: IOException) {
-        e.printStackTrace()
-    }
-
-    val imagePath = File(context.cacheDir, "images")
-    val newFile = File(imagePath, "image.png")
-    val contentUri = FileProvider.getUriForFile(context, "com.wachon.spotiwrap.provider", newFile)
-
-    if (contentUri != null) {
-        val shareIntent = Intent()
-        shareIntent.action = Intent.ACTION_SEND
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        shareIntent.setDataAndType(contentUri, context.contentResolver.getType(contentUri))
-        shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
-        context.startActivity(Intent.createChooser(shareIntent, "Choose an app"))
     }
 }
