@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.core.design.R
+import com.wachon.spotiwrap.core.design.theme.Button
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.design.theme.SpotifyBlack
 import com.wachon.spotiwrap.core.design.theme.SpotifyGreen
@@ -40,7 +41,7 @@ fun SpotifyButton(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = text)
+            Text(text = text, style = Button)
             Spacer(modifier = Modifier.padding(PaddingValues(start = 5.dp)))
             Image(
                 modifier = Modifier

@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.design.components.LoadingView
+import com.wachon.spotiwrap.core.design.components.ScreenTitle
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
-import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.recommender.presentation.components.PlaylistsContent
 import com.wachon.spotiwrap.features.recommender.presentation.components.SongsRecommendedContent
 import org.koin.androidx.compose.koinViewModel
@@ -45,7 +43,6 @@ fun AnimatedRecommenderContent(
     state: RecommenderScreenState,
     listState: LazyListState
 ) {
-
     AnimatedContent(
         targetState = state.isLoading,
         label = ""
@@ -59,7 +56,6 @@ fun AnimatedRecommenderContent(
             }
         }
     }
-
 }
 
 @Composable
@@ -70,7 +66,7 @@ fun RecommenderContent(
         state = listState, verticalArrangement = Arrangement.Top
     ) {
         item { Spacer(modifier = Modifier.height(16.dp)) }
-        item { RecommenderTitle() }
+        item { ScreenTitle(text = "Songs Recommender") }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
             PlaylistsContent(
@@ -90,7 +86,7 @@ fun RecommenderContent(
         SongsRecommendedContent(
             isLoadingRecommendations = state.isLoadingRecommendations,
             title = "Our recommendations",
-            tracks = state.recommendations.take(10),
+            tracks = state.recommendations,
             onTrackClicked = { track ->
                 viewModel.addTrackToCurrentPlaylist(track)
             }
@@ -98,16 +94,6 @@ fun RecommenderContent(
             viewModel.refreshRecommendations()
         }
     }
-}
-
-@Composable
-fun RecommenderTitle() {
-    Text(
-        modifier = Modifier.padding(top = 24.dp, start = 24.dp),
-        text = "Songs Recommender",
-        style = Title,
-        color = MaterialTheme.colorScheme.onBackground,
-    )
 }
 
 @Composable

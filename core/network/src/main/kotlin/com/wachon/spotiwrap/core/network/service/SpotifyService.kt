@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.core.network.service
 
-import android.util.Log
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.network.model.AddTrackRequest
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
@@ -109,7 +108,7 @@ class SpotifyService(
         }.body())
     }
 
-    suspend fun getUserPlaylists(): Flow<TopPlaylistApi> = flow {
+    fun getUserPlaylists(): Flow<TopPlaylistApi> = flow {
         emit(httpClient.get("/v1/me/playlists").body())
     }
 

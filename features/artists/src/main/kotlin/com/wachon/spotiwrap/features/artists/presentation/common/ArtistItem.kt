@@ -25,14 +25,14 @@ fun ArtistItem(
     modifier: Modifier = Modifier, artist: ArtistUI
 ) {
     Column(
-        modifier = modifier.width(80.dp)
+        modifier = modifier.width(100.dp)
     ) {
         AsyncImage(
             model = artist.artistImage,
             contentScale = ContentScale.Crop,
             contentDescription = artist.artistName,
             modifier = Modifier
-                .size(80.dp)
+                .size(100.dp)
                 .clip(CircleShape),
         )
         Spacer(modifier = Modifier.height(8.dp))

@@ -1,5 +1,7 @@
 package com.wachon.spotiwrap.features.profile.di
 
+import com.wachon.spotiwrap.features.profile.domain.GetUserPlaylists
+import com.wachon.spotiwrap.features.profile.domain.GetUserPlaylistsUseCase
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfile
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
 import com.wachon.spotiwrap.features.profile.presentation.profilescreen.ProfileViewModel
@@ -25,6 +27,7 @@ private val ProfileDataModule: Module
 private val ProfileDomainModule: Module
     get() = module {
         factoryOf(::GetUserProfile) bind GetUserProfileUseCase::class
+        factoryOf(::GetUserPlaylists) bind GetUserPlaylistsUseCase::class
     }
 
 private val ProfilePresentationModule: Module

@@ -24,6 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.FontWeight.Companion.W600
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -134,7 +135,7 @@ private fun ArtistContent(artists: List<ArtistModel>) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "#${artists.indexOf(it) + 1} ${it.name}",
-                    style = SubBody.copy(fontSize = 12.sp),
+                    style = SubBody.copy(fontSize = 12.sp, fontWeight = W600),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -180,7 +181,7 @@ private fun TrackContent(albums: List<TrackModel>) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "#${albums.indexOf(it) + 1} ${it.title}",
-                    style = SubBody.copy(fontSize = 12.sp),
+                    style = SubBody.copy(fontSize = 12.sp, fontWeight = W600),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

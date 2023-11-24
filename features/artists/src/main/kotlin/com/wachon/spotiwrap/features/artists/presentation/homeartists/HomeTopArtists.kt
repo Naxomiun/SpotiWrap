@@ -45,13 +45,13 @@ fun HomeTopArtists(
 fun HeaderTopArtistList(
     modifier: Modifier = Modifier
 ) {
-    
+
     Row(
         modifier = modifier
             .padding(horizontal = 24.dp)
     ) {
         TextWithLine(
-            text = "Top artists"
+            text = "Top Artists"
         )
     }
 

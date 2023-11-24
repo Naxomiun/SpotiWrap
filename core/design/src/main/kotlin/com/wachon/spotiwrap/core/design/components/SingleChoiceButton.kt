@@ -8,6 +8,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.wachon.spotiwrap.core.design.theme.Body
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,7 +34,7 @@ fun SingleChoiceButton(
                 },
                 selected = index == selected
             ) {
-                Text(label)
+                Text(text = label, style = Body)
             }
         }
     }

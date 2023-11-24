@@ -8,7 +8,6 @@ import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.features.recommender.domain.AddTracksToPlaylistUseCase
 import com.wachon.spotiwrap.features.recommender.domain.GetPlaylistItemsUseCase
 import com.wachon.spotiwrap.features.recommender.domain.GetRecommendationsUseCase
-import com.wachon.spotiwrap.features.recommender.domain.GetUserPlaylistsUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 
 class RecommenderViewModel(
     dispatcherProvider: DispatcherProvider,
-    private val getUserPlaylists: GetUserPlaylistsUseCase,
     private val getPlaylistItems: GetPlaylistItemsUseCase,
     private val getRecommendationsUseCase: GetRecommendationsUseCase,
     private val addTracksToPlaylistUseCase: AddTracksToPlaylistUseCase,
@@ -34,14 +32,7 @@ class RecommenderViewModel(
 
     private fun initUserPlaylists() =
         viewModelScope.launch {
-            getUserPlaylists().collect { playlists ->
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        playlists = playlists
-                    )
-                }
-            }
+
         }
 
     fun refreshPlaylists() = initUserPlaylists()
@@ -60,6 +51,7 @@ class RecommenderViewModel(
 
     private fun searchRecommendedSongs(deletePrevious: Boolean = true, playlist: PlaylistModel) {
         _uiState.update { it.copy(isLoadingRecommendations = true) }
+        searchRecommendationJob?.cancel()
         searchRecommendationJob = viewModelScope.launch {
             getPlaylistItems(id = playlist.id).collect { trackList ->
                 getRecommendationsUseCase(

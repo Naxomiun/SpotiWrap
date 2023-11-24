@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
@@ -31,7 +31,6 @@ import com.wachon.spotiwrap.core.common.model.OwnerModel
 import com.wachon.spotiwrap.core.common.model.PlaylistModel
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
-import kotlinx.coroutines.launch
 
 @Composable
 fun PlaylistsContent(
@@ -111,19 +110,15 @@ fun PlaylistsList(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        itemsIndexed(
-            items = playlists,
-            key = { _: Int, playlist: PlaylistModel -> playlist.id }
-        ) { index, playlist ->
+        items(
+            playlists
+        ) { playlist ->
             PlaylistItem(
                 modifier = Modifier
                     .fillMaxWidth(),
                 isChecked = playlistSelected == playlist.id,
                 playlist = playlist,
                 onPlaylistClicked = { isChecked ->
-                    coroutineScope.launch {
-                        rowState.animateScrollToItem(index = index)
-                    }
                     if (isChecked) {
                         onPlaylistClicked.invoke(true, playlist)
                     } else {

@@ -12,12 +12,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,7 +36,6 @@ fun HomeRecentlyPlayed(
     item { Spacer(modifier = Modifier.height(16.dp)) }
     item { HeaderRecentlyPlayed() }
     item { Spacer(modifier = Modifier.height(8.dp)) }
-    item { Spacer(modifier = Modifier.height(16.dp)) }
     items(tracks) { track ->
         RecentlyPlayedItem(
             track = track
@@ -66,7 +64,7 @@ fun RecentlyPlayedItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(horizontal = 16.dp, vertical = 2.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -75,7 +73,6 @@ fun RecentlyPlayedItem(
             contentDescription = track.title,
             modifier = Modifier
                 .size(50.dp)
-                .clip(MaterialTheme.shapes.small)
         )
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -87,7 +84,7 @@ fun RecentlyPlayedItem(
         ) {
             Text(
                 text = track.title,
-                style = Body.copy(fontSize = 16.sp),
+                style = Body.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

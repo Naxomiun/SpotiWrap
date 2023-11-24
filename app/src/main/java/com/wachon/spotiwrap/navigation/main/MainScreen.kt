@@ -16,9 +16,9 @@ fun MainScreen(
 ) {
     val currentRoute = appState.currentRoute
     val homeListState = rememberLazyListState()
-    val recommenderListState = rememberLazyListState()
+    val topListState = rememberLazyListState()
     val isHomeScrolling = homeListState.isScrollingUp()
-    val isRecommenderScrolling = recommenderListState.isScrollingUp()
+    val isRecommenderScrolling = topListState.isScrollingUp()
 
     Scaffold(
         bottomBar = {
@@ -36,7 +36,7 @@ fun MainScreen(
         MainGraph(
             appState = appState,
             homeListState = homeListState,
-            recommenderListState = recommenderListState
+            topListState = topListState
         )
     }
 }
