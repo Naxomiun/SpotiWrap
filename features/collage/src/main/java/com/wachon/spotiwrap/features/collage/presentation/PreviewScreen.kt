@@ -29,6 +29,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.design.components.ButtonIcon
 import com.wachon.spotiwrap.core.design.components.LoadingView
+import com.wachon.spotiwrap.core.design.components.ScreenTitleWithBack
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.collage.presentation.components.CollageHeader
@@ -67,7 +68,7 @@ fun PreviewContent(
         verticalArrangement = Arrangement.Top
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        PreviewTitle(navigateUp = navigateUp)
+        ScreenTitleWithBack(text = "Top preview", navigateUp = navigateUp)
         Spacer(modifier = Modifier.height(32.dp))
         TopPreview(
             timeIndex = state.timeIndex,

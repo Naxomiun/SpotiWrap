@@ -47,7 +47,7 @@ interface NetworkSpotifyDatasource {
 
     suspend fun searchTrack(query: String): Flow<SearchedTrackApi>
 
-    suspend fun getUserPlaylists(): Flow<TopPlaylistApi>
+    fun getUserPlaylists(): Flow<TopPlaylistApi>
 
     suspend fun getPlaylistItems(id: String): Flow<TopPlaylistItemApi>
 
@@ -131,7 +131,7 @@ class DefaultNetworkSpotifyDatasource(
         return spotifyService.searchTrack(query = query)
     }
 
-    override suspend fun getUserPlaylists(): Flow<TopPlaylistApi> {
+    override fun getUserPlaylists(): Flow<TopPlaylistApi> {
         return spotifyService.getUserPlaylists()
     }
 

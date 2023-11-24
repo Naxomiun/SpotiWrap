@@ -3,8 +3,8 @@ package com.wachon.spotiwrap.features.profile.presentation.profilebar
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,32 +15,33 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.wachon.spotiwrap.core.design.R as DesignR
+import com.wachon.spotiwrap.core.design.R.drawable.ic_spotify_logo_full
 import com.wachon.spotiwrap.core.design.components.LottieImage
+import com.wachon.spotiwrap.core.design.components.ProfileUserImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Body
-import com.wachon.spotiwrap.core.design.theme.SmallTitle
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
+import com.wachon.spotiwrap.core.design.theme.SpotifyGreen
 import com.wachon.spotiwrap.core.design.theme.SubBody
 import com.wachon.spotiwrap.core.design.theme.Title
 import com.wachon.spotiwrap.features.profile.presentation.model.CurrentTrackUI
-import com.theapache64.rebugger.Rebugger
-import com.wachon.spotiwrap.core.design.components.ProfileUserImage
 import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
+import com.wachon.spotiwrap.core.design.R as DesignR
 
 @Composable
 fun ProfileTopBar(
@@ -60,6 +61,12 @@ fun ProfileTopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            Image(
+                modifier = Modifier.size(100.dp),
+                painter = painterResource(ic_spotify_logo_full),
+                contentDescription = "",
+                colorFilter = ColorFilter.tint(SpotifyGreen)
+            )
             Spacer(modifier = Modifier.weight(1F))
             ProfileUserImage(
                 imageUrl = user?.image ?: "",
@@ -122,7 +129,7 @@ fun CurrentTrackTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextNoPadding(
-            text = "Currenty playing",
+            text = "Currently playing",
             style = Title.copy(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.W600

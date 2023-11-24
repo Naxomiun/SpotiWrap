@@ -1,6 +1,7 @@
 package com.wachon.spotiwrap.navigation.main
 
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,14 +13,13 @@ import com.wachon.spotiwrap.core.navigation.MainGraph.Top
 import com.wachon.spotiwrap.features.collage.presentation.PreviewScreen
 import com.wachon.spotiwrap.features.home.presentation.HomeScreen
 import com.wachon.spotiwrap.features.profile.presentation.profilescreen.ProfileScreen
-import com.wachon.spotiwrap.features.recommender.presentation.RecommenderScreen
 import com.wachon.spotiwrap.ui.AppState
 
 @Composable
 fun MainGraph(
     appState: AppState,
     homeListState: LazyListState,
-    recommenderListState: LazyListState,
+    topListState: LazyListState,
 ) {
 
     NavHost(
@@ -38,9 +38,7 @@ fun MainGraph(
         composable(
             route = Top.route
         ) {
-            RecommenderScreen(
-                listState = recommenderListState
-            )
+            Text("Top List")
         }
 
         composable(

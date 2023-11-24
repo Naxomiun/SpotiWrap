@@ -18,7 +18,7 @@ interface PlaylistRepository : Syncable {
         description: String,
     ): Flow<PlaylistModel>
 
-    suspend fun getUserPlaylists(): Flow<List<PlaylistModel>>
+    fun getUserPlaylists(): Flow<List<PlaylistModel>>
 
     suspend fun getPlaylistItems(id: String): Flow<List<TrackModel>>
 
@@ -57,7 +57,7 @@ class DefaultPlaylistRepository(
             ).toDomain()
         }
 
-    override suspend fun getUserPlaylists(): Flow<List<PlaylistModel>> =
+    override fun getUserPlaylists(): Flow<List<PlaylistModel>> =
         combine(
             profileDao.getProfile(),
             spotifyDatasource.getUserPlaylists()

@@ -29,7 +29,6 @@ import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.SmallTitle
 import com.wachon.spotiwrap.core.design.theme.Title
-import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -48,7 +47,7 @@ fun ProfileScreen(
 
 @Composable
 fun AnimatedProfileContent(
-    state: UserUI?,
+    state: ProfileScreenState,
     modifier: Modifier = Modifier,
     navigateToPreview: () -> Unit
 ) {
@@ -64,7 +63,7 @@ fun AnimatedProfileContent(
 
 @Composable
 fun ProfileContent(
-    state: UserUI?,
+    state: ProfileScreenState,
     navigateToPreview: () -> Unit
 ) {
     Column(
@@ -78,11 +77,11 @@ fun ProfileContent(
         ProfileUserImage(
             modifier = Modifier
                 .padding(top = 80.dp),
-            imageUrl = state?.image ?: "",
+            imageUrl = state.userProfile?.image ?: "",
             size = 100.dp
         )
         Spacer(modifier = Modifier.height(16.dp))
-        TextNoPadding(text = state?.displayName ?: "", style = Title)
+        TextNoPadding(text = state.userProfile?.displayName ?: "", style = Title)
         Spacer(modifier = Modifier.height(24.dp))
         Row(
             modifier = Modifier
@@ -91,18 +90,20 @@ fun ProfileContent(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
 
-            ProfileFollowersBox(
-                followers = state?.followers ?: 0,
+            InfoBox(
+                data = state.userProfile?.followers ?: 0,
+                dataName = "followers",
                 modifier = Modifier
                     .weight(1f)
             )
 
-            SquareBox(
+            InfoBox(
+                data = state.userPlaylists.size,
+                dataName = "playlists",
                 modifier = Modifier
                     .weight(1f)
-            ) {
+            )
 
-            }
         }
         Spacer(modifier = Modifier.height(24.dp))
         ButtonDefault(
@@ -117,8 +118,9 @@ fun ProfileContent(
 
 
 @Composable
-fun ProfileFollowersBox(
-    followers: Int,
+fun InfoBox(
+    data: Int,
+    dataName: String,
     modifier: Modifier = Modifier,
 ) {
     SquareBox(
@@ -134,13 +136,13 @@ fun ProfileFollowersBox(
         ) {
 
             TextNoPadding(
-                text = followers.toString(),
+                text = data.toString(),
                 style = Title.copy(fontSize = 40.sp),
                 color = BubblegumPink
             )
 
             TextNoPadding(
-                text = "followers",
+                text = dataName,
                 style = SmallTitle.copy(fontSize = 24.sp),
                 color = MaterialTheme.colorScheme.onSurface
             )

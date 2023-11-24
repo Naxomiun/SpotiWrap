@@ -42,6 +42,13 @@ val SubBody: TextStyle
         fontSize = 15.sp
     )
 
+val Button: TextStyle
+    get() = TextStyle(
+        fontFamily = FontFamily.Poppins,
+        fontWeight = FontWeight.W700,
+        fontSize = 18.sp
+    )
+
 val FontFamily.Companion.Poppins: FontFamily
     get() = FontFamily(
         Font(R.font.poppins_light, FontWeight.W300),

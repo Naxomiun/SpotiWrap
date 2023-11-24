@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.core.design.theme.BubblegumPink
-import com.wachon.spotiwrap.core.design.theme.SmallTitle
+import com.wachon.spotiwrap.core.design.theme.Button
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.design.theme.SpotifyBlack
 
@@ -44,7 +44,7 @@ fun ButtonIcon(
         ) {
             Text(
                 text = text,
-                style = SmallTitle,
+                style = Button,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Icon(

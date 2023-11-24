@@ -3,8 +3,8 @@ package com.wachon.spotiwrap.core.design.components
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.wachon.spotiwrap.core.design.theme.SmallTitle
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.design.theme.SpotifyBlack
 
@@ -44,14 +45,14 @@ fun ButtonDefault(
         ) {
             Text(
                 text = text,
+                style = SmallTitle,
                 color = MaterialTheme.colorScheme.onBackground
             )
 
-            Spacer(modifier = Modifier.padding(PaddingValues(start = 5.dp)))
+            Spacer(modifier = Modifier.width(5.dp))
 
             Icon(
-                modifier = Modifier
-                    .width(70.dp),
+                modifier = Modifier.wrapContentSize(),
                 imageVector = icon,
                 tint = MaterialTheme.colorScheme.primary,
                 contentDescription = null,

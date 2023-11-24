@@ -10,8 +10,6 @@ import com.wachon.spotiwrap.features.recommender.domain.GetPlaylistItems
 import com.wachon.spotiwrap.features.recommender.domain.GetPlaylistItemsUseCase
 import com.wachon.spotiwrap.features.recommender.domain.GetRecommendations
 import com.wachon.spotiwrap.features.recommender.domain.GetRecommendationsUseCase
-import com.wachon.spotiwrap.features.recommender.domain.GetUserPlaylists
-import com.wachon.spotiwrap.features.recommender.domain.GetUserPlaylistsUseCase
 import com.wachon.spotiwrap.features.recommender.domain.SearchArtist
 import com.wachon.spotiwrap.features.recommender.domain.SearchArtistUseCase
 import com.wachon.spotiwrap.features.recommender.domain.SearchTrack
@@ -36,7 +34,6 @@ private val RecommenderDataModule: Module
 
 private val RecommenderDomainModule: Module
     get() = module {
-        factory<GetUserPlaylistsUseCase> { GetUserPlaylists(get(), get()) }
         factory<GetGenresUseCase> { GetGenres(get(), get()) }
         factory<SearchArtistUseCase> { SearchArtist(get(), get()) }
         factory<SearchTrackUseCase> { SearchTrack(get(), get()) }

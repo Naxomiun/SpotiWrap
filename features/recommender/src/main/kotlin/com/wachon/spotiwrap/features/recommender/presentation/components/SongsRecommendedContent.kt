@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,9 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -138,21 +138,21 @@ fun SongRecommendedItem(
         AsyncImage(
             model = item.imageUrl,
             contentDescription = item.title,
+            contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .size(50.dp)
-                .clip(MaterialTheme.shapes.small)
+                .aspectRatio(1f)
         )
 
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.weight(0.1F))
 
         Column(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxHeight()
         ) {
             Text(
                 text = item.title,
-                style = Body.copy(fontSize = 16.sp),
+                style = Body.copy(fontWeight = FontWeight.W600, fontSize = 16.sp),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -164,7 +164,7 @@ fun SongRecommendedItem(
             )
         }
 
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.weight(0.1F))
 
         Icon(
             imageVector = Icons.Filled.AddCircle,

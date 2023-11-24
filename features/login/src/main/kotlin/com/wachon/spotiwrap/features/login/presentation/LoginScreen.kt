@@ -5,33 +5,23 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,12 +33,9 @@ import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.spotify.sdk.android.auth.LoginActivity
 import com.wachon.spotiwrap.core.auth.config.AuthConfig
 import com.wachon.spotiwrap.core.design.R
-import com.wachon.spotiwrap.core.design.components.BrandContainer
 import com.wachon.spotiwrap.core.design.components.SpotifyButton
 import com.wachon.spotiwrap.core.design.components.collectEvents
 import com.wachon.spotiwrap.core.design.theme.Body
-import com.wachon.spotiwrap.core.design.theme.LargeTitle
-import com.wachon.spotiwrap.core.design.theme.SmallTitle
 import com.wachon.spotiwrap.core.design.theme.Title
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -158,7 +145,11 @@ fun LoginContent(
 
 private fun getAuthenticationRequest(authConfig: AuthConfig): AuthorizationRequest {
     return AuthorizationRequest
-        .Builder(authConfig.clientId, AuthorizationResponse.Type.CODE, Uri.parse(authConfig.redirectUrl).toString())
+        .Builder(
+            authConfig.clientId,
+            AuthorizationResponse.Type.CODE,
+            Uri.parse(authConfig.redirectUrl).toString()
+        )
         .setShowDialog(false)
         .setScopes(authConfig.getScopesAsTypedArray())
         .setCampaign(authConfig.campaign)
