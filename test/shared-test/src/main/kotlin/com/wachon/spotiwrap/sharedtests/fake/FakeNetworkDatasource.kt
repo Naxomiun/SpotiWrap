@@ -72,7 +72,7 @@ class FakeNetworkDatasource : NetworkSpotifyDatasource {
         return throw Exception("FakeNetworkDatasource.searchTrack() failed")
     }
 
-    override suspend fun getUserPlaylists(): Flow<TopPlaylistApi> {
+    override fun getUserPlaylists(): Flow<TopPlaylistApi> {
         return throw Exception("FakeNetworkDatasource.getUserPlaylists() failed")
     }
 
