@@ -11,6 +11,7 @@ object Config {
         const val Recommender = "$baseApplicationId.features.recommender"
         const val Recently = "$baseApplicationId.features.recently"
         const val Collage = "$baseApplicationId.features.collage"
+        const val Top = "$baseApplicationId.features.top"
     }
 
     object Core {

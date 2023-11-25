@@ -37,6 +37,7 @@ include(
     ":features:profile",
     ":features:recommender",
     ":features:collage",
+    ":features:top",
 )
 
 //Tests

@@ -15,6 +15,7 @@ import com.wachon.spotiwrap.features.profile.di.ProfileModule
 import com.wachon.spotiwrap.features.recently.di.RecentlyModule
 import com.wachon.spotiwrap.features.recommender.di.RecommenderModule
 import com.wachon.spotiwrap.features.splash.di.SplashModule
+import com.wachon.spotiwrap.features.top.di.TopModule
 import com.wachon.spotiwrap.features.tracks.di.TracksModule
 import org.koin.androidx.workmanager.dsl.workerOf
 import org.koin.core.module.Module
@@ -33,6 +34,7 @@ val FeaturesModule: Module
                 ProfileModule,
                 RecentlyModule,
                 PreviewModule,
+                TopModule,
             )
         )
     }

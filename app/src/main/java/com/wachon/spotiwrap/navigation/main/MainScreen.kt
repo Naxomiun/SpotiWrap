@@ -18,12 +18,12 @@ fun MainScreen(
     val homeListState = rememberLazyListState()
     val topListState = rememberLazyListState()
     val isHomeScrolling = homeListState.isScrollingUp()
-    val isRecommenderScrolling = topListState.isScrollingUp()
+    val isTopListScrolling = topListState.isScrollingUp()
 
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                shouldShow = { (isHomeScrolling || isRecommenderScrolling) && (currentRoute == Preview.route).not() },
+                shouldShow = { (isHomeScrolling || isTopListScrolling) && (currentRoute == Preview.route).not() },
                 currentRoute = { currentRoute },
                 onSelectedItem = {
                     if (currentRoute != it.getScreenRoute()) {
