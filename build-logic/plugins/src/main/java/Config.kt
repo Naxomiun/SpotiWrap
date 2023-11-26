@@ -12,6 +12,7 @@ object Config {
         const val Recently = "$baseApplicationId.features.recently"
         const val Collage = "$baseApplicationId.features.collage"
         const val Top = "$baseApplicationId.features.top"
+        const val Detail = "$baseApplicationId.features.detail"
     }
 
     object Core {

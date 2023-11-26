@@ -1,11 +1,13 @@
 package com.wachon.spotiwrap.core.network.datasource
 
+import com.wachon.spotiwrap.core.network.model.ArtistApi
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.PlaylistApi
 import com.wachon.spotiwrap.core.network.model.RecommendationsApi
 import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
 import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
+import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
 import com.wachon.spotiwrap.core.network.model.TopRecentlyItemApi
@@ -18,6 +20,14 @@ interface NetworkSpotifyDatasource {
     suspend fun getUserInfo(): UserProfileApi
 
     fun getCurrentTrack(): Flow<CurrentTrackApi?>
+
+    fun getArtist(
+        id: String
+    ): Flow<ArtistApi>
+
+    fun getTrack(
+        id: String
+    ): Flow<TopItemApi>
 
     suspend fun getTopItems(
         type: String,
@@ -75,6 +85,19 @@ class DefaultNetworkSpotifyDatasource(
     override fun getCurrentTrack(): Flow<CurrentTrackApi?> {
         return spotifyService
             .getCurrentTrack()
+    }
+
+    override fun getArtist(
+        id: String
+
+    ): Flow<ArtistApi> {
+        return spotifyService
+            .getArtist(id = id)
+    }
+
+    override fun getTrack(id: String): Flow<TopItemApi> {
+        return spotifyService
+            .getTrack(id = id)
     }
 
     override suspend fun getTopItems(

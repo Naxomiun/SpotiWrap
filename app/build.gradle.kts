@@ -20,6 +20,7 @@ dependencies {
     implementation(projects.features.recently)
     implementation(projects.features.collage)
     implementation(projects.features.top)
+    implementation(projects.features.detail)
     implementation(projects.core.common)
     implementation(projects.core.auth)
     implementation(projects.core.persistence)

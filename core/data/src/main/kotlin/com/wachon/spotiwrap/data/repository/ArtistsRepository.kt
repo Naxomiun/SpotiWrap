@@ -17,6 +17,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 interface ArtistsRepository : Syncable {
+
+    fun getArtist(
+        id: String
+    ): Flow<ArtistModel>
+
     fun getTopArtists(
         limit: Int,
         offset: Int,
@@ -74,6 +79,15 @@ class DefaultArtistsRepository(
             )
         }
     }
+
+    override fun getArtist(id: String): Flow<ArtistModel> =
+        combine(
+            spotifyDatasource.getArtist(
+                id = id
+            )
+        ) { artistApi ->
+            artistApi.first().toArtistModel()
+        }
 
     override fun getTopArtists(
         limit: Int,

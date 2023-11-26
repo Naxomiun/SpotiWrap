@@ -2,6 +2,7 @@ package com.wachon.spotiwrap.core.network.service
 
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.network.model.AddTrackRequest
+import com.wachon.spotiwrap.core.network.model.ArtistApi
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.GenresApi
 import com.wachon.spotiwrap.core.network.model.PlaylistApi
@@ -9,6 +10,7 @@ import com.wachon.spotiwrap.core.network.model.RecommendationsApi
 import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
 import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
 import com.wachon.spotiwrap.core.network.model.TopApi
+import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
 import com.wachon.spotiwrap.core.network.model.TopRecentlyItemApi
@@ -44,6 +46,14 @@ class SpotifyService(
 
     fun getRecentlyPlayed(): Flow<TopRecentlyItemApi> = flow {
         emit(httpClient.get("v1/me/player/recently-played").body())
+    }
+
+    fun getArtist(id: String): Flow<ArtistApi> = flow {
+        emit(httpClient.get("/v1/artists/$id").body())
+    }
+
+    fun getTrack(id: String): Flow<TopItemApi> = flow {
+        emit(httpClient.get("/v1/tracks/$id").body())
     }
 
     suspend fun getTop(

@@ -8,6 +8,7 @@ import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.core.database.model.ArtistDB
 import com.wachon.spotiwrap.core.database.model.TrackDB
 import com.wachon.spotiwrap.core.database.model.UserProfileDB
+import com.wachon.spotiwrap.core.network.model.ArtistApi
 import com.wachon.spotiwrap.core.network.model.OwnerApi
 import com.wachon.spotiwrap.core.network.model.PlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopItemApi
@@ -95,6 +96,15 @@ private fun calculateTime(timestamp: String): String {
 }
 
 fun TopItemApi.toArtistModel() = ArtistModel(
+    id = this.id ?: "",
+    fame = ItemFame.NONE,
+    name = this.name ?: "",
+    imageUrl = this.images?.first()?.url ?: "",
+    genres = this.genres ?: emptyList()
+)
+
+
+fun ArtistApi.toArtistModel() = ArtistModel(
     id = this.id ?: "",
     fame = ItemFame.NONE,
     name = this.name ?: "",

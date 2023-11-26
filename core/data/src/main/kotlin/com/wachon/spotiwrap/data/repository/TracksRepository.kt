@@ -17,6 +17,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 
 interface TracksRepository : Syncable {
+
+    fun getTrack(
+        id: String
+    ): Flow<TrackModel>
+
     fun getTopTracks(
         limit: Int,
         offset: Int,
@@ -55,6 +60,14 @@ class DefaultTracksRepository(
         } catch (e: Exception) {
             return Result.failure(e)
         }
+    }
+
+    override fun getTrack(id: String): Flow<TrackModel> = combine(
+        spotifyDatasource.getTrack(
+            id = id
+        )
+    ) { trackApi ->
+        trackApi.first().toTrackModel()
     }
 
     override fun getTopTracks(

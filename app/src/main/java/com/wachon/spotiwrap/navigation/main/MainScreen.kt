@@ -17,6 +17,8 @@ fun MainScreen(
     val currentRoute = appState.currentRoute
     val homeListState = rememberLazyListState()
     val topListState = rememberLazyListState()
+    val artistState = rememberLazyListState()
+    val trackState = rememberLazyListState()
     val isHomeScrolling = homeListState.isScrollingUp()
     val isTopListScrolling = topListState.isScrollingUp()
 
@@ -36,7 +38,9 @@ fun MainScreen(
         MainGraph(
             appState = appState,
             homeListState = homeListState,
-            topListState = topListState
+            topListState = topListState,
+            artistDetailState = artistState,
+            trackDetailState = trackState
         )
     }
 }
