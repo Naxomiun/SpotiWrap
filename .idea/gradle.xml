@@ -43,6 +43,7 @@
             <option value="$PROJECT_DIR$/features/recently" />
             <option value="$PROJECT_DIR$/features/recommender" />
             <option value="$PROJECT_DIR$/features/splash" />
+            <option value="$PROJECT_DIR$/features/top" />
             <option value="$PROJECT_DIR$/features/tracks" />
             <option value="$PROJECT_DIR$/test" />
             <option value="$PROJECT_DIR$/test/shared-test" />
