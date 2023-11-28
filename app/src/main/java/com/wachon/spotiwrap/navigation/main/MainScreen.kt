@@ -28,6 +28,7 @@ fun MainScreen(
                             && (currentRoute == Preview.route).not()
                             && (currentRoute == Artist.route).not()
                             && (currentRoute == Track.route).not()
+                            && (currentRoute == Album.route).not()
                 },
                 currentRoute = { currentRoute },
                 onSelectedItem = {
