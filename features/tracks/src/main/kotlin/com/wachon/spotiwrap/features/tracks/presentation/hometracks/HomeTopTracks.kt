@@ -1,5 +1,7 @@
 package com.wachon.spotiwrap.features.tracks.presentation.hometracks
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,8 +28,10 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun HomeTopTracks(
     modifier: Modifier = Modifier,
-    tracks: ImmutableList<TrackUI>
-) {
+    tracks: ImmutableList<TrackUI>,
+    onTrackSelected: (String) -> Unit,
+
+    ) {
 
     Column(
         modifier = modifier
@@ -35,7 +40,10 @@ fun HomeTopTracks(
         Spacer(modifier = Modifier.height(16.dp))
         HeaderTopTrackList()
         Spacer(modifier = Modifier.height(8.dp))
-        TopTrackList(tracks = tracks)
+        TopTrackList(
+            tracks = tracks,
+            onTrackSelected = onTrackSelected
+        )
     }
 
 }
@@ -59,7 +67,8 @@ fun HeaderTopTrackList(
 @Composable
 fun TopTrackList(
     modifier: Modifier = Modifier,
-    tracks: ImmutableList<TrackUI>
+    tracks: ImmutableList<TrackUI>,
+    onTrackSelected: (String) -> Unit,
 ) {
     LazyRow(
         state = rememberLazyListState(),
@@ -72,7 +81,11 @@ fun TopTrackList(
             key = { it.trackId }
         ) { track ->
             TrackItem(
-                track = track
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { onTrackSelected.invoke(track.trackId) },
+                track = track,
             )
         }
     }
@@ -84,6 +97,6 @@ fun HomeTopTracksPreview() {
     SpotiWrapTheme {
         HomeTopTracks(
             tracks = persistentListOf()
-        )
+        ) {}
     }
 }

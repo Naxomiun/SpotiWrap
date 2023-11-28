@@ -48,6 +48,70 @@ data class TopRecentlyItemApi(
 )
 
 @Serializable
+data class TopAlbumsItemApi(
+    val href: String?,
+    val limit: Long?,
+    val next: String?,
+    val offset: Long?,
+    //val previous: Top? = null,
+    val total: Long?,
+    val items: List<AlbumApi>?
+)
+
+@Serializable
+data class TopAlbumsItemsApi(
+    val href: String?,
+    val limit: Long?,
+    val next: String?,
+    val offset: Long?,
+    //val previous: Top? = null,
+    val total: Long?,
+    val items: List<AlbumsItemApi>?
+)
+
+@Serializable
+data class AlbumsItemApi(
+    @SerialName("artists")
+    val artists: List<ArtistApi>?,
+    @SerialName("available_markets")
+    val availableMarkets: List<String>?,
+    @SerialName("disc_number")
+    val discNumber: Long?,
+    @SerialName("duration_ms")
+    val durationMS: Long?,
+    @SerialName("explicit")
+    val explicit: Boolean?,
+    @SerialName("external_urls")
+    val externalUrls: ExternalUrlsApi?,
+    @SerialName("href")
+    val href: String?,
+    @SerialName("images")
+    val images: List<ImageApi>?,
+    @SerialName("id")
+    val id: String?,
+    @SerialName("is_playable")
+    val isPlayable: Boolean?,
+    @SerialName("restrictions")
+    val restrictions: RestrictionsApi?,
+    @SerialName("name")
+    val name: String?,
+    @SerialName("release_date")
+    val releaseDate: String?,
+    @SerialName("release_date_precision")
+    val releaseDatePrecision: String?,
+    @SerialName("preview_url")
+    val previewURL: String?,
+    @SerialName("track_number")
+    val trackNumber: Long?,
+    @SerialName("type")
+    val type: String?,
+    @SerialName("uri")
+    val uri: String?,
+    @SerialName("is_local")
+    val isLocal: Boolean?,
+)
+
+@Serializable
 data class TopItemApi(
     @SerialName("album")
     val album: AlbumApi?,
@@ -101,6 +165,7 @@ data class AlbumApi(
     val externalUrls: ExternalUrlsApi?,
     val href: String?,
     val id: String?,
+    @SerialName("images")
     val images: List<ImageApi>?,
     val name: String?,
     @SerialName("release_date")
@@ -109,7 +174,16 @@ data class AlbumApi(
     val releaseDatePrecision: String?,
     val type: String?,
     val uri: String?,
-    val artistApis: List<ArtistApi>?
+    @SerialName("artists")
+    val artistApis: List<ArtistApi>?,
+    @SerialName("tracks")
+    val tracks: TopApi?,
+    @SerialName("genres")
+    val genres: List<String>?,
+    @SerialName("popularity")
+    val popularity: Long?,
+    @SerialName("label")
+    val label: String?,
 )
 
 @Serializable
@@ -122,7 +196,9 @@ data class ArtistApi(
     val type: String?,
     val uri: String?,
     val images: List<ImageApi>?,
-    val genres: List<String>?
+    val genres: List<String>?,
+    val followers: FollowersApi?,
+    val popularity: Int?,
 )
 
 @Serializable

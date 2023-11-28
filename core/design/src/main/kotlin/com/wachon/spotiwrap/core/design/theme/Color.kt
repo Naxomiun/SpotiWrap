@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 val BubblegumPink = Color(0xFFFD5D8A)
 val SpotifyGreen = Color(0xFF1DB954)
+val SpotifyGreenBackGround = Color(0x331DB954)
 val SpotifyBlack = Color(0xFF191414)
 
 val blurryBrush1 = Brush.verticalGradient(colors = listOf(BubblegumPink, Color.Black))

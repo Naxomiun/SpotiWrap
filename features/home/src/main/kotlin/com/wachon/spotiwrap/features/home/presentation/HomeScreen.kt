@@ -52,7 +52,9 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
-    listState: LazyListState
+    listState: LazyListState,
+    onTrackSelected: (String) -> Unit,
+    onArtistSelected: (String) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -68,7 +70,9 @@ fun HomeScreen(
 
     AnimatedHomeContent(
         state = state,
-        listState = listState
+        listState = listState,
+        onTrackSelected = onTrackSelected,
+        onArtistSelected = onArtistSelected
     )
 
 }
@@ -76,7 +80,9 @@ fun HomeScreen(
 @Composable
 fun AnimatedHomeContent(
     state: HomeScreenState,
-    listState: LazyListState
+    listState: LazyListState,
+    onTrackSelected: (String) -> Unit,
+    onArtistSelected: (String) -> Unit,
 ) {
 
     AnimatedContent(
@@ -87,7 +93,9 @@ fun AnimatedHomeContent(
             true -> LoadingView()
             false -> HomeContent(
                 state = state,
-                listState = listState
+                listState = listState,
+                onTrackSelected = onTrackSelected,
+                onArtistSelected = onArtistSelected
             )
         }
     }
@@ -97,7 +105,9 @@ fun AnimatedHomeContent(
 @Composable
 fun HomeContent(
     state: HomeScreenState,
-    listState: LazyListState
+    listState: LazyListState,
+    onTrackSelected: (String) -> Unit,
+    onArtistSelected: (String) -> Unit,
 ) {
 
     LazyColumn(
@@ -106,9 +116,19 @@ fun HomeContent(
         contentPadding = PaddingValues(bottom = 120.dp),
     ) {
         item { ProfileTopBar(user = state.userProfile) }
-        item { HomeTopTracks(tracks = state.topTracks) }
+        item {
+            HomeTopTracks(
+                tracks = state.topTracks,
+                onTrackSelected = onTrackSelected
+            )
+        }
         item { Spacer(modifier = Modifier.height(16.dp)) }
-        item { HomeTopArtists(artists = state.topArtists) }
+        item {
+            HomeTopArtists(
+                artists = state.topArtists,
+                onArtistSelected = onArtistSelected
+            )
+        }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         HomeTopGenres(genres = state.topGenres)
         item { Spacer(modifier = Modifier.height(16.dp)) }

@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.components.ScreenTitle
+import com.wachon.spotiwrap.core.design.components.TopList
 import com.wachon.spotiwrap.features.top.presentation.components.TimesTabs
-import com.wachon.spotiwrap.features.top.presentation.components.TopList
 import com.wachon.spotiwrap.features.top.presentation.components.TypesTabs
 import org.koin.androidx.compose.koinViewModel
 

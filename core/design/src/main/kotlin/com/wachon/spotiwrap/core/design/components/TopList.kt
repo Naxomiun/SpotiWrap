@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.features.top.presentation.components
+package com.wachon.spotiwrap.core.design.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.wachon.spotiwrap.features.top.presentation.ui.TopItemUI
+import com.wachon.spotiwrap.core.design.ui.TopItemUI
 
 @Composable
 fun TopList(listState: LazyListState, content: List<TopItemUI>) {

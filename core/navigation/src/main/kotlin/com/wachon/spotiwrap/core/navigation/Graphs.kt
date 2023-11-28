@@ -16,4 +16,7 @@ enum class MainGraph(val route: String) {
     Preview("preview"),
     Top("top"),
     Profile("profile"),
+    Artist("artist/{id}"),
+    Track("track/{id}"),
+    Album("album/{id}"),
 }

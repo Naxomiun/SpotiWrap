@@ -9,6 +9,7 @@ import com.wachon.spotiwrap.data.di.DataModule
 import com.wachon.spotiwrap.data.worker.SyncWorker
 import com.wachon.spotiwrap.features.artists.di.ArtistsModule
 import com.wachon.spotiwrap.features.collage.di.PreviewModule
+import com.wachon.spotiwrap.features.di.DetailModule
 import com.wachon.spotiwrap.features.home.di.MenuModule
 import com.wachon.spotiwrap.features.login.di.LoginModule
 import com.wachon.spotiwrap.features.profile.di.ProfileModule
@@ -35,6 +36,7 @@ val FeaturesModule: Module
                 RecentlyModule,
                 PreviewModule,
                 TopModule,
+                DetailModule,
             )
         )
     }

@@ -14,20 +14,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.design.components.ButtonDefault
+import com.wachon.spotiwrap.core.design.components.InfoBox
 import com.wachon.spotiwrap.core.design.components.ProfileUserImage
-import com.wachon.spotiwrap.core.design.components.SquareBox
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
-import com.wachon.spotiwrap.core.design.theme.BubblegumPink
-import com.wachon.spotiwrap.core.design.theme.SmallTitle
 import com.wachon.spotiwrap.core.design.theme.Title
 import org.koin.androidx.compose.koinViewModel
 
@@ -113,44 +109,4 @@ fun ProfileContent(
             navigateToPreview.invoke()
         }
     }
-
 }
-
-
-@Composable
-fun InfoBox(
-    data: Int,
-    dataName: String,
-    modifier: Modifier = Modifier,
-) {
-    SquareBox(
-        modifier = modifier
-    ) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.Start,
-        ) {
-
-            TextNoPadding(
-                text = data.toString(),
-                style = Title.copy(fontSize = 40.sp),
-                color = BubblegumPink
-            )
-
-            TextNoPadding(
-                text = dataName,
-                style = SmallTitle.copy(fontSize = 24.sp),
-                color = MaterialTheme.colorScheme.onSurface
-            )
-
-        }
-    }
-
-}
-
-
-

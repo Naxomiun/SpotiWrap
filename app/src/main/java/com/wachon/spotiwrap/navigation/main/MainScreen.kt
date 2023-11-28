@@ -23,7 +23,13 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                shouldShow = { (isHomeScrolling || isTopListScrolling) && (currentRoute == Preview.route).not() },
+                shouldShow = {
+                    (isHomeScrolling || isTopListScrolling)
+                            && (currentRoute == Preview.route).not()
+                            && (currentRoute == Artist.route).not()
+                            && (currentRoute == Track.route).not()
+                            && (currentRoute == Album.route).not()
+                },
                 currentRoute = { currentRoute },
                 onSelectedItem = {
                     if (currentRoute != it.getScreenRoute()) {

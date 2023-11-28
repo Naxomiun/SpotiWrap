@@ -1,5 +1,7 @@
 package com.wachon.spotiwrap.features.artists.di
 
+import com.wachon.spotiwrap.features.artists.domain.GetArtist
+import com.wachon.spotiwrap.features.artists.domain.GetArtistUseCase
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtists
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtistsUseCase
 import org.koin.core.module.Module
@@ -22,6 +24,7 @@ private val ArtistsDataModule: Module
 
 private val ArtistsDomainModule: Module
     get() = module {
+        factoryOf(::GetArtist) bind GetArtistUseCase::class
         factoryOf(::GetUserTopArtists) bind GetUserTopArtistsUseCase::class
     }
 
