@@ -2,18 +2,24 @@ package com.wachon.spotiwrap.core.network.service
 
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.network.model.AddTrackRequest
+import com.wachon.spotiwrap.core.network.model.AlbumApi
 import com.wachon.spotiwrap.core.network.model.ArtistApi
+import com.wachon.spotiwrap.core.network.model.ArtistTopTracks
 import com.wachon.spotiwrap.core.network.model.CurrentTrackApi
 import com.wachon.spotiwrap.core.network.model.GenresApi
 import com.wachon.spotiwrap.core.network.model.PlaylistApi
 import com.wachon.spotiwrap.core.network.model.RecommendationsApi
+import com.wachon.spotiwrap.core.network.model.RelatedArtistApi
 import com.wachon.spotiwrap.core.network.model.SearchedArtistApi
 import com.wachon.spotiwrap.core.network.model.SearchedTrackApi
+import com.wachon.spotiwrap.core.network.model.TopAlbumsItemApi
+import com.wachon.spotiwrap.core.network.model.TopAlbumsItemsApi
 import com.wachon.spotiwrap.core.network.model.TopApi
 import com.wachon.spotiwrap.core.network.model.TopItemApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistApi
 import com.wachon.spotiwrap.core.network.model.TopPlaylistItemApi
 import com.wachon.spotiwrap.core.network.model.TopRecentlyItemApi
+import com.wachon.spotiwrap.core.network.model.TrackFeaturesApi
 import com.wachon.spotiwrap.core.network.model.UserProfileApi
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -52,8 +58,30 @@ class SpotifyService(
         emit(httpClient.get("/v1/artists/$id").body())
     }
 
+    fun getArtistsFromTrack(id: String): Flow<TopItemApi> = flow {
+        emit(httpClient.get("/v1/tracks/$id").body())
+    }
+
     fun getTrack(id: String): Flow<TopItemApi> = flow {
         emit(httpClient.get("/v1/tracks/$id").body())
+    }
+
+    fun getTrackFeatures(id: String): Flow<TrackFeaturesApi> = flow {
+        emit(httpClient.get("/v1/audio-features/$id").body())
+    }
+
+    fun getArtistAlbums(id: String): Flow<TopAlbumsItemApi> = flow {
+        emit(httpClient.get("/v1/artists/$id/albums").body())
+    }
+
+    fun getArtistTopTracks(id: String, market: String): Flow<ArtistTopTracks> = flow {
+        emit(httpClient.get("/v1/artists/$id/top-tracks") {
+            parameter("market", market)
+        }.body())
+    }
+
+    fun getArtistRelated(id: String): Flow<RelatedArtistApi> = flow {
+        emit(httpClient.get("/v1/artists/$id/related-artists").body())
     }
 
     suspend fun getTop(
@@ -158,5 +186,13 @@ class SpotifyService(
                 )
             )
         }.body()
+    }
+
+    fun getAlbum(id: String): Flow<AlbumApi> = flow {
+        emit(httpClient.get("/v1/albums/$id").body())
+    }
+
+    fun getAlbumTracks(id: String): Flow<TopAlbumsItemsApi> = flow {
+        emit(httpClient.get("/v1/albums/$id/tracks").body())
     }
 }

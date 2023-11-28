@@ -125,8 +125,13 @@ fun RecentlyPlayedItemPreview() {
             imageUrl = "",
             title = "Kemba Walker",
             artists = "Eladio Carrion, Bad Bunny",
+            artistsIds = listOf(),
             album = "",
-            uri = "asdasda"
+            albumId = "",
+            uri = "asdasda",
+            duration = "",
+            popularity = 0,
+            externalUrl = ""
         ),
     )
 }

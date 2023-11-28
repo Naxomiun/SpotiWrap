@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.common.model.TopItemType.ARTISTS
+import com.wachon.spotiwrap.core.design.ui.toItemUI
 import com.wachon.spotiwrap.features.top.domain.GetArtistsUseCase
 import com.wachon.spotiwrap.features.top.domain.GetTracksUseCase
-import com.wachon.spotiwrap.features.top.presentation.ui.toUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -33,7 +33,7 @@ class TopViewModel(
             _uiState.update {
                 it.copy(
                     isLoading = false,
-                    content = artists.map { artist -> artist.toUI() }
+                    content = artists.map { artist -> artist.toItemUI() }
                 )
             }
         }
@@ -56,7 +56,7 @@ class TopViewModel(
             _uiState.update { it ->
                 it.copy(
                     isLoading = false,
-                    content = tracks.map { track -> track.toUI() }
+                    content = tracks.map { track -> track.toItemUI() }
                 )
             }
         }

@@ -72,4 +72,31 @@ class AppState(
         mainNavController.navigatePoppingUpToStartDestination(MainGraph.Preview.route)
     }
 
+    fun navigateToArtistDetail(id: String) {
+        mainNavController.navigate(
+            MainGraph.Artist.route.replace("{id}", id)
+        ) {
+            launchSingleTop = false
+            restoreState = false
+        }
+    }
+
+    fun navigateToTrackDetail(id: String) {
+        mainNavController.navigate(
+            MainGraph.Track.route.replace("{id}", id)
+        ) {
+            launchSingleTop = false
+            restoreState = false
+        }
+    }
+
+    fun navigateToAlbumDetail(id: String) {
+        mainNavController.navigate(
+            MainGraph.Album.route.replace("{id}", id)
+        ) {
+            launchSingleTop = false
+            restoreState = false
+        }
+    }
+
 }

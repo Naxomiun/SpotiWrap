@@ -4,7 +4,7 @@ import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange.SHORT_TERM
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.common.model.TopItemType.TRACKS
-import com.wachon.spotiwrap.features.top.presentation.ui.TopItemUI
+import com.wachon.spotiwrap.core.design.ui.TopItemUI
 
 data class TopScreenState(
 

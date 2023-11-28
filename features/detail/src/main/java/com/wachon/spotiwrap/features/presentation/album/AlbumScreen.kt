@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.features.presentation.track
+package com.wachon.spotiwrap.features.presentation.album
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -24,7 +25,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -32,53 +34,55 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.common.model.ArtistModel
+import com.wachon.spotiwrap.core.common.model.TrackModel
+import com.wachon.spotiwrap.core.design.components.AlbumItem
 import com.wachon.spotiwrap.core.design.components.FitInfoBoxGraph
 import com.wachon.spotiwrap.core.design.components.FitInfoBoxText
 import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.components.SpotifyOpenButton
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
-import com.wachon.spotiwrap.core.design.components.TrackFeatures
 import com.wachon.spotiwrap.core.design.theme.Body
 import com.wachon.spotiwrap.core.design.theme.LargeTitle
-import com.wachon.spotiwrap.core.design.theme.SubBody
+import com.wachon.spotiwrap.core.design.theme.SmallTitle
+import com.wachon.spotiwrap.core.design.theme.SpotifyBlack
 import com.wachon.spotiwrap.core.design.theme.Title
+import com.wachon.spotiwrap.core.design.ui.toItemUI
 import com.wachon.spotiwrap.features.artists.presentation.common.ArtistItem
-import com.wachon.spotiwrap.features.artists.presentation.model.ArtistUI
-import com.wachon.spotiwrap.features.tracks.presentation.model.AlbumUI
+import com.wachon.spotiwrap.features.artists.presentation.model.toUI
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun TrackScreen(
-    viewModel: TrackViewModel = koinViewModel(),
+fun AlbumScreen(
+    viewModel: AlbumViewModel = koinViewModel(),
     listState: LazyListState,
     onBackPressed: () -> Unit,
-    onAlbumSelected: (String) -> Unit,
-    onArtistSelected: (String) -> Unit
+    onTrackSelected: (String) -> Unit,
+    onArtistSelected: (String) -> Unit,
 ) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    AnimatedTrackContent(
+    AnimatedAlbumContent(
         state = state,
         listState = listState,
         onBackPressed = onBackPressed,
-        onAlbumSelected = onAlbumSelected,
+        onTrackSelected = onTrackSelected,
         onArtistSelected = onArtistSelected,
     )
 }
 
 @Composable
-fun AnimatedTrackContent(
-    state: TrackScreenState,
+fun AnimatedAlbumContent(
+    state: AlbumScreenState,
     listState: LazyListState,
     onBackPressed: () -> Unit,
-    onAlbumSelected: (String) -> Unit,
+    onTrackSelected: (String) -> Unit,
     onArtistSelected: (String) -> Unit,
 ) {
     AnimatedContent(
@@ -87,11 +91,11 @@ fun AnimatedTrackContent(
     ) {
         when (it) {
             true -> LoadingView()
-            false -> TrackContent(
+            false -> AlbumContent(
                 state = state,
                 listState = listState,
                 onBackPressed = onBackPressed,
-                onAlbumSelected = onAlbumSelected,
+                onTrackSelected = onTrackSelected,
                 onArtistSelected = onArtistSelected,
             )
         }
@@ -99,11 +103,11 @@ fun AnimatedTrackContent(
 }
 
 @Composable
-fun TrackContent(
-    state: TrackScreenState,
+fun AlbumContent(
+    state: AlbumScreenState,
     listState: LazyListState,
     onBackPressed: () -> Unit,
-    onAlbumSelected: (String) -> Unit,
+    onTrackSelected: (String) -> Unit,
     onArtistSelected: (String) -> Unit,
 ) {
     LazyColumn(
@@ -111,47 +115,46 @@ fun TrackContent(
         state = listState,
         verticalArrangement = Arrangement.Top,
     ) {
-        item {
-            TrackPhoto(
-                image = state.track?.trackImage ?: "", onBackPressed = onBackPressed
-            )
-        }
+        item { AlbumPhoto(image = state.album?.albumImageUrl ?: "", onBackPressed = onBackPressed) }
         item { Spacer(modifier = Modifier.height(32.dp)) }
-        item { TrackTitle(name = state.track?.trackTitle ?: "") }
+        item { AlbumTitle(name = state.album?.albumName ?: "") }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
-            TrackStats(
-                time = state.track?.trackDuration ?: "",
-                popularity = state.track?.trackPopularity ?: 0
+            AlbumStats(
+                tracks = state.album?.albumTotalTracks ?: 0,
+                duration = state.album?.albumDuration ?: "",
+                popularity = state.album?.albumPopularity ?: 0,
+                date = state.album?.albumReleaseDate ?: "",
             )
         }
         item {
-            state.features?.let {
+            if (state.album?.albumGenres?.isNotEmpty() == true) {
                 Spacer(modifier = Modifier.height(24.dp))
-                TrackFeatures(features = it)
-            }
-        }
-        item { Spacer(modifier = Modifier.height(16.dp)) }
-        item {
-            TrackArtist(
-                artists = state.artists,
-                onArtistSelected = onArtistSelected
-            )
-        }
-        item {
-            state.album?.let {
-                Spacer(modifier = Modifier.height(16.dp))
-                TrackAlbum(album = it, onAlbumSelected = onAlbumSelected)
+                AlbumGenres(genres = state.album.albumGenres)
             }
         }
         item { Spacer(modifier = Modifier.height(24.dp)) }
-        item { SpotifyOpenButton(url = state.track?.trackExternalUrl ?: "") }
+        AlbumTracks(
+            topTracks = state.album?.albumTracks ?: emptyList(),
+            onTrackSelected = onTrackSelected
+        )
+        item { Spacer(modifier = Modifier.height(8.dp)) }
+        item { AlbumLabel(label = state.album?.albumLabel ?: "") }
+        item { Spacer(modifier = Modifier.height(24.dp)) }
+        item {
+            AlbumArtists(
+                related = state.album?.albumArtists ?: emptyList(),
+                onArtistSelected = onArtistSelected
+            )
+        }
+        item { Spacer(modifier = Modifier.height(24.dp)) }
+        item { SpotifyOpenButton(url = state.album?.albumExternalUrl ?: "") }
         item { Spacer(modifier = Modifier.height(64.dp)) }
     }
 }
 
 @Composable
-fun TrackPhoto(
+fun AlbumPhoto(
     image: String, onBackPressed: () -> Unit
 ) {
     Box(contentAlignment = Alignment.TopStart) {
@@ -177,7 +180,7 @@ fun TrackPhoto(
 }
 
 @Composable
-fun TrackTitle(name: String) {
+fun AlbumTitle(name: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -194,18 +197,7 @@ fun TrackTitle(name: String) {
 }
 
 @Composable
-fun TrackStats(time: String, popularity: Int) {
-    TextNoPadding(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        text = "Track Stats",
-        style = Title.copy(fontSize = 20.sp),
-        color = MaterialTheme.colorScheme.onSurface
-    )
-
-    Spacer(modifier = Modifier.height(4.dp))
-
+fun AlbumStats(popularity: Int, tracks: Int, duration: String, date: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -214,8 +206,8 @@ fun TrackStats(time: String, popularity: Int) {
     ) {
 
         FitInfoBoxText(
-            data = time,
-            dataName = "song duration",
+            data = tracks.toString(),
+            dataName = "tracks",
             modifier = Modifier
                 .weight(1f)
         )
@@ -227,67 +219,112 @@ fun TrackStats(time: String, popularity: Int) {
                 .weight(1f)
         )
     }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+
+        FitInfoBoxText(
+            data = duration,
+            dataName = "duration",
+            modifier = Modifier
+                .weight(1f)
+        )
+
+        FitInfoBoxText(
+            data = date,
+            dataName = "date",
+            modifier = Modifier
+                .weight(1f)
+        )
+    }
 }
 
 @Composable
-fun TrackAlbum(album: AlbumUI, onAlbumSelected: (String) -> Unit) {
+fun AlbumGenres(genres: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) { onAlbumSelected.invoke(album.albumId) },
+            .padding(horizontal = 16.dp),
     ) {
 
         TextNoPadding(
-            text = "Album",
+            text = "Genres",
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )
 
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        LazyRow(
+            state = rememberLazyListState(),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            AsyncImage(
-                model = album.albumImageUrl,
-                contentDescription = album.albumName,
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier
-                    .size(100.dp)
-                    .aspectRatio(1f)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Column(
-                verticalArrangement = Arrangement.SpaceEvenly,
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(top = 8.dp, start = 8.dp),
-                    text = album.albumName,
-                    style = Body.copy(fontWeight = FontWeight.W600),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                TextNoPadding(
-                    modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp),
-                    text = album.albumArtistsNames,
-                    style = SubBody.copy(fontSize = 12.sp),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+            items(genres) {
+                SuggestionChip(
+                    colors = SuggestionChipDefaults.suggestionChipColors(
+                        containerColor = SpotifyBlack
+                    ),
+                    onClick = {},
+                    label = {
+                        TextNoPadding(
+                            text = it,
+                            style = SmallTitle.copy(fontSize = 14.sp),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 )
             }
         }
     }
 }
 
+context(LazyListScope)
+fun AlbumTracks(topTracks: List<TrackModel>, onTrackSelected: (String) -> Unit) {
+    item {
+        TextNoPadding(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            text = "Albums' Tracks",
+            style = Title.copy(fontSize = 20.sp),
+            color = MaterialTheme.colorScheme.onSurface
+        )
+    }
+    item { Spacer(modifier = Modifier.height(4.dp)) }
+    items(topTracks) { item ->
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { onTrackSelected.invoke(item.id) }
+        ) {
+            AlbumItem(item = item.toItemUI())
+        }
+    }
+}
+
 @Composable
-fun TrackArtist(artists: List<ArtistUI>, onArtistSelected: (String) -> Unit) {
+fun AlbumLabel(label: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+    ) {
+        TextNoPadding(
+            text = "© $label",
+            style = Body,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
+
+@Composable
+fun AlbumArtists(related: List<ArtistModel>, onArtistSelected: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -307,17 +344,18 @@ fun TrackArtist(artists: List<ArtistUI>, onArtistSelected: (String) -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             items(
-                items = artists,
-                key = { it.artistId }
+                items = related,
+                key = { it.id }
             ) { artist ->
                 ArtistItem(
-                    modifier = Modifier.clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) {
-                        onArtistSelected.invoke(artist.artistId)
-                    },
-                    artist = artist
+                    modifier = Modifier
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null
+                        ) {
+                            onArtistSelected.invoke(artist.id)
+                        },
+                    artist = artist.toUI()
                 )
             }
         }

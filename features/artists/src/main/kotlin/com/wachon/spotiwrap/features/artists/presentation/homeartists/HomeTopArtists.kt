@@ -1,5 +1,7 @@
 package com.wachon.spotiwrap.features.artists.presentation.homeartists
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,7 +28,8 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun HomeTopArtists(
     modifier: Modifier = Modifier,
-    artists: ImmutableList<ArtistUI>
+    artists: ImmutableList<ArtistUI>,
+    onArtistSelected: (String) -> Unit,
 ) {
 
     Column(
@@ -35,7 +39,10 @@ fun HomeTopArtists(
         Spacer(modifier = Modifier.height(16.dp))
         HeaderTopArtistList()
         Spacer(modifier = Modifier.height(8.dp))
-        TopArtistList(artists = artists)
+        TopArtistList(
+            artists = artists,
+            onArtistSelected = onArtistSelected
+        )
     }
 
 }
@@ -60,7 +67,8 @@ fun HeaderTopArtistList(
 @Composable
 fun TopArtistList(
     modifier: Modifier = Modifier,
-    artists: ImmutableList<ArtistUI>
+    artists: ImmutableList<ArtistUI>,
+    onArtistSelected: (String) -> Unit,
 ) {
 
     LazyRow(
@@ -74,6 +82,10 @@ fun TopArtistList(
             key = { it.artistId }
         ) { artist ->
             ArtistItem(
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { onArtistSelected.invoke(artist.artistId) },
                 artist = artist
             )
         }
@@ -87,6 +99,6 @@ fun HomeTopArtistsPreview() {
     SpotiWrapTheme {
         HomeTopArtists(
             artists = persistentListOf()
-        )
+        ) {}
     }
 }

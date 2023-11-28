@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
@@ -17,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.Title
 
 @Composable
@@ -35,9 +35,10 @@ fun ScreenTitleWithBack(text: String, navigateUp: () -> Unit) {
     ) {
         Icon(
             modifier = Modifier
-                .width(50.dp),
+                .width(50.dp)
+                .size(40.dp),
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-            tint = BubblegumPink,
+            tint = MaterialTheme.colorScheme.onBackground,
             contentDescription = null,
         )
         Text(

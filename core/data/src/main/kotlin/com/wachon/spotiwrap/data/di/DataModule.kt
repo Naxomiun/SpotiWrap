@@ -1,6 +1,8 @@
 package com.wachon.spotiwrap.data.di
 
+import com.wachon.spotiwrap.data.repository.AlbumRepository
 import com.wachon.spotiwrap.data.repository.ArtistsRepository
+import com.wachon.spotiwrap.data.repository.DefaultAlbumRepository
 import com.wachon.spotiwrap.data.repository.DefaultArtistsRepository
 import com.wachon.spotiwrap.data.repository.DefaultGenresRepository
 import com.wachon.spotiwrap.data.repository.DefaultPlaylistRepository
@@ -20,4 +22,5 @@ val DataModule = module {
     singleOf(::DefaultArtistsRepository) bind ArtistsRepository::class
     singleOf(::DefaultGenresRepository) bind GenresRepository::class
     singleOf(::DefaultPlaylistRepository) bind PlaylistRepository::class
+    singleOf(::DefaultAlbumRepository) bind AlbumRepository::class
 }

@@ -202,8 +202,13 @@ fun SongRecommendedItemPreview() {
             imageUrl = "",
             title = "Kemba Walker",
             artists = "Eladio Carrion, Bad Bunny",
+            artistsIds = listOf(),
             uri = "asdasda",
-            album = ""
+            album = "",
+            albumId = "",
+            duration = "",
+            popularity = 0,
+            externalUrl = ""
         ),
         onTrackClicked = { trackModel -> }
     )

@@ -1,5 +1,6 @@
 package com.wachon.spotiwrap.features.di
 
+import com.wachon.spotiwrap.features.presentation.album.AlbumViewModel
 import com.wachon.spotiwrap.features.presentation.artist.ArtistViewModel
 import com.wachon.spotiwrap.features.presentation.track.TrackViewModel
 
@@ -26,6 +27,7 @@ private val DetailDomainModule: Module
 
 private val DetailPresentationModule: Module
     get() = module {
-        viewModelOf(::TrackViewModel)
+        viewModelOf(::AlbumViewModel)
         viewModelOf(::ArtistViewModel)
+        viewModelOf(::TrackViewModel)
     }

@@ -48,14 +48,17 @@ fun ArtistItem(
 
 @Preview
 @Composable
-fun ArtistItem() {
+private fun ArtistItem() {
     SpotiWrapTheme {
         ArtistItem(
             artist = ArtistUI(
                 artistId = "1",
                 artistFame = UP,
                 artistName = "Machine Gun Kelly",
-                artistImage = "https://i.scdn.co/image/ab6761610000e5ebd7b7b6b4b2b9b2b9b2b9b2b9"
+                artistImage = "https://i.scdn.co/image/ab6761610000e5ebd7b7b6b4b2b9b2b9b2b9b2b9",
+                artistFollowers = 0,
+                artistPopularity = 0,
+                artistExternalUrl = ""
             )
         )
     }

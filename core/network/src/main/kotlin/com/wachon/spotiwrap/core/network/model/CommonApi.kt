@@ -13,3 +13,8 @@ data class ImageApi(
     val height: Long?,
     val width: Long?
 )
+
+@Serializable
+data class RestrictionsApi(
+    val reason: String,
+)

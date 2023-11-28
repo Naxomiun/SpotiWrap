@@ -17,15 +17,18 @@ fun MainScreen(
     val currentRoute = appState.currentRoute
     val homeListState = rememberLazyListState()
     val topListState = rememberLazyListState()
-    val artistState = rememberLazyListState()
-    val trackState = rememberLazyListState()
     val isHomeScrolling = homeListState.isScrollingUp()
     val isTopListScrolling = topListState.isScrollingUp()
 
     Scaffold(
         bottomBar = {
             BottomNavBar(
-                shouldShow = { (isHomeScrolling || isTopListScrolling) && (currentRoute == Preview.route).not() },
+                shouldShow = {
+                    (isHomeScrolling || isTopListScrolling)
+                            && (currentRoute == Preview.route).not()
+                            && (currentRoute == Artist.route).not()
+                            && (currentRoute == Track.route).not()
+                },
                 currentRoute = { currentRoute },
                 onSelectedItem = {
                     if (currentRoute != it.getScreenRoute()) {
@@ -38,9 +41,7 @@ fun MainScreen(
         MainGraph(
             appState = appState,
             homeListState = homeListState,
-            topListState = topListState,
-            artistDetailState = artistState,
-            trackDetailState = trackState
+            topListState = topListState
         )
     }
 }

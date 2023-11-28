@@ -12,13 +12,15 @@ data class ArtistDB(
     val artistFame: ItemFame = ItemFame.NONE,
     val artistName: String,
     val artistImage: String,
-    val artistGenres: List<String>
+    val artistGenres: List<String>,
+    val artistExternalUrl: String,
 ) {
     fun toDomain(): ArtistModel = ArtistModel(
         id = this.artistId,
         fame = this.artistFame,
         imageUrl = this.artistImage,
         name = this.artistName,
-        genres = this.artistGenres
+        genres = this.artistGenres,
+        externalUrl = this.artistExternalUrl
     )
 }
