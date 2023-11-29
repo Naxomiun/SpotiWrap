@@ -3,7 +3,8 @@ package com.wachon.spotiwrap.core.design.theme
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-val BubblegumPink = Color(0xFFFD5D8A)
+//val BubblegumPink = Color(0xFFFD5D8A)
+val BubblegumPink = Color(0xFF1DB954)
 val SpotifyGreen = Color(0xFF1DB954)
 val SpotifyGreenBackGround = Color(0x331DB954)
 val SpotifyBlack = Color(0xFF191414)

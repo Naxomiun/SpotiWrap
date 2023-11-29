@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
@@ -131,18 +132,18 @@ fun TrackContent(
                 TrackFeatures(features = it)
             }
         }
+        item {
+            state.album?.let {
+                Spacer(modifier = Modifier.height(16.dp))
+                TrackAlbum(album = it, onAlbumSelected = onAlbumSelected)
+            }
+        }
         item { Spacer(modifier = Modifier.height(16.dp)) }
         item {
             TrackArtist(
                 artists = state.artists,
                 onArtistSelected = onArtistSelected
             )
-        }
-        item {
-            state.album?.let {
-                Spacer(modifier = Modifier.height(16.dp))
-                TrackAlbum(album = it, onAlbumSelected = onAlbumSelected)
-            }
         }
         item { Spacer(modifier = Modifier.height(24.dp)) }
         item { SpotifyOpenButton(url = state.track?.trackExternalUrl ?: "") }
@@ -185,7 +186,7 @@ fun TrackTitle(name: String) {
     ) {
         TextNoPadding(
             text = name,
-            style = LargeTitle,
+            style = LargeTitle.copy(fontSize = 23.sp),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onBackground
@@ -249,38 +250,47 @@ fun TrackAlbum(album: AlbumUI, onAlbumSelected: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        Column(
+            modifier = Modifier
+                .padding(top = 4.dp, bottom = 4.dp, end = 4.dp)
+                .fillMaxWidth()
+                .background(
+                    MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(8)
+                )
         ) {
-            AsyncImage(
-                model = album.albumImageUrl,
-                contentDescription = album.albumName,
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier
-                    .size(100.dp)
-                    .aspectRatio(1f)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Column(
-                verticalArrangement = Arrangement.SpaceEvenly,
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                Text(
+                AsyncImage(
+                    model = album.albumImageUrl,
+                    contentDescription = album.albumName,
+                    contentScale = ContentScale.FillWidth,
                     modifier = Modifier
-                        .padding(top = 8.dp, start = 8.dp),
-                    text = album.albumName,
-                    style = Body.copy(fontWeight = FontWeight.W600),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground,
+                        .size(100.dp)
+                        .aspectRatio(1f)
                 )
-                TextNoPadding(
-                    modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp),
-                    text = album.albumArtistsNames,
-                    style = SubBody.copy(fontSize = 12.sp),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
-                )
+                Column(
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(top = 8.dp),
+                        text = album.albumName,
+                        style = Body.copy(fontWeight = FontWeight.W600),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    TextNoPadding(
+                        modifier = Modifier.padding(top = 8.dp),
+                        text = album.albumArtistsNames,
+                        style = SubBody.copy(fontSize = 12.sp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+                    )
+                }
             }
         }
     }

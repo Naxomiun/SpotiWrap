@@ -188,7 +188,7 @@ fun AlbumTitle(name: String) {
     ) {
         TextNoPadding(
             text = name,
-            style = LargeTitle,
+            style = LargeTitle.copy(fontSize = 23.sp),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onBackground

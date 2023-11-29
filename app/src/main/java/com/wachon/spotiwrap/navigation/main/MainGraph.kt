@@ -125,7 +125,13 @@ fun MainGraph(
             route = Top.route
         ) {
             TopScreen(
-                listState = topListState
+                listState = topListState,
+                onTrackSelected = {
+                    appState.navigateToTrackDetail(it)
+                },
+                onArtistSelected = {
+                    appState.navigateToArtistDetail(it)
+                },
             )
         }
 

@@ -1,6 +1,5 @@
 package com.wachon.spotiwrap.features.top.presentation
 
-import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,9 +9,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.components.ScreenTitle
 import com.wachon.spotiwrap.core.design.components.TopList
@@ -24,8 +23,9 @@ import org.koin.androidx.compose.koinViewModel
 fun TopScreen(
     listState: LazyListState,
     viewModel: TopViewModel = koinViewModel(),
+    onTrackSelected: (String) -> Unit,
+    onArtistSelected: (String) -> Unit,
 ) {
-    val context = LocalContext.current
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state.isLoading) {
@@ -33,9 +33,10 @@ fun TopScreen(
     } else {
         TopContent(
             listState = listState,
-            context = context,
             state = state,
             viewModel = viewModel,
+            onTrackSelected = onTrackSelected,
+            onArtistSelected = onArtistSelected,
         )
     }
 }
@@ -43,9 +44,10 @@ fun TopScreen(
 @Composable
 fun TopContent(
     listState: LazyListState,
-    context: Context,
     state: TopScreenState,
     viewModel: TopViewModel,
+    onTrackSelected: (String) -> Unit,
+    onArtistSelected: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxHeight(),
@@ -56,6 +58,12 @@ fun TopContent(
         Spacer(modifier = Modifier.height(16.dp))
         TypesTabs { viewModel.selectType(it) }
         TimesTabs { viewModel.selectTime(it) }
-        TopList(listState = listState, content = state.content)
+        TopList(listState = listState, content = state.content) {
+            if (state.typeSelected == TopItemType.TRACKS) {
+                onTrackSelected.invoke(it)
+            } else {
+                onArtistSelected.invoke(it)
+            }
+        }
     }
 }

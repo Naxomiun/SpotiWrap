@@ -132,7 +132,10 @@ fun HomeContent(
         item { Spacer(modifier = Modifier.height(16.dp)) }
         HomeTopGenres(genres = state.topGenres)
         item { Spacer(modifier = Modifier.height(16.dp)) }
-        HomeRecentlyPlayed(tracks = state.recentlyPlayed)
+        HomeRecentlyPlayed(
+            tracks = state.recentlyPlayed,
+            onTrackSelected = onTrackSelected
+        )
     }
 
 }
