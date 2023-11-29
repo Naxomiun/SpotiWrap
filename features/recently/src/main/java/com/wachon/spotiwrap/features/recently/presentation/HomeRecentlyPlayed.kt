@@ -1,5 +1,7 @@
 package com.wachon.spotiwrap.features.recently.presentation
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -32,13 +35,15 @@ import kotlinx.collections.immutable.ImmutableList
 context(LazyListScope)
 fun HomeRecentlyPlayed(
     tracks: ImmutableList<TrackModel>,
+    onTrackSelected: (String) -> Unit,
 ) {
     item { Spacer(modifier = Modifier.height(16.dp)) }
     item { HeaderRecentlyPlayed() }
     item { Spacer(modifier = Modifier.height(8.dp)) }
     items(tracks) { track ->
         RecentlyPlayedItem(
-            track = track
+            track = track,
+            onTrackSelected = onTrackSelected
         )
     }
 }
@@ -59,12 +64,17 @@ fun HeaderRecentlyPlayed(
 
 @Composable
 fun RecentlyPlayedItem(
-    track: TrackModel
+    track: TrackModel,
+    onTrackSelected: (String) -> Unit,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 2.dp),
+            .padding(horizontal = 16.dp, vertical = 2.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) { onTrackSelected.invoke(track.id) },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -132,6 +142,6 @@ fun RecentlyPlayedItemPreview() {
             duration = "",
             popularity = 0,
             externalUrl = ""
-        ),
-    )
+        )
+    ) {}
 }

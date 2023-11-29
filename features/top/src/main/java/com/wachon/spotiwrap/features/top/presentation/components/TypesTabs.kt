@@ -34,9 +34,6 @@ import com.wachon.spotiwrap.core.design.theme.Title
 fun TypesTabs(onTypeSelected: (TopItemType) -> Unit) {
     var selectedTime by remember { mutableIntStateOf(0) }
     val types = listOf(TRACKS, ARTISTS)
-
-
-
     CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
         SecondaryTabRow(
             containerColor = Color.Black,

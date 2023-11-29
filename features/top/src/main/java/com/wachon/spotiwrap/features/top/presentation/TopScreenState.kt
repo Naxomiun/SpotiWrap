@@ -10,7 +10,15 @@ data class TopScreenState(
 
     val isLoading: Boolean = true,
 
-    val timeSelected: TopItemTimeRange = SHORT_TERM,
-    val typeSelected: TopItemType = TRACKS,
-    val content: List<TopItemUI> = listOf(),
+    var timeSelected: TopItemTimeRange = SHORT_TERM,
+    var typeSelected: TopItemType = TRACKS,
+
+    var content: List<TopItemUI> = listOf(),
+
+    val tracksShort: List<TopItemUI> = listOf(),
+    val tracksMedium: List<TopItemUI> = listOf(),
+    val tracksLong: List<TopItemUI> = listOf(),
+    val artistsShort: List<TopItemUI> = listOf(),
+    val artistsMedium: List<TopItemUI> = listOf(),
+    val artistsLong: List<TopItemUI> = listOf(),
 )

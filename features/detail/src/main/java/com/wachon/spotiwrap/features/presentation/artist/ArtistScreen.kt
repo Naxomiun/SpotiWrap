@@ -137,7 +137,7 @@ fun ArtistContent(
         }
         item { Spacer(modifier = Modifier.height(24.dp)) }
         item { ArtistGenres(genres = state.artist?.artistGenres ?: emptyList()) }
-        item { Spacer(modifier = Modifier.height(24.dp)) }
+        item { Spacer(modifier = Modifier.height(16.dp)) }
         ArtistTopTracks(topTracks = state.topTracks.take(3), onTrackSelected = onTrackSelected)
         item { Spacer(modifier = Modifier.height(24.dp)) }
         ArtistTopAlbums(topAlbums = state.albums.take(3), onAlbumSelected = onAlbumSelected)
@@ -184,7 +184,7 @@ fun ArtistTitle(name: String) {
     ) {
         TextNoPadding(
             text = name,
-            style = LargeTitle,
+            style = LargeTitle.copy(fontSize = 23.sp),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onBackground
