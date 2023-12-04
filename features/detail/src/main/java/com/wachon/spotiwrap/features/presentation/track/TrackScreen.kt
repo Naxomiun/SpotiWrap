@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -108,7 +109,8 @@ fun TrackContent(
     onArtistSelected: (String) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.background(Color.Black),
+        modifier = Modifier
+            .background(Color.Black),
         state = listState,
         verticalArrangement = Arrangement.Top,
     ) {
@@ -155,7 +157,9 @@ fun TrackContent(
 fun TrackPhoto(
     image: String, onBackPressed: () -> Unit
 ) {
-    Box(contentAlignment = Alignment.TopStart) {
+    Box(
+        contentAlignment = Alignment.TopStart
+    ) {
         AsyncImage(
             model = image,
             contentDescription = image,
@@ -166,9 +170,10 @@ fun TrackPhoto(
         )
         Icon(
             modifier = Modifier
+                .systemBarsPadding()
                 .width(50.dp)
                 .size(50.dp)
-                .padding(top = 24.dp)
+                .padding(top = 16.dp)
                 .clickable { onBackPressed.invoke() },
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
             tint = MaterialTheme.colorScheme.onBackground,
