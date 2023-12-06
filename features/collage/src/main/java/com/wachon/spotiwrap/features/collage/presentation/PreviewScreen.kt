@@ -90,7 +90,7 @@ fun PreviewContent(
             onTypeSelect = { viewModel.changeTypeIndex(it) },
             onSizeSelect = { viewModel.changeSizeIndex(it) },
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,

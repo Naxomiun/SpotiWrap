@@ -36,7 +36,6 @@ class TopViewModel(
     private val artistsMedium = getArtists(timeRange = MEDIUM_TERM)
     private val artistsLong = getArtists(timeRange = LONG_TERM)
 
-
     private val tracks = combine(
         tracksShort,
         tracksMedium,
