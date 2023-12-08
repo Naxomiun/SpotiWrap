@@ -15,9 +15,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.components.ScreenTitle
+import com.wachon.spotiwrap.core.design.components.SingleChoiceTimeButton
+import com.wachon.spotiwrap.core.design.components.SingleChoiceTypeButton
 import com.wachon.spotiwrap.core.design.components.TopList
-import com.wachon.spotiwrap.features.top.presentation.components.TimesTabs
-import com.wachon.spotiwrap.features.top.presentation.components.TypesTabs
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -59,8 +59,8 @@ fun TopContent(
         Spacer(modifier = Modifier.height(8.dp))
         ScreenTitle(text = "Top List")
         Spacer(modifier = Modifier.height(16.dp))
-        TypesTabs { viewModel.selectType(it) }
-        TimesTabs { viewModel.selectTime(it) }
+        SingleChoiceTypeButton(options = state.types) { viewModel.selectType(it) }
+        SingleChoiceTimeButton(options = state.times) { viewModel.selectTime(it) }
         TopList(listState = listState, content = state.content) {
             if (state.typeSelected == TopItemType.TRACKS) {
                 onTrackSelected.invoke(it)
