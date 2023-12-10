@@ -47,10 +47,12 @@ class DefaultArtistsRepository(
                 type = TopItemType.ARTISTS.name.lowercase(),
                 limit = 50,
                 offset = 0,
-                timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
+                timeRange = TopItemTimeRange.SHORT_TERM.name.lowercase()
             )
 
             val dbItems = artistDao.getArtistsNoFlow()
+
+            artistDao.deleteAll()
             artistDao.insertArtists(
                 mapTopItemsToArtistDB(apiItems.items ?: emptyList(), dbItems)
             )

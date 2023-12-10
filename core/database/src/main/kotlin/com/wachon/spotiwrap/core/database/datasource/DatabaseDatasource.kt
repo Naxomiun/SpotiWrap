@@ -53,6 +53,9 @@ interface TrackDao {
 
     @Query("SELECT * FROM tracks")
     fun getTracks(): Flow<List<TrackDB>>
+
+    @Query("DELETE FROM tracks")
+    fun deleteAll()
 }
 
 @Dao
@@ -65,6 +68,9 @@ interface ArtistDao {
 
     @Query("SELECT * FROM artists")
     fun getArtists(): Flow<List<ArtistDB>>
+
+    @Query("DELETE FROM artists")
+    fun deleteAll()
 }
 
 @Dao
