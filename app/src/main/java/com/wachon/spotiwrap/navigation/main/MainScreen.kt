@@ -24,7 +24,7 @@ fun MainScreen(
         bottomBar = {
             BottomNavBar(
                 shouldShow = {
-                    (isHomeScrolling || isTopListScrolling)
+                    (isHomeScrolling && isTopListScrolling)
                             && (currentRoute == Preview.route).not()
                             && (currentRoute == Artist.route).not()
                             && (currentRoute == Track.route).not()
