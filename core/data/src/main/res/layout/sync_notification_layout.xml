@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notificationLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#191414"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateTint="#1DB954"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/notificationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingStart="16dp"
+        android:text="Syncing your data"
+        android:textColor="#1DB954" />
+
+</LinearLayout>
