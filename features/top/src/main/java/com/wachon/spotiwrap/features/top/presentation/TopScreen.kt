@@ -58,7 +58,7 @@ fun TopContent(
     ) {
         Spacer(modifier = Modifier.height(8.dp))
         ScreenTitle(text = "Top List")
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         SingleChoiceTypeButton(options = state.types) { viewModel.selectType(it) }
         SingleChoiceTimeButton(options = state.times) { viewModel.selectTime(it) }
         TopList(listState = listState, content = state.content) {
