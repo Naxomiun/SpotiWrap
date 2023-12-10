@@ -51,7 +51,7 @@ fun SingleChoiceTimeButton(
     SingleChoiceButton(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 4.dp),
+            .padding(start = 4.dp, end = 4.dp, bottom = 6.dp),
         selected = selectedTime,
         options = options.map { it.toTime() },
         onSelect = { index ->
