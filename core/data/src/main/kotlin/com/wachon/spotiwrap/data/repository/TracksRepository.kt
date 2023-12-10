@@ -75,11 +75,12 @@ class DefaultTracksRepository(
                 type = TopItemType.TRACKS.name.lowercase(),
                 limit = 50,
                 offset = 0,
-                timeRange = TopItemTimeRange.MEDIUM_TERM.name.lowercase()
+                timeRange = TopItemTimeRange.SHORT_TERM.name.lowercase()
             )
 
             val dbItems = trackDao.getTracksNoFlow()
 
+            trackDao.deleteAll()
             trackDao.insertTracks(
                 mapTopItemsToTrackDB(apiItems.items ?: emptyList(), dbItems)
             )
