@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
@@ -54,7 +55,7 @@ fun TypesTabs(onTypeSelected: (TopItemType) -> Unit) {
                         )
 
                         Text(
-                            text = type.toShow(),
+                            text = LocalContext.current.getString(type.toShow()),
                             color = textColor,
                             style = Title.copy(fontSize = 13.sp, fontWeight = FontWeight.W600),
                             maxLines = 2,

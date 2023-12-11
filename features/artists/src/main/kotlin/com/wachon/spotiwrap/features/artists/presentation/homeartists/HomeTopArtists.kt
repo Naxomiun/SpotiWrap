@@ -16,8 +16,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.design.components.TextWithLine
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.features.artists.presentation.common.ArtistItem
@@ -58,7 +60,7 @@ fun HeaderTopArtistList(
             .padding(horizontal = 24.dp)
     ) {
         TextWithLine(
-            text = "Top Artists"
+            text = LocalContext.current.getString(R.string.home_top_artist_title)
         )
     }
 

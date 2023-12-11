@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
+import com.wachon.spotiwrap.core.common.R.string.open_in_spotify
 import com.wachon.spotiwrap.core.design.R
 import com.wachon.spotiwrap.core.design.theme.Button
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
@@ -75,7 +76,7 @@ fun SpotifyOpenButton(
                             contentDescription = null,
                         )
                         TextNoPadding(
-                            text = "Open in Spotify",
+                            text = LocalContext.current.getString(open_in_spotify),
                             style = Button.copy(fontSize = 14.sp)
                         )
                     }

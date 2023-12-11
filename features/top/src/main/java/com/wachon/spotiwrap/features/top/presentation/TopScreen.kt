@@ -10,8 +10,10 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.common.model.TopItemType
 import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.components.ScreenTitle
@@ -57,7 +59,7 @@ fun TopContent(
         verticalArrangement = Arrangement.Top
     ) {
         Spacer(modifier = Modifier.height(8.dp))
-        ScreenTitle(text = "Top List")
+        ScreenTitle(text = LocalContext.current.getString(R.string.top_title))
         Spacer(modifier = Modifier.height(8.dp))
         SingleChoiceTypeButton(options = state.types) { viewModel.selectType(it) }
         SingleChoiceTimeButton(options = state.times) { viewModel.selectTime(it) }

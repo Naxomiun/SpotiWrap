@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Common Strings-->
+    <string name="track">Pista</string>
+    <string name="tracks">Pistas</string>
+    <string name="artist">Artista</string>
+    <string name="artists">Artistas</string>
+    <string name="album">Álbum</string>
+    <string name="albums">Álbumes</string>
+
+    <string name="last_month">Último mes</string>
+    <string name="last_6_months">6 meses</string>
+    <string name="lifetime">Total</string>
+
+    <string name="open_in_spotify">Abrir en Spotify</string>
+    <string name="get_spotify_for_free">Obtener Spotify gratis</string>
+
+    <!--Cadenas de la Página Principal-->
+    <string name="home_currently_playing_title">Reproduciendo actualmente</string>
+    <string name="home_top_track_title">Pistas Principales</string>
+    <string name="home_top_artist_title">Artistas Principales</string>
+    <string name="home_top_albums_title">Álbumes Principales</string>
+    <string name="home_top_genres_title">Géneros Principales</string>
+    <string name="home_top_recently_played_title">Reproducido Recientemente</string>
+
+    <!--Cadenas Principales-->
+    <string name="top_title">Lista Principal</string>
+
+    <!--Cadenas de Detalles-->
+    <string name="detail_followers">seguidores</string>
+    <string name="detail_popularity">popularidad</string>
+    <string name="detail_genres_title">Géneros</string>
+    <string name="detail_related_artists_title">Artistas Relacionados</string>
+    <string name="detail_track_stats">Estadísticas de la Pista</string>
+    <string name="detail_song_duration">duración de la canción</string>
+    <string name="detail_acousticness">acústica</string>
+    <string name="detail_danceability">bailable</string>
+    <string name="detail_energy">energía</string>
+    <string name="detail_instrumentalness">instrumentalidad</string>
+    <string name="detail_liveness">vivacidad</string>
+    <string name="detail_speechiness">hablado</string>
+    <string name="detail_tracks">pistas</string>
+    <string name="detail_duration">duración</string>
+    <string name="detail_release_date">fecha de lanzamiento</string>
+    <string name="detail_albums_tracks">Pistas del Álbum</string>
+
+    <!--Cadenas del Perfil-->
+    <string name="profile_info_playlists">listas de reproducción</string>
+    <string name="profile_check_your_top">Verifica tus principales</string>
+
+    <!--Cadenas de Vista Previa-->
+    <string name="preview_title">Vista Previa Principal</string>
+    <string name="preview_share">Compartir</string>
+</resources>

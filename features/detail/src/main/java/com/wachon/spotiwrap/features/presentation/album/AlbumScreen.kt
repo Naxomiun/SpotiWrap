@@ -34,11 +34,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TrackModel
 import com.wachon.spotiwrap.core.design.components.AlbumItem
@@ -207,14 +209,14 @@ fun AlbumStats(popularity: Int, tracks: Int, duration: String, date: String) {
 
         FitInfoBoxText(
             data = tracks.toString(),
-            dataName = "tracks",
+            dataName = LocalContext.current.getString(R.string.detail_tracks),
             modifier = Modifier
                 .weight(1f)
         )
 
         FitInfoBoxGraph(
             data = popularity,
-            dataName = "popularity",
+            dataName = LocalContext.current.getString(R.string.detail_popularity),
             modifier = Modifier
                 .weight(1f)
         )
@@ -229,14 +231,14 @@ fun AlbumStats(popularity: Int, tracks: Int, duration: String, date: String) {
 
         FitInfoBoxText(
             data = duration,
-            dataName = "duration",
+            dataName = LocalContext.current.getString(R.string.detail_duration),
             modifier = Modifier
                 .weight(1f)
         )
 
         FitInfoBoxText(
             data = date,
-            dataName = "date",
+            dataName = LocalContext.current.getString(R.string.detail_release_date),
             modifier = Modifier
                 .weight(1f)
         )
@@ -252,7 +254,7 @@ fun AlbumGenres(genres: List<String>) {
     ) {
 
         TextNoPadding(
-            text = "Genres",
+            text = LocalContext.current.getString(R.string.detail_genres_title),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -287,7 +289,7 @@ fun AlbumTracks(topTracks: List<TrackModel>, onTrackSelected: (String) -> Unit) 
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            text = "Albums' Tracks",
+            text = LocalContext.current.getString(R.string.detail_albums_tracks),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -332,7 +334,13 @@ fun AlbumArtists(related: List<ArtistModel>, onArtistSelected: (String) -> Unit)
     ) {
 
         TextNoPadding(
-            text = "Artists",
+            text = LocalContext.current.getString(
+                if (related.size == 1) {
+                    R.string.artist
+                } else {
+                    R.string.artists
+                }
+            ),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )

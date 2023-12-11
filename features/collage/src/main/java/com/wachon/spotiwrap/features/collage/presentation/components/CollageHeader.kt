@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.core.common.extensions.capitalizeFirst
 import com.wachon.spotiwrap.core.common.extensions.toTime
@@ -43,7 +44,7 @@ fun CollageHeader(
                 .fillMaxWidth()
                 .padding(horizontal = 4.dp),
             selected = timeIndex,
-            options = time.map { it.toTime() },
+            options = time.map { LocalContext.current.getString(it.toTime()) },
             onSelect = onTimeSelect
         )
         SingleChoiceButton(

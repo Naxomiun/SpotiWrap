@@ -29,6 +29,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.common.R
+import com.wachon.spotiwrap.core.common.extensions.toTime
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.common.model.TrackModel
@@ -39,7 +41,7 @@ import com.wachon.spotiwrap.features.collage.presentation.utils.BitmapUtil
 
 @Composable
 fun TopScreenContent(
-    time: String,
+    time: TopItemTimeRange,
     artists: List<ArtistModel>,
     albums: List<TrackModel>,
     onBitmapCreated: (Bitmap) -> Unit
@@ -61,7 +63,7 @@ fun TopScreenContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TimeTitle(time = time)
+        TimeTitle(time = LocalContext.current.getString(time.toTime()))
 
         Spacer(modifier = Modifier.height(16.dp))
         ArtistTitle()
@@ -85,17 +87,10 @@ private fun TimeTitle(time: String) {
         horizontalArrangement = Arrangement.End
     ) {
         Text(
-            text = getTimeStringForTitle(time),
+            text = time,
             style = LargeTitle
         )
     }
-}
-
-private fun getTimeStringForTitle(time: String) = when (time) {
-    TopItemTimeRange.SHORT_TERM.name -> "Last Month"
-    TopItemTimeRange.MEDIUM_TERM.name -> "Last 6 Months"
-    TopItemTimeRange.LONG_TERM.name -> "Lifetime"
-    else -> ""
 }
 
 @Composable
@@ -105,7 +100,7 @@ private fun ArtistTitle() {
             .padding(horizontal = 24.dp)
     ) {
         TextWithLine(
-            text = "Top Artists"
+            text = LocalContext.current.getString(R.string.home_top_artist_title)
         )
     }
 }
@@ -151,7 +146,7 @@ private fun TrackTitle() {
             .padding(horizontal = 24.dp)
     ) {
         TextWithLine(
-            text = "Top Tracks"
+            text = LocalContext.current.getString(R.string.home_top_track_title)
         )
     }
 }

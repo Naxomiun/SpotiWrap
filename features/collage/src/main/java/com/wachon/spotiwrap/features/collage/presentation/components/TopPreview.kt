@@ -23,7 +23,7 @@ fun TopPreview(
     when (optionIndex) {
         CollageOptionsEnum.TOP.ordinal -> {
             TopScreenContent(
-                time = time[timeIndex].name,
+                time = time[timeIndex],
                 artists = artists,
                 albums = albums,
                 onBitmapCreated = onBitmapCreated

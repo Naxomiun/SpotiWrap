@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wachon.spotiwrap.core.common.extensions.toShow
@@ -34,7 +35,7 @@ fun SingleChoiceTypeButton(
             .fillMaxWidth()
             .padding(horizontal = 4.dp),
         selected = selectedTime,
-        options = options.map { it.toShow() },
+        options = options.map { LocalContext.current.getString(it.toShow()) },
         onSelect = { index ->
             selectedTime = index
             onSelect.invoke(options[index])
@@ -53,7 +54,7 @@ fun SingleChoiceTimeButton(
             .fillMaxWidth()
             .padding(start = 4.dp, end = 4.dp, bottom = 6.dp),
         selected = selectedTime,
-        options = options.map { it.toTime() },
+        options = options.map { LocalContext.current.getString(it.toTime()) },
         onSelect = { index ->
             selectedTime = index
             onSelect.invoke(options[index])

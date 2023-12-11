@@ -34,12 +34,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.design.components.FitInfoBoxGraph
 import com.wachon.spotiwrap.core.design.components.FitInfoBoxText
 import com.wachon.spotiwrap.core.design.components.LoadingView
@@ -205,7 +207,7 @@ fun TrackStats(time: String, popularity: Int) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        text = "Track Stats",
+        text = LocalContext.current.getString(R.string.detail_track_stats),
         style = Title.copy(fontSize = 20.sp),
         color = MaterialTheme.colorScheme.onSurface
     )
@@ -221,14 +223,14 @@ fun TrackStats(time: String, popularity: Int) {
 
         FitInfoBoxText(
             data = time,
-            dataName = "song duration",
+            dataName = LocalContext.current.getString(R.string.detail_song_duration),
             modifier = Modifier
                 .weight(1f)
         )
 
         FitInfoBoxGraph(
             data = popularity,
-            dataName = "popularity",
+            dataName = LocalContext.current.getString(R.string.detail_popularity),
             modifier = Modifier
                 .weight(1f)
         )
@@ -248,7 +250,7 @@ fun TrackAlbum(album: AlbumUI, onAlbumSelected: (String) -> Unit) {
     ) {
 
         TextNoPadding(
-            text = "Album",
+            text = LocalContext.current.getString(R.string.album),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -310,7 +312,13 @@ fun TrackArtist(artists: List<ArtistUI>, onArtistSelected: (String) -> Unit) {
     ) {
 
         TextNoPadding(
-            text = "Artists",
+            text = LocalContext.current.getString(
+                if (artists.size == 1) {
+                    R.string.artist
+                } else {
+                    R.string.artists
+                }
+            ),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )

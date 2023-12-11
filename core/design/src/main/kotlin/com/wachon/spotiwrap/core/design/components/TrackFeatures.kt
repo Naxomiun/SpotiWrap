@@ -24,9 +24,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.common.model.TrackFeaturesModel
 import com.wachon.spotiwrap.core.design.theme.SmallTitle
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
@@ -43,17 +45,35 @@ fun TrackFeatures(features: TrackFeaturesModel) {
         Column(
             modifier = Modifier.weight(1F)
         ) {
-            FeatureItem(name = "acousticness", value = features.acousticness)
-            FeatureItem(name = "danceability", value = features.danceability)
-            FeatureItem(name = "energy", value = features.energy)
+            FeatureItem(
+                name = LocalContext.current.getString(R.string.detail_acousticness),
+                value = features.acousticness
+            )
+            FeatureItem(
+                name = LocalContext.current.getString(R.string.detail_danceability),
+                value = features.danceability
+            )
+            FeatureItem(
+                name = LocalContext.current.getString(R.string.detail_energy),
+                value = features.energy
+            )
         }
 
         Column(
             modifier = Modifier.weight(1F)
         ) {
-            FeatureItem(name = "instrumentalness", value = features.instrumentalness)
-            FeatureItem(name = "liveness", value = features.liveness)
-            FeatureItem(name = "speechiness", value = features.speechiness)
+            FeatureItem(
+                name = LocalContext.current.getString(R.string.detail_instrumentalness),
+                value = features.instrumentalness
+            )
+            FeatureItem(
+                name = LocalContext.current.getString(R.string.detail_liveness),
+                value = features.liveness
+            )
+            FeatureItem(
+                name = LocalContext.current.getString(R.string.detail_speechiness),
+                value = features.speechiness
+            )
         }
 
     }

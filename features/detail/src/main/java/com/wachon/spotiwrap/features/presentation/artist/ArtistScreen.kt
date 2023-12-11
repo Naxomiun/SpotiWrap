@@ -35,11 +35,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.common.model.AlbumModel
 import com.wachon.spotiwrap.core.common.model.ArtistModel
 import com.wachon.spotiwrap.core.common.model.TrackModel
@@ -203,14 +205,14 @@ fun ArtistStats(followers: Int, popularity: Int) {
 
         FitInfoBoxText(
             data = followers.toString(),
-            dataName = "followers",
+            dataName = LocalContext.current.getString(R.string.detail_followers),
             modifier = Modifier
                 .weight(1f)
         )
 
         FitInfoBoxGraph(
             data = popularity,
-            dataName = "popularity",
+            dataName = LocalContext.current.getString(R.string.detail_popularity),
             modifier = Modifier
                 .weight(1f)
         )
@@ -226,7 +228,7 @@ fun ArtistGenres(genres: List<String>) {
     ) {
 
         TextNoPadding(
-            text = "Genres",
+            text = LocalContext.current.getString(R.string.detail_genres_title),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -261,7 +263,7 @@ fun ArtistTopTracks(topTracks: List<TrackModel>, onTrackSelected: (String) -> Un
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            text = "Top Tracks",
+            text = LocalContext.current.getString(R.string.home_top_track_title),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -289,7 +291,7 @@ fun ArtistTopAlbums(topAlbums: List<AlbumModel>, onAlbumSelected: (String) -> Un
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            text = "Top Albums",
+            text = LocalContext.current.getString(R.string.home_top_albums_title),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -319,7 +321,7 @@ fun RelatedArtists(related: List<ArtistModel>, onArtistSelected: (String) -> Uni
     ) {
 
         TextNoPadding(
-            text = "Related Artists",
+            text = LocalContext.current.getString(R.string.detail_related_artists_title),
             style = Title.copy(fontSize = 20.sp),
             color = MaterialTheme.colorScheme.onSurface
         )

@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.common.model.TopItemTimeRange
 import com.wachon.spotiwrap.core.design.components.ButtonIcon
 import com.wachon.spotiwrap.core.design.components.LoadingView
@@ -60,7 +61,10 @@ fun PreviewContent(
         verticalArrangement = Arrangement.Top
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        ScreenTitleWithBack(text = "Top preview", navigateUp = navigateUp)
+        ScreenTitleWithBack(
+            text = LocalContext.current.getString(R.string.preview_title),
+            navigateUp = navigateUp
+        )
         Spacer(modifier = Modifier.height(32.dp))
         TopPreview(
             timeIndex = state.timeIndex,
@@ -90,13 +94,16 @@ fun PreviewContent(
             onTypeSelect = { viewModel.changeTypeIndex(it) },
             onSizeSelect = { viewModel.changeSizeIndex(it) },
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ButtonIcon(text = "Share", icon = Icons.Filled.Share) {
+            ButtonIcon(
+                text = LocalContext.current.getString(R.string.preview_share),
+                icon = Icons.Filled.Share
+            ) {
                 shareImage(context = context, bitmap = viewModel.getPreviewBitmap())
             }
         }
