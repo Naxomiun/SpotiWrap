@@ -18,8 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.design.components.ButtonDefault
 import com.wachon.spotiwrap.core.design.components.InfoBox
 import com.wachon.spotiwrap.core.design.components.ProfileUserImage
@@ -88,14 +90,14 @@ fun ProfileContent(
 
             InfoBox(
                 data = state.userProfile?.followers ?: 0,
-                dataName = "followers",
+                dataName = LocalContext.current.getString(R.string.detail_followers),
                 modifier = Modifier
                     .weight(1f)
             )
 
             InfoBox(
                 data = state.userPlaylists.size,
-                dataName = "playlists",
+                dataName = LocalContext.current.getString(R.string.profile_info_playlists),
                 modifier = Modifier
                     .weight(1f)
             )
@@ -103,7 +105,7 @@ fun ProfileContent(
         }
         Spacer(modifier = Modifier.height(24.dp))
         ButtonDefault(
-            text = "Check your Top",
+            text = LocalContext.current.getString(R.string.profile_check_your_top),
             icon = Icons.Filled.PlayArrow
         ) {
             navigateToPreview.invoke()

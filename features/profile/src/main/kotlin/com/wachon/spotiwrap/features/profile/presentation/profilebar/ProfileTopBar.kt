@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.design.R.drawable.ic_spotify_logo_full
 import com.wachon.spotiwrap.core.design.components.LottieImage
 import com.wachon.spotiwrap.core.design.components.ProfileUserImage
@@ -129,7 +131,7 @@ fun CurrentTrackTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextNoPadding(
-            text = "Currently playing",
+            text = LocalContext.current.getString(R.string.home_currently_playing_title),
             style = Title.copy(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.W600

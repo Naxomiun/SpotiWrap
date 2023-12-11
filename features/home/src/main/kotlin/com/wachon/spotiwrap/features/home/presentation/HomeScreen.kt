@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wachon.spotiwrap.core.common.R
 import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.components.TextWithLine
@@ -152,7 +153,7 @@ fun HomeTopGenres(
                 .padding(horizontal = 24.dp)
         ) {
             TextWithLine(
-                text = "Top genres"
+                text = LocalContext.current.getString(R.string.home_top_genres_title)
             )
         }
     }

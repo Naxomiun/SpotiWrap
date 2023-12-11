@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Common Strings-->
+    <string name="track">Track</string>
+    <string name="tracks">Tracks</string>
+    <string name="artist">Artist</string>
+    <string name="artists">Artists</string>
+    <string name="album">Album</string>
+    <string name="albums">Albums</string>
+
+    <string name="last_month">Last Month</string>
+    <string name="last_6_months">6 months</string>
+    <string name="lifetime">Lifetime</string>
+
+    <string name="open_in_spotify">Open in Spotify</string>
+    <string name="get_spotify_for_free">Get Spotify for free</string>
+
+
+    <!--Home Strings-->
+    <string name="home_currently_playing_title">Currently playing</string>
+    <string name="home_top_track_title">Top Tracks</string>
+    <string name="home_top_artist_title">Top Artists</string>
+    <string name="home_top_albums_title">Top Albums</string>
+    <string name="home_top_genres_title">Top Genres</string>
+    <string name="home_top_recently_played_title">Recently Played</string>
+
+    <!--Top Strings-->
+    <string name="top_title">Top List</string>
+
+    <!--Detail Strings-->
+    <string name="detail_followers">followers</string>
+    <string name="detail_popularity">popularity</string>
+    <string name="detail_genres_title">Genres</string>
+    <string name="detail_related_artists_title">Related Artists</string>
+    <string name="detail_track_stats">Track Stats</string>
+    <string name="detail_song_duration">song duration</string>
+    <string name="detail_acousticness">acousticness</string>
+    <string name="detail_danceability">danceability</string>
+    <string name="detail_energy">energy</string>
+    <string name="detail_instrumentalness">instrumentalness</string>
+    <string name="detail_liveness">liveness</string>
+    <string name="detail_speechiness">speechiness</string>
+    <string name="detail_tracks">tracks</string>
+    <string name="detail_duration">duration</string>
+    <string name="detail_release_date">release date</string>
+    <string name="detail_albums_tracks">Albums\' Tracks</string>
+
+    <!--Profile Strings-->
+    <string name="profile_info_playlists">playlists</string>
+    <string name="profile_check_your_top">Check your top</string>
+
+    <!--Preview Strings-->
+    <string name="preview_title">Top Preview</string>
+    <string name="preview_share">Share</string>
+</resources>
