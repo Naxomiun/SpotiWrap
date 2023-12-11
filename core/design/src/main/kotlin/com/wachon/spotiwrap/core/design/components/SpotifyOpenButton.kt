@@ -1,6 +1,8 @@
 package com.wachon.spotiwrap.core.design.components
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
+import com.wachon.spotiwrap.core.common.R.string.get_spotify_for_free
 import com.wachon.spotiwrap.core.common.R.string.open_in_spotify
 import com.wachon.spotiwrap.core.design.R
 import com.wachon.spotiwrap.core.design.theme.Button
@@ -76,7 +79,14 @@ fun SpotifyOpenButton(
                             contentDescription = null,
                         )
                         TextNoPadding(
-                            text = LocalContext.current.getString(open_in_spotify),
+                            text = context.getString(
+                                if (isSpotifyInstalled(context = context)
+                                ) {
+                                    open_in_spotify
+                                } else {
+                                    get_spotify_for_free
+                                }
+                            ),
                             style = Button.copy(fontSize = 14.sp)
                         )
                     }
@@ -88,6 +98,15 @@ fun SpotifyOpenButton(
                 )
             }
         }
+    }
+}
+
+fun isSpotifyInstalled(context: Context): Boolean {
+    return try {
+        context.packageManager.getApplicationInfo("com.spotify.music", 0)
+        true
+    } catch (e: PackageManager.NameNotFoundException) {
+        false
     }
 }
 
