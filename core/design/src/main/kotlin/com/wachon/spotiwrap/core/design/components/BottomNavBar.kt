@@ -36,7 +36,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -49,7 +48,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.core.design.R
-import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.navigation.MainGraph
 import dev.chrisbanes.haze.HazeState
@@ -135,8 +133,8 @@ fun BottomBarSurface(
                     width = Dp.Hairline,
                     brush = Brush.verticalGradient(
                         colors = listOf(
-                            BubblegumPink.copy(alpha = .8f),
-                            BubblegumPink.copy(alpha = .2f),
+                            Color.White.copy(alpha = .8f),
+                            Color.White.copy(alpha = .2f),
                         ),
                     ),
                     shape = RoundedCornerShape(20)
