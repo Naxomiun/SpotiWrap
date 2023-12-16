@@ -10,4 +10,6 @@ android {
 dependencies {
     implementation(projects.core.data)
     implementation(projects.core.auth)
+    implementation(projects.features.tracks)
+    implementation(projects.features.artists)
 }
