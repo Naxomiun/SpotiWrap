@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.features.artists.domain.GetUserTopArtistsUseCase
+import com.wachon.spotiwrap.features.artists.domain.GetUserTopGenresFromArtistsUseCase
 import com.wachon.spotiwrap.features.artists.presentation.model.toUI
-import com.wachon.spotiwrap.features.home.domain.GetUserTopGenresFromArtistsUseCase
 import com.wachon.spotiwrap.features.profile.domain.GetUserProfileUseCase
 import com.wachon.spotiwrap.features.profile.presentation.model.toUI
 import com.wachon.spotiwrap.features.recently.domain.GetRecentlyPlayedUseCase

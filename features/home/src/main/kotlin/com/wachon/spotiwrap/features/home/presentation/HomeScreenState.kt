@@ -2,8 +2,8 @@ package com.wachon.spotiwrap.features.home.presentation
 
 import androidx.compose.runtime.Immutable
 import com.wachon.spotiwrap.core.common.model.TrackModel
+import com.wachon.spotiwrap.features.artists.domain.TopGenreUI
 import com.wachon.spotiwrap.features.artists.presentation.model.ArtistUI
-import com.wachon.spotiwrap.features.home.domain.TopGenreUI
 import com.wachon.spotiwrap.features.profile.presentation.model.UserUI
 import com.wachon.spotiwrap.features.tracks.presentation.model.TrackUI
 import kotlinx.collections.immutable.ImmutableList

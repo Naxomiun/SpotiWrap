@@ -42,8 +42,8 @@ import com.wachon.spotiwrap.core.design.components.TextWithLine
 import com.wachon.spotiwrap.core.design.components.collectEvents
 import com.wachon.spotiwrap.core.design.theme.SubBody
 import com.wachon.spotiwrap.data.worker.Sync
+import com.wachon.spotiwrap.features.artists.domain.TopGenreUI
 import com.wachon.spotiwrap.features.artists.presentation.homeartists.HomeTopArtists
-import com.wachon.spotiwrap.features.home.domain.TopGenreUI
 import com.wachon.spotiwrap.features.profile.presentation.profilebar.ProfileTopBar
 import com.wachon.spotiwrap.features.recently.presentation.HomeRecentlyPlayed
 import com.wachon.spotiwrap.features.tracks.presentation.hometracks.HomeTopTracks

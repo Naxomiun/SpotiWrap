@@ -54,11 +54,13 @@ object BitmapUtil {
         handler: Handler,
         layoutCoordinates: LayoutCoordinates,
         onBitmapCreated: (Bitmap) -> Unit
-
     ) {
         try {
             handler.postDelayed({
-                if (layoutCoordinates.isAttached) {
+                if (layoutCoordinates.isAttached
+                    && layoutCoordinates.boundsInRoot().size.width.toInt() > 0
+                    && layoutCoordinates.boundsInRoot().size.height.toInt() > 0
+                ) {
                     val bitmap = Bitmap.createBitmap(
                         layoutCoordinates.boundsInRoot().size.width.toInt(),
                         layoutCoordinates.boundsInRoot().size.height.toInt(),
