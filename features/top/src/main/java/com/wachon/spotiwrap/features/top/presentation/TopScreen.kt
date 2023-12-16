@@ -22,6 +22,7 @@ import com.wachon.spotiwrap.core.design.components.ScreenTitle
 import com.wachon.spotiwrap.core.design.components.SingleChoiceTimeButton
 import com.wachon.spotiwrap.core.design.components.SingleChoiceTypeButton
 import com.wachon.spotiwrap.core.design.components.TopList
+import com.wachon.spotiwrap.core.design.extensions.customHaze
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 import org.koin.androidx.compose.koinViewModel
@@ -63,11 +64,9 @@ fun TopContent(
         modifier = Modifier
             .fillMaxHeight()
             .systemBarsPadding()
-            .haze(
-                hazeStateProvider(),
-                backgroundColor = MaterialTheme.colorScheme.background,
-                tint = Color.Black.copy(alpha = .2f),
-                blurRadius = 20.dp,
+            .customHaze(
+                hazeStateProvider = hazeStateProvider,
+                backgroundColor = MaterialTheme.colorScheme.surface
             ),
         verticalArrangement = Arrangement.Top
     ) {
