@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,9 +27,9 @@ import com.wachon.spotiwrap.core.design.components.ButtonDefault
 import com.wachon.spotiwrap.core.design.components.InfoBox
 import com.wachon.spotiwrap.core.design.components.ProfileUserImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
+import com.wachon.spotiwrap.core.design.extensions.customHaze
 import com.wachon.spotiwrap.core.design.theme.Title
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -77,11 +76,9 @@ fun ProfileContent(
             .fillMaxHeight()
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .haze(
-                hazeStateProvider(),
-                backgroundColor = MaterialTheme.colorScheme.background,
-                tint = Color.Black.copy(alpha = .2f),
-                blurRadius = 20.dp,
+            .customHaze(
+                hazeStateProvider = hazeStateProvider,
+                backgroundColor = MaterialTheme.colorScheme.surface
             ),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally

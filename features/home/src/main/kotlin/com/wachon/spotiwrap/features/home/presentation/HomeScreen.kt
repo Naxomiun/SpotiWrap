@@ -40,6 +40,7 @@ import com.wachon.spotiwrap.core.design.components.LoadingView
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.components.TextWithLine
 import com.wachon.spotiwrap.core.design.components.collectEvents
+import com.wachon.spotiwrap.core.design.extensions.customHaze
 import com.wachon.spotiwrap.core.design.theme.SubBody
 import com.wachon.spotiwrap.data.worker.Sync
 import com.wachon.spotiwrap.features.artists.presentation.homeartists.HomeTopArtists
@@ -48,7 +49,6 @@ import com.wachon.spotiwrap.features.profile.presentation.profilebar.ProfileTopB
 import com.wachon.spotiwrap.features.recently.presentation.HomeRecentlyPlayed
 import com.wachon.spotiwrap.features.tracks.presentation.hometracks.HomeTopTracks
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -121,11 +121,9 @@ fun HomeContent(
 
     LazyColumn(
         modifier = Modifier
-            .haze(
-                hazeStateProvider(),
-                backgroundColor = MaterialTheme.colorScheme.background,
-                tint = Color.Black.copy(alpha = .2f),
-                blurRadius = 20.dp,
+            .customHaze(
+                hazeStateProvider = hazeStateProvider,
+                backgroundColor = MaterialTheme.colorScheme.surface
             ),
         state = listState,
         verticalArrangement = Arrangement.Top,
