@@ -27,8 +27,6 @@ import java.io.IOException
 
 object BitmapUtil {
 
-    private val defaultBitmap: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-
     private val job: Job = SupervisorJob()
     private val coroutinesScope = CoroutineScope(Dispatchers.Default + job)
 
@@ -38,7 +36,6 @@ object BitmapUtil {
         layoutCoordinates: LayoutCoordinates,
         onBitmapCreated: (Bitmap) -> Unit
     ) {
-
         coroutinesScope.launch {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createBitmapWithPixelCopy(
@@ -55,7 +52,6 @@ object BitmapUtil {
                 )
             }
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -92,7 +88,9 @@ object BitmapUtil {
                     Handler(Looper.getMainLooper())
                 )
             } else {
-                onBitmapCreated(defaultBitmap)
+                onBitmapCreated(
+                    Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+                )
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -115,7 +113,9 @@ object BitmapUtil {
             canvas.setBitmap(null)
             onBitmapCreated(bitmap)
         } else {
-            onBitmapCreated(defaultBitmap)
+            onBitmapCreated(
+                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+            )
         }
     }
 
