@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.features.home.domain
+package com.wachon.spotiwrap.features.artists.domain
 
 import androidx.compose.runtime.Immutable
 

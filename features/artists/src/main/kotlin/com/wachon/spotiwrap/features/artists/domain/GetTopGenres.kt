@@ -1,4 +1,4 @@
-package com.wachon.spotiwrap.features.home.domain
+package com.wachon.spotiwrap.features.artists.domain
 
 import com.wachon.spotiwrap.core.common.dispatchers.DispatcherProvider
 import com.wachon.spotiwrap.core.common.extensions.capitalizeWords

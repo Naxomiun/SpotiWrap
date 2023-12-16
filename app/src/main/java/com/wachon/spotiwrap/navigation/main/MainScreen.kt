@@ -17,8 +17,16 @@ fun MainScreen(
     val currentRoute = appState.currentRoute
     val homeListState = rememberLazyListState()
     val topListState = rememberLazyListState()
-    val isHomeScrolling = homeListState.isScrollingUp()
-    val isTopListScrolling = topListState.isScrollingUp()
+    val isHomeScrolling = if (currentRoute == Home.route) {
+        homeListState.isScrollingUp()
+    } else {
+        true
+    }
+    val isTopListScrolling = if (currentRoute == Top.route) {
+        topListState.isScrollingUp()
+    } else {
+        true
+    }
 
     Scaffold(
         bottomBar = {
