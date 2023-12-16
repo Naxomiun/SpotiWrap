@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,6 +47,8 @@ import com.wachon.spotiwrap.features.home.domain.TopGenreUI
 import com.wachon.spotiwrap.features.profile.presentation.profilebar.ProfileTopBar
 import com.wachon.spotiwrap.features.recently.presentation.HomeRecentlyPlayed
 import com.wachon.spotiwrap.features.tracks.presentation.hometracks.HomeTopTracks
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.haze
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -53,6 +56,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
+    hazeStateProvider: () -> HazeState,
     listState: LazyListState,
     onTrackSelected: (String) -> Unit,
     onArtistSelected: (String) -> Unit,
@@ -73,7 +77,8 @@ fun HomeScreen(
         state = state,
         listState = listState,
         onTrackSelected = onTrackSelected,
-        onArtistSelected = onArtistSelected
+        onArtistSelected = onArtistSelected,
+        hazeStateProvider = hazeStateProvider
     )
 
 }
@@ -82,6 +87,7 @@ fun HomeScreen(
 fun AnimatedHomeContent(
     state: HomeScreenState,
     listState: LazyListState,
+    hazeStateProvider: () -> HazeState,
     onTrackSelected: (String) -> Unit,
     onArtistSelected: (String) -> Unit,
 ) {
@@ -96,7 +102,8 @@ fun AnimatedHomeContent(
                 state = state,
                 listState = listState,
                 onTrackSelected = onTrackSelected,
-                onArtistSelected = onArtistSelected
+                onArtistSelected = onArtistSelected,
+                hazeStateProvider = hazeStateProvider
             )
         }
     }
@@ -109,9 +116,17 @@ fun HomeContent(
     listState: LazyListState,
     onTrackSelected: (String) -> Unit,
     onArtistSelected: (String) -> Unit,
+    hazeStateProvider: () -> HazeState,
 ) {
 
     LazyColumn(
+        modifier = Modifier
+            .haze(
+                hazeStateProvider(),
+                backgroundColor = MaterialTheme.colorScheme.background,
+                tint = Color.Black.copy(alpha = .2f),
+                blurRadius = 20.dp,
+            ),
         state = listState,
         verticalArrangement = Arrangement.Top,
         contentPadding = PaddingValues(bottom = 120.dp),

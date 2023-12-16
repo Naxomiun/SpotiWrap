@@ -79,7 +79,7 @@ fun DependencyHandlerScope.coreLibraryDesugaring(dependency: String) {
     add("coreLibraryDesugaring", dependency)
 }
 
-fun DependencyHandlerScope.api(group: Provider<ExternalModuleDependencyBundle>) {
+fun DependencyHandlerScope.api(group: Provider<MinimalExternalModuleDependency>) {
     add("api", group)
 }
 

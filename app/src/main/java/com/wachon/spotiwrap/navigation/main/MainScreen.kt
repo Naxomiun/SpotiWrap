@@ -35,7 +35,8 @@ fun MainScreen(
                     if (currentRoute != it.getScreenRoute()) {
                         appState.bottomNavigationTo(it)
                     }
-                }
+                },
+                hazeStateProvider = { appState.hazeState }
             )
         }
     ) { _ ->

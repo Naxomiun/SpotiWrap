@@ -14,10 +14,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -27,18 +29,22 @@ import com.wachon.spotiwrap.core.design.components.InfoBox
 import com.wachon.spotiwrap.core.design.components.ProfileUserImage
 import com.wachon.spotiwrap.core.design.components.TextNoPadding
 import com.wachon.spotiwrap.core.design.theme.Title
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.haze
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel(),
+    hazeStateProvider: () -> HazeState,
     navigateToPreview: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     AnimatedProfileContent(
         state = state,
-        navigateToPreview = navigateToPreview
+        navigateToPreview = navigateToPreview,
+        hazeStateProvider = hazeStateProvider
     )
 }
 
@@ -47,6 +53,7 @@ fun ProfileScreen(
 fun AnimatedProfileContent(
     state: ProfileScreenState,
     modifier: Modifier = Modifier,
+    hazeStateProvider: () -> HazeState,
     navigateToPreview: () -> Unit
 ) {
     Box(
@@ -55,20 +62,27 @@ fun AnimatedProfileContent(
             .statusBarsPadding()
             .padding(top = 16.dp)
     ) {
-        ProfileContent(state, navigateToPreview)
+        ProfileContent(state, navigateToPreview, hazeStateProvider)
     }
 }
 
 @Composable
 fun ProfileContent(
     state: ProfileScreenState,
-    navigateToPreview: () -> Unit
+    navigateToPreview: () -> Unit,
+    hazeStateProvider: () -> HazeState,
 ) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .haze(
+                hazeStateProvider(),
+                backgroundColor = MaterialTheme.colorScheme.background,
+                tint = Color.Black.copy(alpha = .2f),
+                blurRadius = 20.dp,
+            ),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
