@@ -73,6 +73,7 @@ import com.wachon.spotiwrap.features.collage.presentation.Pages.LAST_MONTH
 import com.wachon.spotiwrap.features.collage.presentation.Pages.LIFETIME
 import com.wachon.spotiwrap.features.collage.presentation.utils.BitmapUtil
 import com.wachon.spotiwrap.features.collage.presentation.utils.BitmapUtil.shareImage
+import kotlinx.coroutines.coroutineScope
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -162,8 +163,8 @@ fun PagerContent(
                         layoutCoordinates = it,
                         onBitmapCreated = onBitmapCreated
                     )
-                }
-                .padding(horizontal = 32.dp),
+                },
+            contentPadding = PaddingValues(32.dp),
             pageSpacing = 1.dp,
             beyondBoundsPageCount = 1,
             state = pagerState
