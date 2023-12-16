@@ -39,15 +39,44 @@ fun MainGraph(
         startDestination = Home.route
     ) {
 
+        //region Bottom Bar
         composable(
             route = Home.route
         ) {
             HomeScreen(
+                hazeStateProvider = { appState.hazeState },
                 listState = homeListState,
                 onTrackSelected = { appState.navigateToTrackDetail(id = it) },
                 onArtistSelected = { appState.navigateToArtistDetail(id = it) }
             )
         }
+
+        composable(
+            route = Profile.route
+        ) {
+            ProfileScreen(
+                hazeStateProvider = { appState.hazeState },
+            ) {
+                appState.navigateToPreview()
+            }
+        }
+
+        composable(
+            route = Top.route
+        ) {
+            TopScreen(
+                hazeStateProvider = { appState.hazeState },
+                listState = topListState,
+                onTrackSelected = {
+                    appState.navigateToTrackDetail(it)
+                },
+                onArtistSelected = {
+                    appState.navigateToArtistDetail(it)
+                },
+            )
+        }
+
+        //endregion Bottom Bar
 
         composable(
             route = Artist.route,
@@ -121,19 +150,7 @@ fun MainGraph(
                 onArtistSelected = { appState.navigateToArtistDetail(id = it) })
         }
 
-        composable(
-            route = Top.route
-        ) {
-            TopScreen(
-                listState = topListState,
-                onTrackSelected = {
-                    appState.navigateToTrackDetail(it)
-                },
-                onArtistSelected = {
-                    appState.navigateToArtistDetail(it)
-                },
-            )
-        }
+
 
         composable(
             route = Preview.route
@@ -143,13 +160,6 @@ fun MainGraph(
             }
         }
 
-        composable(
-            route = Profile.route
-        ) {
-            ProfileScreen {
-                appState.navigateToPreview()
-            }
-        }
     }
 
 }

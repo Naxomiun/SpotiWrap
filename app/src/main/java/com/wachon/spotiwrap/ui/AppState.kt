@@ -14,21 +14,24 @@ import com.wachon.spotiwrap.core.navigation.GRAPH
 import com.wachon.spotiwrap.core.navigation.MainGraph
 import com.wachon.spotiwrap.core.navigation.extensions.navigateAndPop
 import com.wachon.spotiwrap.core.navigation.extensions.navigatePoppingUpToStartDestination
+import dev.chrisbanes.haze.HazeState
 
 @Composable
 fun rememberAppState(
     authNavController: NavHostController = rememberNavController(),
     mainNavController: NavHostController = rememberNavController(),
+    hazeState: HazeState = remember { HazeState() },
     context: Context = LocalContext.current
-) = remember(authNavController, mainNavController, context) {
-    AppState(authNavController, mainNavController, context)
+) = remember(authNavController, mainNavController, context, hazeState) {
+    AppState(authNavController, mainNavController, context, hazeState)
 }
 
 @Stable
 class AppState(
     val authNavController: NavHostController,
     val mainNavController: NavHostController,
-    private val context: Context
+    private val context: Context,
+    val hazeState: HazeState
 ) {
 
     val currentRoute: String

@@ -4,6 +4,7 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.LibraryExtension
 import extensions.androidTestImplementation
 import extensions.androidTestImplementationBom
+import extensions.api
 import extensions.debugImplementation
 import extensions.implementation
 import extensions.implementationBom
@@ -48,10 +49,10 @@ fun Project.configureCompose(commonExtension: CommonExtension<*, *, *, *, *>) {
         implementation(libs.androidx.lifecycle.compose)
         implementation(libs.androidx.compose.ui.tooling.preview)
         implementation(libs.compose.coil)
-        implementation(libs.accompanist.uiController)
-        implementation(libs.koin.compose)
         implementation(libs.compose.rebugger)
         implementation(libs.compose.lottie)
+        api(libs.compose.haze)
+        implementation(libs.koin.compose)
 
         implementation(libs.ktor.core)
         implementation(libs.ktor.logging)

@@ -9,6 +9,7 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,17 +38,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.wachon.spotiwrap.core.design.R
+import com.wachon.spotiwrap.core.design.theme.BubblegumPink
 import com.wachon.spotiwrap.core.design.theme.SpotiWrapTheme
 import com.wachon.spotiwrap.core.navigation.MainGraph
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeChild
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 
@@ -56,7 +62,8 @@ fun BottomNavBar(
     modifier: Modifier = Modifier,
     currentRoute: () -> String,
     onSelectedItem: (BottomNavBarItem) -> Unit,
-    shouldShow: () -> Boolean
+    shouldShow: () -> Boolean,
+    hazeStateProvider: () -> HazeState,
 ) {
 
     var firstVisibility by rememberSaveable {
@@ -90,9 +97,10 @@ fun BottomNavBar(
     ) {
         BottomBarSurface(
             modifier = modifier
-                .height(IntrinsicSize.Min)
+                .height(IntrinsicSize.Min),
+            hazeStateProvider = hazeStateProvider
         ) {
-            BottomNavBarItem.values().forEach {
+            BottomNavBarItem.entries.forEach {
                 BottomBarButton(
                     navItem = it,
                     isSelected = { currentRoute().contains(it.getScreenRoute()) },
@@ -106,6 +114,7 @@ fun BottomNavBar(
 @Composable
 fun BottomBarSurface(
     modifier: Modifier = Modifier,
+    hazeStateProvider: () -> HazeState,
     content: @Composable () -> Unit
 ) {
 
@@ -115,13 +124,24 @@ fun BottomBarSurface(
     ) {
         Surface(
             shadowElevation = 0.dp,
-            color = MaterialTheme.colorScheme.surface,
+            color = Color.Transparent,
             modifier = modifier
-                .shadow(
-                    elevation = 5.dp,
+                .align(Alignment.Center)
+                .hazeChild(
+                    hazeStateProvider(),
                     shape = RoundedCornerShape(20)
                 )
-                .align(Alignment.Center)
+                .border(
+                    width = Dp.Hairline,
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            BubblegumPink.copy(alpha = .8f),
+                            BubblegumPink.copy(alpha = .2f),
+                        ),
+                    ),
+                    shape = RoundedCornerShape(20)
+                )
+
         ) {
             Row(
                 modifier = Modifier
@@ -132,6 +152,7 @@ fun BottomBarSurface(
             }
         }
     }
+
 }
 
 @Composable
@@ -201,7 +222,8 @@ fun BottomNavBarPreview() {
         BottomNavBar(
             currentRoute = { BottomNavBarItem.Home.getScreenRoute() },
             onSelectedItem = {},
-            shouldShow = { true }
+            shouldShow = { true },
+            hazeStateProvider = { HazeState() }
         )
     }
 }
