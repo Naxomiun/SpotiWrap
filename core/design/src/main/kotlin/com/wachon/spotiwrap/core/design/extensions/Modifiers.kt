@@ -26,8 +26,8 @@ fun Modifier.customHaze(
     hazeStateProvider: () -> HazeState,
     backgroundColor: Color,
 ): Modifier {
-
-    val alphaChannel = if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.R) {
+    
+    val alphaChannel = if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.S) {
         1f
     } else {
         0.2f
