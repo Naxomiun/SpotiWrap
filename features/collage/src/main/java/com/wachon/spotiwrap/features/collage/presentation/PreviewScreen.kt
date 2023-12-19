@@ -149,21 +149,9 @@ fun PagerContent(
     pagerState: PagerState,
     onBitmapCreated: (Bitmap) -> Unit
 ) {
-    val view = LocalView.current
-    val context = LocalContext.current
-
     Row(modifier = Modifier.weight(0.7f)) {
         HorizontalPager(
-            modifier = Modifier
-                .onGloballyPositioned {
-                    BitmapUtil.createBitmapFromCompose(
-                        context = context,
-                        view = view,
-                        layoutCoordinates = it,
-                        onBitmapCreated = onBitmapCreated
-                    )
-                }
-                .padding(horizontal = 32.dp),
+            contentPadding = PaddingValues(32.dp),
             pageSpacing = 1.dp,
             beyondBoundsPageCount = 1,
             state = pagerState
@@ -177,6 +165,8 @@ fun PagerContent(
                     artists = state.artistsShort,
                     tracks = state.tracksShort,
                     genres = state.genresShort,
+                    isCurrentPage = pagerState.currentPage == 0,
+                    onBitmapCreated = onBitmapCreated,
                 )
 
                 LAST_6_MONTHS -> PageContent(
@@ -187,6 +177,8 @@ fun PagerContent(
                     artists = state.artistsMedium,
                     tracks = state.tracksMedium,
                     genres = state.genresMedium,
+                    isCurrentPage = pagerState.currentPage == 1,
+                    onBitmapCreated = onBitmapCreated,
                 )
 
                 LIFETIME -> PageContent(
@@ -197,6 +189,8 @@ fun PagerContent(
                     artists = state.artistsLong,
                     tracks = state.tracksLong,
                     genres = state.genresLong,
+                    isCurrentPage = pagerState.currentPage == 2,
+                    onBitmapCreated = onBitmapCreated,
                 )
             }
         }
@@ -213,7 +207,12 @@ fun PageContent(
     artists: List<ArtistModel>,
     tracks: List<TrackModel>,
     genres: List<TopGenreUI>,
+    isCurrentPage: Boolean = false,
+    onBitmapCreated: (Bitmap) -> Unit
 ) {
+    val view = LocalView.current
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .zIndex(index * 10f)
@@ -227,7 +226,17 @@ fun PageContent(
                 scaleY = scale
             }
             .clip(RoundedCornerShape(5))
-            .background(color = SpotifyBlack),
+            .background(color = SpotifyBlack)
+            .onGloballyPositioned {
+                if (isCurrentPage) {
+                    BitmapUtil.createBitmapFromCompose(
+                        context = context,
+                        view = view,
+                        layoutCoordinates = it,
+                        onBitmapCreated = onBitmapCreated
+                    )
+                }
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -427,6 +436,7 @@ fun PreviewPageContent() {
             TopGenreUI("Aaaaaaa", 0.5f),
             TopGenreUI("Aaaaaaa", 0.5f)
         ),
-        pagerState = rememberPagerState(pageCount = { 1 })
-    )
+        pagerState = rememberPagerState(pageCount = { 1 }),
+        isCurrentPage = false,
+    ) {}
 }

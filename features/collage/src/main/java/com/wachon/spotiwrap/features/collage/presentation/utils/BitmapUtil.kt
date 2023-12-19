@@ -8,19 +8,27 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Build
 import android.os.Handler
+import android.os.Looper
 import android.view.PixelCopy
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.core.content.FileProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+
 object BitmapUtil {
 
-    private val defaultBitmap: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+    private val job: Job = SupervisorJob()
+    private val coroutinesScope = CoroutineScope(Dispatchers.Default + job)
 
     fun createBitmapFromCompose(
         context: Context,
@@ -28,22 +36,21 @@ object BitmapUtil {
         layoutCoordinates: LayoutCoordinates,
         onBitmapCreated: (Bitmap) -> Unit
     ) {
-        val handler = view.handler
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createBitmapWithPixelCopy(
-                context = context,
-                view = view,
-                handler = handler,
-                layoutCoordinates = layoutCoordinates,
-                onBitmapCreated = onBitmapCreated
-            )
-        } else {
-            createBitmap(
-                view = view,
-                layoutCoordinates = layoutCoordinates,
-                onBitmapCreated = onBitmapCreated
-            )
-
+        coroutinesScope.launch {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                createBitmapWithPixelCopy(
+                    context = context,
+                    view = view,
+                    layoutCoordinates = layoutCoordinates,
+                    onBitmapCreated = onBitmapCreated
+                )
+            } else {
+                createBitmap(
+                    view = view,
+                    layoutCoordinates = layoutCoordinates,
+                    onBitmapCreated = onBitmapCreated
+                )
+            }
         }
     }
 
@@ -51,41 +58,40 @@ object BitmapUtil {
     private fun createBitmapWithPixelCopy(
         context: Context,
         view: View,
-        handler: Handler,
         layoutCoordinates: LayoutCoordinates,
         onBitmapCreated: (Bitmap) -> Unit
     ) {
         try {
-            handler.postDelayed({
-                if (layoutCoordinates.isAttached
-                    && layoutCoordinates.boundsInRoot().size.width.toInt() > 0
-                    && layoutCoordinates.boundsInRoot().size.height.toInt() > 0
-                ) {
-                    val bitmap = Bitmap.createBitmap(
-                        layoutCoordinates.boundsInRoot().size.width.toInt(),
-                        layoutCoordinates.boundsInRoot().size.height.toInt(),
-                        Bitmap.Config.ARGB_8888
-                    )
-                    val location = IntArray(2)
-                    view.getLocationInWindow(location)
-                    PixelCopy.request(
-                        (context as Activity).window,
-                        Rect(
-                            layoutCoordinates.boundsInRoot().left.toInt(),
-                            layoutCoordinates.boundsInRoot().top.toInt(),
-                            layoutCoordinates.boundsInRoot().right.toInt(),
-                            layoutCoordinates.boundsInRoot().bottom.toInt()
-                        ),
-                        bitmap,
-                        {
-                            onBitmapCreated.invoke(bitmap)
-                        },
-                        handler
-                    )
-                } else {
-                    onBitmapCreated.invoke(defaultBitmap)
-                }
-            }, 1000)
+            if (layoutCoordinates.isAttached
+                && layoutCoordinates.boundsInRoot().size.width.toInt() > 0
+                && layoutCoordinates.boundsInRoot().size.height.toInt() > 0
+            ) {
+                val bitmap = Bitmap.createBitmap(
+                    layoutCoordinates.boundsInRoot().size.width.toInt(),
+                    layoutCoordinates.boundsInRoot().size.height.toInt(),
+                    Bitmap.Config.ARGB_8888
+                )
+                val location = IntArray(2)
+                view.getLocationInWindow(location)
+                PixelCopy.request(
+                    (context as Activity).window,
+                    Rect(
+                        layoutCoordinates.boundsInRoot().left.toInt(),
+                        layoutCoordinates.boundsInRoot().top.toInt(),
+                        layoutCoordinates.boundsInRoot().right.toInt(),
+                        layoutCoordinates.boundsInRoot().bottom.toInt()
+                    ),
+                    bitmap,
+                    {
+                        onBitmapCreated(bitmap)
+                    },
+                    Handler(Looper.getMainLooper())
+                )
+            } else {
+                onBitmapCreated(
+                    Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+                )
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -105,9 +111,11 @@ object BitmapUtil {
             val canvas = Canvas(bitmap)
             view.draw(canvas)
             canvas.setBitmap(null)
-            onBitmapCreated.invoke(bitmap)
+            onBitmapCreated(bitmap)
         } else {
-            onBitmapCreated.invoke(defaultBitmap)
+            onBitmapCreated(
+                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+            )
         }
     }
 
